@@ -1,31 +1,13 @@
-var lista = ["Matheus", "Lucas", "José", 150];
+var x = 0;
 
-console.log(lista[1], lista[3]);
-
-console.log(lista.indexOf("Lucas"));
-
-console.log(lista.indexOf("Este não existe na array")); // retorna -1, já que nao existe;
-
-lista[1] = "Tartaruga";
-
-console.log(lista);
+while (x <= 10){
+    document.write("<br> O valor do x é: " + x);
+    x++; 
+}
 
 
-lista[3] = 500;
+var valor = 30;
 
-console.log(lista);
-
-lista.push("Coelhos");
-
-console.log(lista);
-
-lista.shift(); // retira o primeiro item da array;
-
-console.log(lista);
-
-lista.pop();
-
-console.log(lista);
-
-console.log(lista.join(".;.")); 
-
+for (a = 0;a <= valor; a++ ){
+    document.write("<br> O valor de a é: " + a);
+}
