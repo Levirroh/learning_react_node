@@ -1,13 +1,20 @@
-var x = 0;
-
-while (x <= 10){
-    document.write("<br> O valor do x é: " + x);
-    x++; 
-}
-
-
-var valor = 30;
-
-for (a = 0;a <= valor; a++ ){
-    document.write("<br> O valor de a é: " + a);
+function Pedir(){
+    let escolha = prompt("Digite um valor");
+    switch (Number(escolha)){
+        case 1:  
+            alert("Estamos enviando um suco até você!");
+            break;
+        case 2:  
+            alert("Estamos enviando uma água até você!");
+            break;
+        case 3:  
+            alert("Estamos enviando um sorvete até você!");
+            break;
+        case 4:  
+            alert("O garçom te atenderá!");
+            break;
+        default: 
+            alert("Opção inválida!");
+            break;
+    }
 }
