@@ -20,6 +20,8 @@ function calcular(event){  // normalmente o event faz um refresh na pagina
     }else {
         resultado.innerHTML = "<br>Seu resultado foi: "+imc.toFixed(2)+"<br>Cuidado, você está na zona de obesidade.";
     }
-    
+
+    document.getElementById('peso').value = '';
+    document.getElementById('altura').value = '';
 
 }
