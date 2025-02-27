@@ -6,11 +6,16 @@
     <title>Document</title>
 </head>
 <body>
-   <h1>horário</h1>
 
-    <p id="data"> </p>
+    <form onsubmit="return calcular(event)">
+        <label>Digite seu peso:</label>
+        <input type="text" name="peso" id="peso" placeholder="Exemplo 65"><br><br>
+        <label>Digite sua altura:</label>
+        <input type="text" name="altura" id="altura" placeholder="Exemplo 1.90"><br><br>
+        <input type="submit" value="Calcular">
+    </form>
 
-    <button onclick=Horario()>Atualizar horário</button>
+    <p id="resultado"></p>
 
     <script src="script.js"></script>
 </body>
