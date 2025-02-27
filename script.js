@@ -1,31 +1,25 @@
-function Horario(){
-
-    // document.write("As horas são:", date.getHours());
-    // document.write("<br>Os minutos são:", date.getMinutes());
-    // document.write("<br>Os milisegundos são:", date.getMilliseconds());
-    // document.write("<br>A data completa é:", date);
+// cálculo de IMC.
 
 
-    // randomDate = new Date("March 10, 2018");
-
-    // document.write("<br>Uma data aleatória é:", randomDate);
-    // document.write("<br>Os milisegundos dessa data são:", Date.parse(randomDate));
-
-
-    // document.write("<br>O dia dessa data é:", randomDate.getDate());
-    // document.write("<br>O mês dessa data é:", randomDate.getMonth()+1); // começa a contar o mes do 0
-    // document.write("<br>O mês dessa data é:", randomDate.getDay()); // Pega o dia da semana
-    // document.write("<br>O mês dessa data é:", randomDate.getFullYear()); // Pega o ano inteiro
+function calcular(event){  // normalmente o event faz um refresh na pagina
+    event.preventDefault();
+    let peso = document.getElementById("peso").value;
+    let altura = document.getElementById("altura").value;
+    let resultado = document.getElementById('resultado');
+    let imc = peso / (altura*altura);
+ 
+    
+    if (imc < 17){
+        resultado.innerHTML = "<br>Seu resultado foi: "+imc+"<br> Cuidado, você está muito abaixo do peso.";
+    } else if (imc >= 17 && imc <= 18.49){
+        resultado.innerHTML = "<br>Seu resultado foi: "+imc+"<br>Você está abaixo do peso.";
+    } else if (imc >= 18.5 && imc <= 24.99){
+        resultado.innerHTML = "<br>Seu resultado foi: "+imc+"<br>Você está dentro do peso esperado.";
+    }else if (imc >= 25 && imc <= 29.99){
+        resultado.innerHTML = "<br>Seu resultado foi: "+imc+"<br>Você está acima do peso esperado.";
+    }else {
+        resultado.innerHTML = "<br>Algo deu errado.";
+    }
     
 
-    // document.write("<br><br><br><br>Esta data fica: "+ randomDate.getDate()+"/"+(randomDate.getMonth()+1)+"/"+randomDate.getFullYear()); 
-
-
-    date = new Date();
-
-    data = document.getElementById('data');
-
-    data.innerHTML = "Hoje é: "+date.getDate()+"/"+(date.getMonth()+1)+"/"+date.getFullYear()+" às: "+date.getHours()+":"+date.getMinutes()+":"+date.getSeconds()+":"+date.getMilliseconds();
-
-    
 }
