@@ -1,20 +1,7 @@
-// // REST OPERATOR
+// MAP = percorrer todo um array
 
-// function convidados(...nome){
-//     console.log("SEJAM BEM VINDOS")
-//     console.log(nome)
-// }
+let lista = ["MATHEUS", "JOSE", "MARIA"];
 
-// convidados("Matheus", "Maria", "Lucas")
-
-
-
-
-function sorteador(...numeros){
-    console.log(numeros)
-
-    const numeroAleatorio = Math.floor(Math.random() * numeros.length);
-    console.log(numeros[numeroAleatorio])
-}
-
-sorteador(1, 2, 3, 4, 5, 6)
+lista.map((item, index) => {
+    console.log(`PASSANDO: item ${item} e index ${index}`)
+});
