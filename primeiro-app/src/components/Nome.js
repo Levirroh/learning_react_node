@@ -1,7 +1,7 @@
 
-function Nome(props){
+function Nome({ aluno }){
     return (
-        <span>bem-vindo {props.aluno}</span>
+        <span>bem-vindo: {aluno}</span>
     );
 }
 
