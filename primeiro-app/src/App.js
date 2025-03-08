@@ -2,10 +2,15 @@ import { useState } from 'react';
 
 function App() {
   const [input, setInput] = useState('')
-  const [tasks,setTasks] = useState([]);
+  const [tasks,setTasks] = useState([
+    'Pagar conta de luz',
+    'Estudar React JS'
+  ]);
 
   function handleRegister(e){
     e.preventDefault();
+
+    setTasks([...tasks, input])
   } 
 
   return (
@@ -15,13 +20,15 @@ function App() {
         <label>Nome da tarefa:</label><br/>
         <input placeholder='Digite uma tarefa' value={input} onChange={ (e) => setInput(e.target.value)}/>
        
-        <button type='submit'>Registrar</button>
+        <button type='submit'>Adicionar</button>
       </form>
       <br/>
       <br/>
-      <div>
-        <p>Tarefas</p>
-      </div>
+      <ul>
+        {tasks.map( task => (
+          <li key={task}>{task}</li>
+        ))}
+      </ul>
     </div>
   );
 }
