@@ -10,7 +10,8 @@ function App() {
   function handleRegister(e){
     e.preventDefault();
 
-    setTasks([...tasks, input])
+    setTasks([...tasks, input]) // pega todas as que já tinham na array e soma as do useState input que está sendo lido ao enviar o formulário
+    setInput(''); // limpa campo digitado
   } 
 
   return (
