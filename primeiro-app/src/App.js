@@ -9,8 +9,11 @@ function App() {
 
   function handleRegister(e){
     e.preventDefault();
-
-    setTasks([...tasks, input]) // pega todas as que já tinham na array e soma as do useState input que está sendo lido ao enviar o formulário
+    if (input.trim() === ""){ // .trim() -> remove espaços em branco, ou seja, se digitar um monte de espaço ainda não é aceito
+      alert("Digite um valor válido para a tarefa!")
+    } else{
+      setTasks([...tasks, input]) // pega todas as que já tinham na array e soma as do useState input que está sendo lido ao enviar o formulário
+    }
     setInput(''); // limpa campo digitado
   } 
 
