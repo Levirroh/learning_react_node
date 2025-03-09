@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 function App() {
   const [input, setInput] = useState('')
@@ -6,6 +6,10 @@ function App() {
     'Pagar conta de luz',
     'Estudar React JS'
   ]);
+
+  useEffect(() => {
+    alert("Teste")
+  }, [tasks]);
 
   function handleRegister(e){
     e.preventDefault();
