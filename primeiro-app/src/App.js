@@ -38,7 +38,6 @@ function App() {
           </article>
         )
       })}
-      <h1>Teste</h1>
     </div>
   );
 }
