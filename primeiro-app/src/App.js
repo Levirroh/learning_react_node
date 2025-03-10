@@ -1,8 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import RoutesApp from './router';
+import RoutesApp from './routes';
 
 function App() {
-  
   return (
     <RoutesApp/>
   );
