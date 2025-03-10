@@ -8,16 +8,25 @@ function App() {
   ]);
 
   useEffect(() => {
-    alert("Teste")
+   const tasksStorage = localStorage.getItem('@tasks');
+
+   if(tasksStorage){
+    setTasks(JSON.parse(tasksStorage));
+   } 
+  }, []);
+
+  useEffect(() => {
+    localStorage.setItem('@tasks', JSON.stringify(tasks));
   }, [tasks]);
 
   function handleRegister(e){
     e.preventDefault();
-    if (input.trim() === ""){ // .trim() -> remove espaços em branco, ou seja, se digitar um monte de espaço ainda não é aceito
-      alert("Digite um valor válido para a tarefa!")
-    } else{
-      setTasks([...tasks, input]) // pega todas as que já tinham na array e soma as do useState input que está sendo lido ao enviar o formulário
-    }
+    
+    // if (input.trim() === ""){ // .trim() -> remove espaços em branco, ou seja, se digitar um monte de espaço ainda não é aceito
+    //   alert("Digite um valor válido para a tarefa!")
+    // } else{
+      setTasks([...tasks, input]); // pega todas as que já tinham na array e soma as do useState input que está sendo lido ao enviar o formulário
+    // }
     setInput(''); // limpa campo digitado
   } 
 
