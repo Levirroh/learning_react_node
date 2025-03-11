@@ -1,17 +1,27 @@
-import './styles/global.js';
-import { toast, TastoContainer } from "react-toastify";
-import "react-toastify/dist/ReactTo"
+import GlobalStyle from './styles/global.js';
+import styled from "styled-components";
+import { toast, ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
-const Container = StyleSheet.div`
+const Container = styled.div`
   width: 100%;
+  max-width: 800px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
 `
 
 
 function App() {
   return (
-    <div className="App">
-      <p>asodimasd</p>
-    </div>
+    <>
+      <Container>
+      </Container>
+      <ToastContainer autoClose={3000} position={toast.POSITION.BOTTOM_LEFT}/>
+      <GlobalStyle/>
+    </>
   );
 }
 
