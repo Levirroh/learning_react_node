@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './index.css';
+import Test from "./components/Test"
 
 function App() {
 
   return (
     <div className="App">
-     <p>Teste</p>
+      <Test />
     </div>
   );
 }
