@@ -1,9 +1,11 @@
 import GlobalStyle from './styles/global.js';
 import styled from "styled-components";
+import { useState } from "react;"
 import Form from "./components/Form.js";
-import Grid from "./components/Grid.js"
+import Grid from "./components/Grid.js";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import axios from "axios"
 
 const Container = styled.div`
   width: 100%;
@@ -18,11 +20,25 @@ const Title = styled.h2`` // vazia pois não há estilização no título
 
 
 function App() {
+  const [users, setUsers] = useState([]);
+  const [onEdit, setOnEdit] = useState(null);
+
+  const getUsers = async () => {
+    try {
+      const res = await axios.get("http://localhost:8800/");
+      setUsers(res.data.sort((a,b) => (a.nome > b.nome ? 1 : -1)));
+    } catch (error){
+      toast.error(error);
+    }
+  }
+
+
   return (
     <>
       <Container>
         <Title>Usuários</Title>
         <Form />
+        <Grid />
       </Container>
       <ToastContainer autoClose={3000}/>
       <GlobalStyle/>
