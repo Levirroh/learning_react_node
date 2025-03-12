@@ -1,11 +1,11 @@
-import GlobalStyle from './styles/global.js';
+import GlobalStyle from "./styles/global";
 import styled from "styled-components";
-import { useState } from "react;"
-import Form from "./components/form.js";
-import Grid from "./components/grid.js";
+import Form from "./components/Form.js";
+import Grid from "./components/grid";
+import { useEffect, useState } from "react";
 import { toast, ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
-import axios from "axios"
+import axios from "axios";
 
 const Container = styled.div`
   width: 100%;
@@ -30,7 +30,11 @@ function App() {
     } catch (error){
       toast.error(error);
     }
-  }
+  };
+
+  useEffect(() => {
+    getUsers();
+  }, [setUsers])
 
 
   return (
@@ -38,7 +42,7 @@ function App() {
       <Container>
         <Title>Usuários</Title>
         <Form />
-        <Grid />
+        <Grid users={users}/>
       </Container>
       <ToastContainer autoClose={3000}/>
       <GlobalStyle/>
