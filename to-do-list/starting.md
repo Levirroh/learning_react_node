@@ -19,29 +19,29 @@ npm install express cors
 
 In your `my-app-server` directory, create an `index.js` file: 
 ```
-    const express = require(‘express’);
-    const cors = require(‘cors’);
-    const app = express();
-    const port = 5000;
+const express = require(‘express’);
+const cors = require(‘cors’);
+const app = express();
+const port = 5000;
 
-    app.listen(port, () => {
-      console.log(`Server is running on http://localhost:${port}`);
-    });
+app.listen(port, () => {
+    console.log(`Server is running on http://localhost:${port}`);
+});
 ```
 
 5. Integrating React & Node
 
 Open `src/App.js` in your React project and update it as follows: 
 ```
-    import React, { useEffect, useState } from ‘react’;
-    import ‘./App.css’;
+import React, { useEffect, useState } from ‘react’;
+import ‘./App.css’;
 
-    function App() {
-      return (
-        <div className=”App”>
-        </div>
-      );
-    }
+function App() {
+    return (
+    <div className=”App”>
+    </div>
+    );
+}
 
-    export default App;
+export default App;
 ```
