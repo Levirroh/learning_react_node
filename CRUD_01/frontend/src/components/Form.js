@@ -1,66 +1,125 @@
-import React, { useRef } from "react";
-import styled from "styled-components"
+import axios from "axios";
+import React, { useEffect, useRef } from "react";
+import styled from "styled-components";
+import { toast } from "react-toastify";
 
-const FormContainer = styled.div`
-    display: flex;
-    align-item: flex-end;
-    gap: 10px;
-    flex-wrap: wrap;
-    background-color: #fafafa;
-    padding: 20px;
-    box-shadow: 0px 0px 5px #ccc;
-    border-radius: 5px;
-`
+const FormContainer = styled.form`
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+  flex-wrap: wrap;
+  background-color: #fff;
+  padding: 20px;
+  box-shadow: 0px 0px 5px #ccc;
+  border-radius: 5px;
+`;
 
 const InputArea = styled.div`
-    display: flex;
-    flex-direction: column;
-`
+  display: flex;
+  flex-direction: column;
+`;
 
 const Input = styled.input`
-    width: 120px;
-    padding: 0 10px;
-    border: 1px solid #bbb;
-    border-radius: 5px;
-    height: 40px;
+  width: 120px;
+  padding: 0 10px;
+  border: 1px solid #bbb;
+  border-radius: 5px;
+  height: 40px;
 `;
 
 const Label = styled.label``;
 
 const Button = styled.button`
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 5px;
-    border: none;
-    background-color: #2c73d2;
-    color: white;
-    height: 42px;
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 5px;
+  border: none;
+  background-color: #2c73d2;
+  color: white;
+  height: 42px;
 `;
 
-const Form = ({ onEdit }) => {
-    const ref = useRef(); 
-    
-    return(
-        <FormContainer ref={ref}>
-            <InputArea>
-                <Label>Nome</Label>
-                <Input name="name"/>
-            </InputArea>
-            <InputArea>
-                <Label>Email</Label>
-                <Input name="email"/>
-            </InputArea>
-            <InputArea>
-                <Label>Telefone</Label>
-                <Input name="phone"/>
-            </InputArea>
-            <InputArea>
-                <Label>Data de Nascimento</Label>
-                <Input name="date" type="date"/>
-            </InputArea>
-            <Button type="submit">SALVAR</Button>
-        </FormContainer>
-    );
-}
+const Form = ({ getUsers, onEdit, setOnEdit }) => {
+  const ref = useRef();
+
+  useEffect(() => {
+    if (onEdit) {
+      const user = ref.current;
+
+      user.name.value = onEdit.name_user;
+      user.email.value = onEdit.email_user;
+      user.phone.value = onEdit.phone_user;
+      user.date.value = onEdit.nasc_user;
+    }
+  }, [onEdit]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const user = ref.current;
+
+    if (
+      !user.name.value ||
+      !user.email.value ||
+      !user.phone.value ||
+      !user.date.value
+    ) {
+      return toast.warn("Preencha todos os campos!");
+    }
+
+    if (onEdit) {
+      await axios
+        .put("http://localhost:8800/" + onEdit.id, {
+          name: user.name.value,
+          email: user.email.value,
+          phone: user.phone.value,
+          date: user.date.value,
+        })
+        .then(({ data }) => toast.success(data))
+        .catch(({ data }) => toast.error(data));
+    } else {
+      await axios
+        .post("http://localhost:8800", {
+          name: user.name.value,
+          email: user.email.value,
+          phone: user.phone.value,
+          date: user.date.value,
+        })
+        .then(({ data }) => toast.success(data))
+        .catch(({ data }) => toast.error(data));
+    }
+
+    user.name.value = "";
+    user.email.value = "";
+    user.phone.value = "";
+    user.date.value = "";
+
+    setOnEdit(null);
+    getUsers();
+  };
+
+  return (
+    <FormContainer ref={ref} onSubmit={handleSubmit}>
+      <InputArea>
+        <Label>name</Label>
+        <Input name="name" />
+      </InputArea>
+      <InputArea>
+        <Label>E-mail</Label>
+        <Input name="email" type="email" />
+      </InputArea>
+      <InputArea>
+        <Label>Telephone</Label>
+        <Input name="phone" />
+      </InputArea>
+      <InputArea>
+        <Label>Data de Nascimento</Label>
+        <Input name="date" type="date" />
+      </InputArea>
+
+      <Button type="submit">SALVAR</Button>
+    </FormContainer>
+  );
+};
 
 export default Form;
