@@ -2,7 +2,7 @@ import React from "react";
 
 const Grid = () =>{
     return(
-        <p>Banana</p>
+        <p>test</p>
 
     );
 }
