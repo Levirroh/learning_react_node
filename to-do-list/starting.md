@@ -1,5 +1,10 @@
 ## Setting up React.js & Node.js:
 
+0. If you already have all, run:  
+```
+npm install
+```
+
 1. Install Node from node.org
 2. Install React in your app
 ```
