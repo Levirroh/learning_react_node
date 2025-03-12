@@ -64,11 +64,11 @@ const Grid = ({ users, setUsers, setOnEdit }) => {
             <Tbody>
                 {users.map((item, i) => (
                     <Tr key={i}>
-                        <Td width="30%">{item.name}</Td>
-                        <Td width="30%">{item.email}</Td>
-                        <Td width="20%" >{item.phone}</Td>
-                        <Td width="50%"><FaEdit /></Td>
-                        <Td width="50%"><FaTrash onClick={() => handleDelete(item.id)}/></Td>
+                        <Td width="30%">{item.name_user}</Td>
+                        <Td width="30%">{item.email_user}</Td>
+                        <Td width="20%">{item.phone_user}</Td>
+                        <Td width="50%"><FaEdit onClick={() => handleEdit(item)}/></Td>
+                        <Td width="50%"><FaTrash onClick={() => handleDelete(item.id_user)}/></Td>
                     </Tr>
                 ))}
             </Tbody>
