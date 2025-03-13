@@ -1,5 +1,3 @@
-import React from 'react';
-
 function Users({users}) {
     return (
         <div>
@@ -11,5 +9,6 @@ function Users({users}) {
         </div>
     );
 }
+
 
 export default Users;
