@@ -1,6 +1,6 @@
-const mysql = require('mysql');
+import mysql12 from "mysql";
 
-export const con = mysql.createConnection({
+export const con = mysql12.createConnection({
   host: "localhost",
   user: "root",
   password: "root",
