@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import './index.css';
-import Users from "./components/Users"
-
+import Tasks from "./components/Tasks";
 
 
 function App() {
-  const [users, setUsers] = useState([]);
-  async function getUsers() {
+  const [tasks, setTasks] = useState([]);
+
+  async function getTasks() {
 
     try {
 
@@ -23,20 +23,21 @@ function App() {
       }
 
       const data = await response.json();
-      setUsers(data);
+      setTasks(data);
 
     } catch (e) {
       console.log('Error to get users: ', e);
     }
   };
   useEffect(() => {
-    getUsers();
-  }, [setUsers])
+    getTasks();
+  }, [setTasks])
 
+//      <Users users={users}/>
 
   return (
     <div className="App">
-      <Users users={users}/>
+      <Tasks tasks={tasks}/>
       <button>Buscar</button>
     </div>
   );
