@@ -1,4 +1,4 @@
-import { con } from "../db.js";
+import { con } from "../connection.js";
 
 export const getUsers = (_, res) => {
     const query = "SELECT * FROM users";
