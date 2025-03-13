@@ -15,7 +15,7 @@ CREATE TABLE tasks(
     FOREIGN KEY (user_task) REFERENCES users(id_user),
     title_task VARCHAR(45),
 	description_task TEXT,
-	suject_task VARCHAR(45),
+	subject_task VARCHAR(45),
     date_task DATETIME,
     status_task ENUM("ToDo", "Doing", "Done")
 );
@@ -23,3 +23,11 @@ CREATE TABLE tasks(
 INSERT INTO users (name_user, function_user, email_user, password_user) 
 VALUES ("teste","teste","teste","teste");
 
+INSERT INTO tasks (user_task, title_task, description_task, subject_task, status_task) 
+VALUES ( 1 ,"ToDo","ToDo", "ToDo", "ToDo");
+
+INSERT INTO tasks (user_task, title_task, description_task, subject_task, status_task) 
+VALUES (1 ,"Doing","Doing", "Doing", "Doing");
+INSERT INTO tasks (user_task, title_task, description_task, subject_task, status_task) 
+VALUES (1 ,"Done","Done", "Done", "Done");
+SELECT * FROM users;
