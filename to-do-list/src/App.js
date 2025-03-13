@@ -40,13 +40,8 @@ function App() {
 
   return (
     <div className="App">
-      <Test getUsers={getUsers} users={users} setUsers={setUsers}/>
+      <Test users={users}/>
       <button>Buscar</button>
-      <ul>
-        {users.map((user, index) => (
-          <li key={index}>{user.name_user} - {user.email_user}</li> 
-        ))}
-      </ul>
     </div>
   );
 }
