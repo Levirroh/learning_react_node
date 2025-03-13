@@ -1,9 +1,8 @@
-import userRoutes from "./routes/users.js";
+import express from "express";
+import userRoutes from "./routes/routes.js"
+import cors from "cors";
 
-const express = require('express');
-const cors = require('cors');
 const app = express();
-const port = 5000;
 
 app.use(express.json())
 app.use(cors());
