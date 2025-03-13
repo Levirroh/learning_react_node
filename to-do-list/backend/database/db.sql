@@ -16,5 +16,10 @@ CREATE TABLE tasks(
     title_task VARCHAR(45),
 	description_task TEXT,
 	suject_task VARCHAR(45),
-    date_task DATETIME
+    date_task DATETIME,
+    status_task ENUM("ToDo", "Doing", "Done")
 );
+
+INSERT INTO users (name_user, function_user, email_user, password_user) 
+VALUES ("teste","teste","teste","teste");
+
