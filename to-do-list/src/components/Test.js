@@ -1,9 +1,13 @@
 import React from 'react';
 
-function Test() {
+function Test({users}) {
     return (
         <div>
-            <p>Componente</p>
+            <ul>
+                {users.map((user, index) => (
+                <li key={index}>{user.name_user} - {user.email_user}</li> 
+                ))}
+            </ul>
         </div>
     );
 }
