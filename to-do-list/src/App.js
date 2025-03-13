@@ -9,11 +9,12 @@ function mostrarNome(){
 }
 
 function App() {
+  const [users, setUsers] = useState([]);
   async function getUsers() {
 
     try {
 
-      const response = await fetch("http://localhost:8000/",  {
+      const response = await fetch("http://localhost:8800/",  {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json'
@@ -26,18 +27,26 @@ function App() {
       }
 
       const data = await response.json();
-      getUsers(data);
+      setUsers(data);
 
-    } catch{
-      console.log('Error to get users: ', error);
+    } catch (e) {
+      console.log('Error to get users: ', e);
     }
   };
+  useEffect(() => {
+    getUsers();
+  }, [setUsers])
 
 
   return (
     <div className="App">
-      <Test />
-      <button getUsers={getUsers}>Buscar</button>
+      <Test getUsers={getUsers} users={users} setUsers={setUsers}/>
+      <button>Buscar</button>
+      <ul>
+        {users.map((user, index) => (
+          <li key={index}>{user.name_user} - {user.email_user}</li> 
+        ))}
+      </ul>
     </div>
   );
 }
