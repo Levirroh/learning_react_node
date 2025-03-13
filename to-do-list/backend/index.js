@@ -1,10 +1,13 @@
-    const express = require('express');
-    const cors = require('cors');
-    const app = express();
-    const port = 5000;
+import userRoutes from "./routes/users.js";
 
-    app.use(cors());
+const express = require('express');
+const cors = require('cors');
+const app = express();
+const port = 5000;
 
-    app.listen(port, () => {
-      console.log(`Server is running on http://localhost:${port}`);
-    });
+app.use(express.json())
+app.use(cors());
+
+app.use("/", userRoutes)
+
+app.listen(8800);
