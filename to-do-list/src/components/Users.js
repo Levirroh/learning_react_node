@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Test({users}) {
+function Users({users}) {
     return (
         <div>
             <ul>
@@ -12,4 +12,4 @@ function Test({users}) {
     );
 }
 
-export default Test;
+export default Users;

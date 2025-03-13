@@ -1,12 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import './index.css';
-import Test from "./components/Test"
-
-
-function mostrarNome(){
-    console.log("asd");
-
-}
+import Users from "./components/Users.js"
 
 function App() {
   const [users, setUsers] = useState([]);
@@ -40,7 +34,7 @@ function App() {
 
   return (
     <div className="App">
-      <Test users={users}/>
+      <Users users={users}/>
       <button>Buscar</button>
     </div>
   );
