@@ -1,7 +1,7 @@
 function Header({tasks}) {
     return (
         <section>
-            <h1>Tarafas</h1>
+            <h1>Tarefas</h1>
         </section>
     );
 }
