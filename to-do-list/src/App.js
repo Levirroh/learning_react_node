@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import './index.css';
 import Tasks from "./components/Tasks";
-
+import Header from "./components/Header";
 
 function App() {
   const [tasks, setTasks] = useState([]);
@@ -33,12 +33,10 @@ function App() {
     getTasks();
   }, [setTasks])
 
-//      <Users users={users}/>
-
   return (
     <div className="App">
+      <Header />
       <Tasks tasks={tasks}/>
-      <button>Buscar</button>
     </div>
   );
 }
