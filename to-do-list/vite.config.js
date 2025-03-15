@@ -1,3 +1,7 @@
+
+import { defineConfig } from 'vite'
+import tailwindcss from '@tailwindcss/vite'
+
 export default {
   content: [
     "./index.html",
@@ -6,5 +10,7 @@ export default {
   theme: {
     extend: {},
   },
-  plugins: [],
+  plugins: [
+    tailwindcss(),
+  ],
 }

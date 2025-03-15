@@ -1,8 +1,8 @@
 import React from "react";
 
-function Header({tasks}) {
+function Header() {
     return (
-        <section>
+        <section className="bg-blue-400">
             <h1>Tarefas</h1>
         </section>
     );
