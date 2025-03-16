@@ -1,9 +1,9 @@
 import React from "react";
 
-function Header() {
+function Header({title}) {
     return (
-        <section className="bg-blue-400">
-            <h1>Header</h1>
+        <section className="bg-blue-400 flex items-center justify-center">
+            <h1>{title}</h1>
         </section>
     );
 }
