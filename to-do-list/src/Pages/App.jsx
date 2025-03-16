@@ -34,10 +34,10 @@ function App() {
   }, [setTasks])
 
   return (
-    <div className="App">
-      <Header />
+    <section>
+      <Header title="Menu"/>
       <Tasks tasks={tasks}/>
-    </div>
+    </section>
   );
 }
 
