@@ -1,2 +1,13 @@
 @import "tailwindcss";
 
+.Done{
+    background-color: rgb(169, 236, 169);
+}
+
+.Doing{
+    background-color: rgb(252, 217, 102);
+}
+
+.ToDo{
+    background-color: rgb(211, 211, 248);
+}
