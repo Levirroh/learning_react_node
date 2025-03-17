@@ -5,9 +5,9 @@ import Task from "./Task";
 function Tasks({tasks}) {
     return (
         <section className="flex h-svh w-svw justify-evenly"> 
-            <div id="ToDo">
+            <div id="ToDo" className="text-center w-1/4">
                 <p>TO DO</p>
-                <ul className="bg-blue-200">
+                <ul>
                     {tasks.filter(task => task.status_task === "ToDo").map((task, index) => (
                         <Task key={index} 
                         id={task.id_task} 
@@ -20,9 +20,9 @@ function Tasks({tasks}) {
                     ))}
                 </ul>
             </div>
-            <div id="Doing">
+            <div id="Doing" className="text-center w-1/4">
                 <p>Doing</p>
-                <ul className="bg-yellow-200">
+                <ul>
                     {tasks.filter(task => task.status_task === "Doing").map((task, index) => (
                         <Task key={index} 
                         id={task.id_task} 
@@ -35,9 +35,9 @@ function Tasks({tasks}) {
                     ))}
                 </ul>
             </div>
-            <div id="Done">
+            <div id="Done" className="text-center w-1/4">
                 <p>Done</p>
-                <ul className="bg-green-200">
+                <ul>
                     {tasks.filter(task => task.status_task === "Done").map((task, index) => (
                         <Task key={index} 
                         id={task.id_task} 
