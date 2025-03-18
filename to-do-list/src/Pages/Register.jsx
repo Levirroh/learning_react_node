@@ -30,15 +30,29 @@ function Register() {
             },
             body: JSON.stringify({ name_user, email_user, function_user, password_user })
         });
-        
+            const userData = await response.json();
+            console.log("Dados recebidos do servidor:", userData);
+
             if(!response.ok){
                 throw new Error('Error to create user');
             }
-    
+
+            localStorage.setItem("user", JSON.stringify({
+                id: userData.id,
+                name_user: userData.name_user,
+                email_user: userData.email_user,
+                function_user: userData.function_user
+            }));
+            console.log("Usuário salvo no localStorage:", localStorage.getItem("user")); // 🚀 Verificar se foi salvo
+
+
+            alert("Cadastro realizado com sucesso!");
+            navigate("/menu")    
+
         } catch (e) {
             console.log('Error to create user: ', e);
         }
-        navigate("/menu")
+
     }; 
 
     return(
@@ -50,9 +64,7 @@ function Register() {
                 <Input id="password_user" name="password_user" label="Senha:" placeholder="..."/>
                 <Input id="confirma_senha" name="confirma_senha" label="Confirme sua senha:" placeholder="..."/>
                 <div className="flex items-center justify-center">
-                    <a href="http://localhost:5173/menu">
                     <Submit text="Cadastre-se"/>
-                    </a>
                 </div>
             </form>
         </section>
