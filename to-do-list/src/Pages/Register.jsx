@@ -43,8 +43,6 @@ function Register() {
                 email_user: userData.email_user,
                 function_user: userData.function_user
             }));
-            console.log("Usuário salvo no localStorage:", localStorage.getItem("user")); // 🚀 Verificar se foi salvo
-
 
             alert("Cadastro realizado com sucesso!");
             navigate("/menu")    
