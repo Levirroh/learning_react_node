@@ -2,7 +2,8 @@ import React from "react";
 import Task from "./Task";
 
 
-function Tasks({tasks}) {
+function Tasks({tasks = []}) {
+    console.log(tasks);
     return (
         <section className="flex h-svh w-svw justify-evenly"> 
             <div id="ToDo" className="text-center w-1/4">
