@@ -8,9 +8,9 @@ function Welcome() {
                 <p>Este software foi feito com Node.js & React, aqui você pode gerenciar tarefas e usuários, além disso, possui um banco de dados completo, aproveite!</p>
             </div>
             <div>
-                <a href="http://localhost:5173/login"><button>Entre já!</button></a>
+                <a href="/login"><button>Entre já!</button></a>
                 <br/>
-                <a href="http://localhost:5173/register"><button>Cadastre-se já!</button></a>
+                <a href="/register"><button>Cadastre-se já!</button></a>
             </div>
         </section>
     );
