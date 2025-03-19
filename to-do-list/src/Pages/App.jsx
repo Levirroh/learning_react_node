@@ -10,56 +10,54 @@ function App() {
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
-      if (storedUser) {
-          const parsedUser = JSON.parse(storedUser);
-          setUser(parsedUser);
-      } else {
-          navigate("/login");
-      }
-  }, []);
-
-  async function getTasks() {
-    try {
-        const response = await fetch('http://localhost:8800/getTasks', {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ id_user: user.id_user })
-        });
-
-        if (!response.ok) {
-            throw new Error('Error on the tasks response');
-        }
-
-        const data = await response.json();;
-
-        if (Array.isArray(data)) {
-            setTasks(data);
-        } else {
-            setTasks([]); 
-        }
-
-    } catch (e) {
-        console.log('Error to get tasks: ', e);
+    if (storedUser) {
+      const parsedUser = JSON.parse(storedUser);
+      setUser(parsedUser);
+    } else {
+      navigate("/login");
     }
-}
+  }, [navigate]);
 
+  useEffect(() => {
+    if (user) {
+      async function getTasks() {
+        try {
+          const response = await fetch("http://localhost:8800/getTasks", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id_user: user.id_user })
+          });
+
+          const data = await response.json();
+
+          if (data.length === 0) {
+            console.log("Nenhuma tarefa encontrada para este usuário.");
+          }
+
+          setTasks(data);
+        } catch (e) {
+          console.error("Erro ao buscar tarefas:", e);
+        }
+      }
+
+      getTasks(); 
+    }
+  }, [user]); 
 
   return (
     <section>
-      <Header title="Menu"/>
+      <Header title="Menu" />
       {user ? (
-            <div>
-                <h1>Bem-vindo, <em>{user.name_user}</em>!</h1>
-                <Tasks tasks={tasks} />
-            </div>
-        ) : (
-          <>
-            <p>usuário não carregou...</p>
-            <a href="http://localhost:5173/login">Voltar</a>
-          </>
-        )}
+        <div>
+          <h1>Bem-vindo, <em>{user.name_user}</em>!</h1>
+          <Tasks tasks={tasks} />
+        </div>
+      ) : (
+        <>
+          <p>usuário não carregou...</p>
+          <a href="http://localhost:5173/login">Voltar</a>
+        </>
+      )}
     </section>
   );
 }
