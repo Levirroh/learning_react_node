@@ -4,7 +4,7 @@ import {getTasks} from "../controllers/tasks.js";
 
 const router = express.Router();
 
-router.get("/", getTasks);
+router.post("/getTasks", getTasks);
 
 router.post("/createUser", register_user);
 router.post("/loginUser", login_user)
