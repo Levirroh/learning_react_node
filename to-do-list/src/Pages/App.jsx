@@ -10,42 +10,41 @@ function App() {
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
-    if (storedUser) {
-        setUser(JSON.parse(storedUser));
-    } else {
-        navigate("/login");
-    }
+      if (storedUser) {
+          const parsedUser = JSON.parse(storedUser);
+          setUser(parsedUser);
+      } else {
+          navigate("/login");
+      }
   }, []);
 
   async function getTasks() {
-
     try {
+        const response = await fetch('http://localhost:8800/getTasks', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ id_user: user.id_user })
+        });
 
-      const response = await fetch("http://localhost:8800/",  {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json'
-      }
-      
-    });
+        if (!response.ok) {
+            throw new Error('Error on the tasks response');
+        }
 
-      if(!response.ok){
-        throw new Error('Error to get tasks');
-      }
+        const data = await response.json();;
 
-      const data = await response.json();
-      setTasks(data);
+        if (Array.isArray(data)) {
+            setTasks(data);
+        } else {
+            setTasks([]); 
+        }
 
     } catch (e) {
-      console.log('Error to get tasks: ', e);
+        console.log('Error to get tasks: ', e);
     }
-  };
+}
 
-  useEffect(() => {
-    if (user) { 
-        getTasks();
-    }
-}, [user]);
 
   return (
     <section>
