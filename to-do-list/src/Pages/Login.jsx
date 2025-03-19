@@ -29,11 +29,12 @@ function Login() {
             }
 
             localStorage.setItem("user", JSON.stringify({
-                id: userData.id,
+                id_user: userData.id_user,
                 name_user: userData.name_user,
                 email_user: userData.email_user,
                 function_user: userData.function_user
             }));
+            console.log(userData);
 
             navigate("/menu");
 
