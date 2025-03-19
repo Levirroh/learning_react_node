@@ -1,23 +1,21 @@
 import React from "react";
-import Task from "./Task";
+import Task from "../components/Task"
 
-
-function Tasks({tasks = []}) {
-    console.log(tasks);
+function Tasks({ tasks = [] }) {
     return (
-        <section className="flex h-svh w-svw justify-evenly"> 
+        <section className="flex h-svh w-svw justify-evenly">
             <div id="ToDo" className="text-center w-1/4">
                 <p>TO DO</p>
                 <ul>
                     {tasks.filter(task => task.status_task === "ToDo").map((task, index) => (
-                        <Task key={index} 
-                        id={task.id_task} 
-                        user={task.user_task} 
-                        title={task.title_task} 
-                        description={task.description_task} 
-                        subject={task.subject_task} 
-                        date={task.date_task} 
-                        status={task.status_task}/>
+                        <Task key={index}
+                            id={task.id_task}
+                            user={task.user_task}
+                            title={task.title_task}
+                            description={task.description_task}
+                            subject={task.subject_task}
+                            date={task.date_task}
+                            status={task.status_task} />
                     ))}
                 </ul>
             </div>
@@ -25,14 +23,14 @@ function Tasks({tasks = []}) {
                 <p>Doing</p>
                 <ul>
                     {tasks.filter(task => task.status_task === "Doing").map((task, index) => (
-                        <Task key={index} 
-                        id={task.id_task} 
-                        user={task.user_task} 
-                        title={task.title_task} 
-                        description={task.description_task} 
-                        subject={task.subject_task} 
-                        date={task.date_task} 
-                        status={task.status_task}/>
+                        <Task key={index}
+                            id={task.id_task}
+                            user={task.user_task}
+                            title={task.title_task}
+                            description={task.description_task}
+                            subject={task.subject_task}
+                            date={task.date_task}
+                            status={task.status_task} />
                     ))}
                 </ul>
             </div>
@@ -40,20 +38,19 @@ function Tasks({tasks = []}) {
                 <p>Done</p>
                 <ul>
                     {tasks.filter(task => task.status_task === "Done").map((task, index) => (
-                        <Task key={index} 
-                        id={task.id_task} 
-                        user={task.user_task} 
-                        title={task.title_task} 
-                        description={task.description_task} 
-                        subject={task.subject_task} 
-                        date={task.date_task} 
-                        status={task.status_task}/> 
+                        <Task key={index}
+                            id={task.id_task}
+                            user={task.user_task}
+                            title={task.title_task}
+                            description={task.description_task}
+                            subject={task.subject_task}
+                            date={task.date_task}
+                            status={task.status_task} />
                     ))}
                 </ul>
             </div>
         </section>
     );
 }
-
 
 export default Tasks;
