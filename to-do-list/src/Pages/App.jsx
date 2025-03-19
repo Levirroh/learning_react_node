@@ -40,6 +40,7 @@ function App() {
       console.log('Error to get tasks: ', e);
     }
   };
+
   useEffect(() => {
     if (user) { 
         getTasks();
@@ -50,10 +51,10 @@ function App() {
     <section>
       <Header title="Menu"/>
       {user ? (
-            <>
-                <h1>Bem-vindo, {user.name_user}!</h1>
+            <div>
+                <h1>Bem-vindo, <em>{user.name_user}</em>!</h1>
                 <Tasks tasks={tasks} />
-            </>
+            </div>
         ) : (
           <>
             <p>usuário não carregou...</p>
