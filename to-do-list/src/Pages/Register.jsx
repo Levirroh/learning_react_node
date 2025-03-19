@@ -31,7 +31,6 @@ function Register() {
             body: JSON.stringify({ name_user, email_user, function_user, password_user })
         });
             const userData = await response.json();
-            console.log("Dados recebidos do servidor:", userData);
 
             if(!response.ok){
                 throw new Error('Error to create user');
