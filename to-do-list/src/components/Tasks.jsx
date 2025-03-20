@@ -1,5 +1,6 @@
 import React from "react";
 import Task from "../components/Task"
+import NewTask from "../components/NewTask"
 
 function Tasks({ tasks = [] }) {
     return (
@@ -7,6 +8,7 @@ function Tasks({ tasks = [] }) {
             <div id="ToDo" className="text-center w-1/4">
                 <p>TO DO</p>
                 <ul>
+                    <NewTask />
                     {tasks.filter(task => task.status_task === "ToDo").map((task, index) => (
                         <Task key={index}
                             id={task.id_task}
