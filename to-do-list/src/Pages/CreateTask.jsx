@@ -46,6 +46,7 @@ function CreateTask() {
                     <Input label="Título:" name="title"/>
                     <TextArea label="Descrição:" name="description"/>
                     <Input label="Assunto:" name="subject"/>
+                    <input type="hidden" value={id_user} name="id_user" />
                     <div className="flex items-center justify-center">
                         <Submit text="Criar" />
                     </div>
