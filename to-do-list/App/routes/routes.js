@@ -8,6 +8,6 @@ router.post("/getTasks", getTasks);
 
 router.post("/createUser", register_user);
 router.post("/loginUser", login_user)
-
+router.post("/newTask", login_user)
 
 export default router;
