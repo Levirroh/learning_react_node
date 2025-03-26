@@ -11,3 +11,22 @@
 .ToDo{
     background-color: rgb(211, 211, 248);
 }
+
+
+#task_selected{
+    position: absolute;
+    color: white;
+    background-color: rgba(0, 17, 255, 0.747);
+    display: flex;
+    align-self: center;
+    left: 35vw; /* 15 de cada lado para centralizar*/
+    width: 30vw;
+    height: 30vh;
+    align-items: center;
+    flex-direction: column;
+    justify-content: center;
+    border-radius: 10px;
+    border: 2px solid black;
+
+
+}
