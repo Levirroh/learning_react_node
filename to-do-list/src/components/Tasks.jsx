@@ -6,7 +6,7 @@ function Tasks({ tasks = [] }) {
     return (
         <section className="flex h-svh w-svw justify-evenly">
             <div id="ToDo" className="text-center w-1/4">
-                <p>TO DO</p>
+                <p id="todo">TO DO</p>
                 <ul>
                     <NewTask />
                     {tasks.filter(task => task.status_task === "ToDo").map((task, index) => (
