@@ -65,19 +65,21 @@ function Tasks({ tasks = [] }) {
             
             {selectedTask && (
                 <div id="task_selected">
-                    <div>
-                        <h3 className="bold text-2xl">{selectedTask.title}</h3>
-                        <p>{selectedTask.id}</p>
+                    <div className="flex justify-end w-4/5">
+                        <p className="bold">{selectedTask.id}</p>
                     </div>
-                    <p>User: {selectedTask.user}</p>
-                    <p>Description: {selectedTask.description}</p>
-                    <p>Subject: {selectedTask.subject}</p>
-                    <button 
-                        className="mt-2 px-4 py-2 bg-red-500 text-white rounded"
-                        onClick={() => setSelectedTask(null)}
-                    >
-                        Fechar
-                    </button>
+                    <div className="flex justify-evenly items-center w-1/2">
+                        <h3 className="bold text-2xl">{selectedTask.title}</h3>
+                    </div>
+                    <div className="items-center flex flex-col justify-center h-11/12">
+                        <p>User: {selectedTask.user}</p>
+                        <p>Description: {selectedTask.description}</p>
+                        <p>Subject: {selectedTask.subject}</p>
+                        <button 
+                            className="mt-2 px-4 py-2 bg-red-500 text-white rounded"
+                            onClick={() => setSelectedTask(null)}
+                        >Fechar</button>
+                    </div>
                 </div>
             )}
         </section>
