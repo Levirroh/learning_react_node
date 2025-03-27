@@ -19,7 +19,6 @@ function Task({ id, user, title, description, subject, date, status, selectedTas
             <p>Title: {title}</p>
             <p>Description: {description}</p>
             <p>Subject: {subject}</p>
-            <p>Date: {date}</p>
         </div> 
     );
 }
