@@ -53,8 +53,9 @@ function Register() {
     }; 
 
     return(
-        <section className="flex flex-col items-center justify-center bg-gray-300 h-dvh w-dvw">
-            <form className="flex flex-col bg-blue-300 border-1 p-3 gap-5 rounded-2xl" onSubmit={createUser}>
+        <section className="flex flex-col items-center justify-center bg-blue-400 h-dvh w-dvw">
+            <a href="/"><button>Voltar</button></a>
+            <form className="flex flex-col bg-blue-200 border-1 p-3 gap-5 rounded-2xl" onSubmit={createUser}>
                 <Input id="name_user" name="name_user" label="Nome:" placeholder="..."/>
                 <Input id="email_user" name="email_user" label="Email:" placeholder="email@email.com"/>
                 <Input id="function_user" name="function_user" label="Função:" placeholder="..."/>
