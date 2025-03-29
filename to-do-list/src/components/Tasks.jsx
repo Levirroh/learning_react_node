@@ -76,7 +76,7 @@ function Tasks({ tasks = [] }) {
                         <p>Description: {selectedTask.description}</p>
                         <p>Subject: {selectedTask.subject}</p>
                         <button 
-                            className="mt-2 px-4 py-2 bg-red-500 text-white rounded"
+                            className="mt-2 px-4 py-2 bg-slate-200 text-black rounded cursor-pointer"
                             onClick={() => setSelectedTask(null)}
                         >Fechar</button>
                     </div>
