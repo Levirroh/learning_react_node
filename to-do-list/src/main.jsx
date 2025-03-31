@@ -8,6 +8,8 @@ import Login from "./Pages/Login.jsx";
 import Register from "./Pages/Register.jsx";
 import Welcome from "./Pages/Welcome.jsx";
 import CreateTask from "./Pages/CreateTask";
+import UpdateTask from "./Pages/UpdateTask";
+
 
 import "./index.css";
 
@@ -21,6 +23,7 @@ root.render(
         <Route path="/register" element={<Register />} />
         <Route path="/menu" element={<App />} />
         <Route path="/task" element={<CreateTask />} />
+        <Route path={`/update/:id`} element={<UpdateTask />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>
