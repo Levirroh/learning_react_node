@@ -1,4 +1,5 @@
 import { con } from "../connection.js";
+import { useParams } from "react-router-dom";
 
 export const get_tasks = (req, res) => {
     const { id_user } = req.body;
@@ -35,3 +36,8 @@ export const new_task = (req, res) => {
         res.status(201).json({ id: result.insertId, message: "Tarefa criada com sucesso!" });
     });
 };
+
+
+export const update_task = (res) => {
+    const { id } = useParams();
+}
