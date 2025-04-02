@@ -1,70 +1,46 @@
-import React from "react"; 
-import Input from "../components/Input"
+import React, { useState, useEffect } from "react"; import Input from "../components/Input"
 import Submit from "../components/Submit"
 import TextArea from "../components/TextArea"
 import { useParams, useNavigate } from "react-router-dom";
 
 function UpdateTask() {
     const { id } = useParams();
+    const [task, setTask] = useState({ title_task: "", description_task: "", subject_task: "" });
 
-    try {
+    useEffect(() => {
+        async function getTaskById(){
+            try{
+                const response = await fetch(`http://localhost:8800/getTaskById/${id}`, {
+                    method: "GET",  
+                    headers: {
+                        "Content-Type": "application/json",
+                    }
+                });
 
-        const response = fetch("http://localhost:8800/getTaskById",  {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify( id )
-    });
-        const taskData = response.json();
-
-        if(!response.ok){
-            throw new Error('Error to get Task');
+                if (!response.ok){
+                    throw new Error("Erro ao obter tarefa");
+                }
+                const taskData = await response.json();
+                setTask(taskData); 
+            } catch (e){
+                console.log('Error to create task: ', e);
+            };
         }
-    } catch (e) {
-        console.log('Error to get task: ', e);
-    }
+        getTaskById();
+    }, [id]);
 
 
-    async function update(event){
-        event.preventDefault(); 
-        const formData = new FormData(event.target);
-        const title = formData.get("title");
-        const description = formData.get("description");
-        const subject = formData.get("subject");
-
-        try {
-
-            const response = await fetch("http://localhost:8800/updateTask",  {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify({ id, title, description, subject })
-        });
-            const taskData = await response.json();
-
-            if(!response.ok){
-                throw new Error('Error to create task');
-            }
-
-            alert("Cadastro realizado com sucesso!");
-            navigate("/menu")    
-
-        } catch (e) {
-            console.log('Error to create task: ', e);
-        }
-
-    }; 
- 
+    
+    console.log(task);
     return (
         <section className="bg-slate-300 h-screen w-screen flex flex-col justify-center items-center">
             <div className="bg-sky-300 h-7/10 w-4/10 rounded-2xl p-3">
                 <h1>Atualizar Tarefa</h1>
+                {id}
                 <form>
-                    <Input label="Título:" name="title" value={id} />
-                    <TextArea label="Descrição:" name="description" />
-                    <Input label="Assunto:" name="subject" />
+                    <Input label="Título:" name="title" value={task.title_task}/>
+                    <TextArea label="Descrição:" name="description" value={task.description_task}/>
+                    <Input label="Assunto:" name="subject" value={task.subject_task}/>
                     <div className="flex items-center justify-center">
                         <Submit text="Atualizar" />
                     </div>
