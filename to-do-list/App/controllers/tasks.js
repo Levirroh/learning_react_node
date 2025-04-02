@@ -38,20 +38,16 @@ export const new_task = (req, res) => {
 };
 
 
-export const update_task = (res) => {
-    const { id } = useParams();
+export const update_task = (req, res) => {
+    const { id } = req.body;
 }
 
 export const get_task_by_id = (req, res) => {
-    const { id_task } = req.params;
-
-    if (!id_task) {
-        return res.status(400).json({ error: "ID da tarefa é obrigatório!" });
-    }
+    const { id } = req.params;
 
     const query = "SELECT * FROM tasks WHERE id_task = ?";
 
-    con.query(query, [id_task], (err, data) => {
+    con.query(query, [id], (err, data) => {
         if (err) {
             console.error("Erro ao buscar tarefa:", err);
             return res.status(500).json({ error: "Erro ao buscar tarefa no banco de dados." });
