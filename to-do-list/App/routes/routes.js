@@ -10,7 +10,7 @@ router.post("/createUser", register_user);
 router.post("/loginUser", login_user)
 router.post("/newTask", new_task)
 router.get("/updateTask", update_task)
-router.get("/getTaskById", get_task_by_id)
+router.get("/getTaskById/:id", get_task_by_id)
 
 
 
