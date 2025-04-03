@@ -1,17 +1,17 @@
-import React, { useState } from "react";
+import React from "react";
 
-function Input({ label, placeholder, name, id, value }) {
+function Input({ label, placeholder, name, id, value, onChange }) {
     return (
         <div className="flex flex-col gap-5">
-            <label>{label}</label>
+            <label htmlFor={id}>{label}</label>
             <input 
                 type="text" 
                 id={id} 
                 name={name} 
                 placeholder={placeholder} 
                 value={value} 
-                onChange={(e) => setInputValue(e.target.value)}
-                className="border-1 p-2 bg-gray-200 rounded-2xl"
+                onChange={onChange} 
+                className="border p-2 bg-gray-200 rounded-2xl"
             />
         </div>
     );
