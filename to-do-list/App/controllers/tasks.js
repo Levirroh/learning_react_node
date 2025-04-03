@@ -39,7 +39,19 @@ export const new_task = (req, res) => {
 
 
 export const update_task = (req, res) => {
-    const { id } = req.body;
+    const {id, title, description, subject} = req.body;
+
+    const query = "UPDATE tasks SET title_task= ?, description_task = ?, subject_task = ? WHERE id_task = ?";
+    const values = [title, description, subject, id];
+
+    con.query(query, values, (err, result) => {
+        if (err) {
+            console.error("Erro ao atualizar tarefa:", err);
+            return res.status(500).json({ error: "Erro ao atualizar tarefa no banco." });
+        }
+
+        res.status(201).json({ id: result.insertId, message: "Tarefa atualizada com sucesso!" });
+    });
 }
 
 export const get_task_by_id = (req, res) => {
