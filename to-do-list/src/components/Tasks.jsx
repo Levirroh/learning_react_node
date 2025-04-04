@@ -3,6 +3,7 @@ import Task from "../components/Task";
 import NewTask from "../components/NewTask";
 function Tasks({ tasks = [] }) {
     const [selectedTask, setSelectedTask] = useState(null);
+    
 
     return (
         <section className="flex h-screen w-screen justify-evenly">
@@ -78,6 +79,11 @@ function Tasks({ tasks = [] }) {
                             <a href={`/update/${selectedTask.id}`}>
                                 <button className="mt-2 px-4 py-2 bg-slate-200 text-black rounded cursor-pointer">
                                     Atualizar
+                                </button>
+                            </a>
+                            <a href={`/update/${selectedTask.id}`}>
+                                <button className="mt-2 px-4 py-2 bg-slate-200 text-black rounded cursor-pointer">
+                                    Deletar
                                 </button>
                             </a>
                             <button
