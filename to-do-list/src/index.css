@@ -19,8 +19,8 @@
     background-color: var(--color-blue-400);
     display: flex;
     align-self: center;
-    left: 35vw; /* 15 de cada lado para centralizar*/
-    width: 30vw;
+    left: 27vw; /* 27 de cada lado para centralizar*/
+    width: 46vw;
     height: 30vh;
     align-items: center;
     flex-direction: column;
