@@ -81,7 +81,7 @@ function Tasks({ tasks = [] }) {
                                     Atualizar
                                 </button>
                             </a>
-                            <a href={`/update/${selectedTask.id}`}>
+                            <a href={`/delete/${selectedTask.id}`}>
                                 <button className="mt-2 px-4 py-2 bg-slate-200 text-black rounded cursor-pointer">
                                     Deletar
                                 </button>
