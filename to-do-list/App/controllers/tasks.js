@@ -73,8 +73,23 @@ export const get_task_by_id = (req, res) => {
     });
 };
 
-''
+
 export const delete_task = (req, res) => {
-    const {id} = req.params;
-    console.log({id});
-}
+    const { id } = req.params;
+    const query = "DELETE FROM tasks WHERE id_task = ?";
+
+    console.log("chegou");
+
+    con.query(query, [id], (err, result) => {
+        if (err) {
+            console.error("Erro ao deletar tarefa:", err);
+            return res.status(500).json({ error: "Erro ao deletar tarefa do banco de dados." });
+        }
+
+        if (result.affectedRows === 0) {
+            return res.status(404).json({ error: "Tarefa não encontrada!" });
+        }
+
+        return res.status(200).json({ message: "Tarefa deletada com sucesso!" });
+    });
+};
