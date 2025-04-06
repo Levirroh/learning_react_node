@@ -11,8 +11,7 @@ router.post("/loginUser", login_user)
 router.post("/newTask", new_task)
 router.post("/updateTask", update_task)
 router.get("/getTaskById/:id", get_task_by_id)
-router.get("/delete/:id", delete_task)
-
+router.delete("/delete/:id", delete_task)
 
 
 export default router;
