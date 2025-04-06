@@ -1,9 +1,29 @@
 import React, { useState } from "react";
 import Task from "../components/Task";
 import NewTask from "../components/NewTask";
+import { useNavigate } from "react-router-dom";
+
 function Tasks({ tasks = [] }) {
     const [selectedTask, setSelectedTask] = useState(null);
-    
+    const navigate = useNavigate();
+
+    async function deleteTask(){
+        try {
+            const response = await fetch(`http://localhost:8800/delete/${selectedTask.id}`, {
+                method: "DELETE",
+            });
+
+            if (response.ok) {
+                alert("Tarefa deletada com sucesso!");
+                setSelectedTask(null);
+                window.location.reload();
+            } else {
+                alert("Erro ao deletar tarefa.");
+            }
+        } catch (error) {
+            console.error("Erro:", error);
+        }
+    }
 
     return (
         <section className="flex h-screen w-screen justify-evenly">
@@ -81,8 +101,8 @@ function Tasks({ tasks = [] }) {
                                     Atualizar
                                 </button>
                             </a>
-                            <a href={`/delete/${selectedTask.id}`}>
-                                <button className="mt-2 px-4 py-2 bg-slate-200 text-black rounded cursor-pointer">
+                            <a>
+                                <button className="mt-2 px-4 py-2 bg-slate-200 text-black rounded cursor-pointer" onClick={() => deleteTask()}>
                                     Deletar
                                 </button>
                             </a>
