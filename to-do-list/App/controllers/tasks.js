@@ -72,3 +72,9 @@ export const get_task_by_id = (req, res) => {
         return res.status(200).json(data[0]);
     });
 };
+
+''
+export const delete_task = (req, res) => {
+    const {id} = req.params;
+    console.log({id});
+}
