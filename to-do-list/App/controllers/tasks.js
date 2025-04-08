@@ -78,8 +78,6 @@ export const delete_task = (req, res) => {
     const { id } = req.params;
     const query = "DELETE FROM tasks WHERE id_task = ?";
 
-    console.log("chegou");
-
     con.query(query, [id], (err, result) => {
         if (err) {
             console.error("Erro ao deletar tarefa:", err);
@@ -91,5 +89,30 @@ export const delete_task = (req, res) => {
         }
 
         return res.status(200).json({ message: "Tarefa deletada com sucesso!" });
+    });
+};
+
+export const change_status = (req, res) => {
+    const { status, id } = req.body;
+    var newStatus = '';
+    // ainda não tem como voltar mas é só pra fazer o início da logica da API
+    if (status == "ToDo"){
+        newStatus = "Doing";
+    } else if (status == "Doing"){
+        newStatus = "Done";
+    } else {
+        newStatus = "ToDo"
+    }
+
+    const query = "UPDATE tasks SET status_task = ? WHERE id_task = ?";
+    const values = [newStatus, id];
+
+    con.query(query, values, (err, result) => {
+        if (err) {
+            console.error("Erro ao mudar status da tarefa:", err);
+            return res.status(500).json({ error: "Erro ao atualizar tarefa no banco." });
+        }
+
+        res.status(201).json({ id: result.insertId, message: "Tarefa atualizada com sucesso!" });
     });
 };
