@@ -24,6 +24,26 @@ function Tasks({ tasks = [] }) {
             console.error("Erro:", error);
         }
     }
+    async function changeStatus(status, id){
+        try {
+            const response = await fetch("http://localhost:8800/changeStatus", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id, status })
+            });
+
+            if (response.ok) {
+                alert("Tarefa alterada com sucesso!");
+                setSelectedTask(null);
+                window.location.reload();
+            } else {
+                alert("Erro ao alterar tarefa.");
+            }
+        } catch (error) {
+            console.error("Erro:", error);
+        }
+    }
+
 
     return (
         <section className="flex h-screen w-screen justify-evenly">
@@ -101,6 +121,13 @@ function Tasks({ tasks = [] }) {
                                     Atualizar
                                 </button>
                             </a>
+                            <a>
+                                <button className="mt-2 px-4 py-2 bg-slate-200 text-black rounded cursor-pointer" onClick={() => changeStatus(selectedTask.status, selectedTask.id)}>
+                                    Mudar Status
+                                </button>
+                            </a>
+                        </div>
+                        <div className="flex items-center justify-center  w-1/2 gap-10">
                             <a>
                                 <button className="mt-2 px-4 py-2 bg-slate-200 text-black rounded cursor-pointer" onClick={() => deleteTask()}>
                                     Deletar
