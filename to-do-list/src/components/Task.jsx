@@ -5,7 +5,7 @@ function Task({ id, user, title, description, subject, date, status, selectedTas
         if (selectedTask?.id === id) {
             setSelectedTask(null); 
         } else {
-            setSelectedTask({ id, user, title, description, subject, date });
+            setSelectedTask({ id, user, title, description, subject, status, date });
         }
     };
 
