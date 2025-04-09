@@ -113,6 +113,7 @@ function Tasks({ tasks = [] }) {
                     </div>
                     <div className="items-center flex flex-col justify-center h-11/12">
                         <p>User: {selectedTask.user}</p>
+                        <p>status: {selectedTask.status}</p>
                         <p>Description: {selectedTask.description}</p>
                         <p>Subject: {selectedTask.subject}</p>
                         <div className="flex items-center justify-center  w-1/2 gap-10">
@@ -121,12 +122,12 @@ function Tasks({ tasks = [] }) {
                                     Atualizar
                                 </button>
                             </a>
-                            <a>
-                                <button className="mt-2 px-4 py-2 bg-slate-200 text-black rounded cursor-pointer" onClick={() => changeStatus(selectedTask.status, selectedTask.id)}>
-                                    Mudar Status
-                                </button>
-                            </a>
                         </div>
+                        <div className="flex items-center justify-center w-1/2 gap-6 text-2xl">
+                                <span title="To Do" className="cursor-pointer" onClick={() => changeStatus("Done", selectedTask.id)}>📝</span>
+                                <span title="Doing" className="cursor-pointer" onClick={() => changeStatus("ToDo", selectedTask.id)}>🔄</span>
+                                <span title="Done" className="cursor-pointer" onClick={() => changeStatus("Doing", selectedTask.id)}>✅</span>
+                                </div>
                         <div className="flex items-center justify-center  w-1/2 gap-10">
                             <a>
                                 <button className="mt-2 px-4 py-2 bg-slate-200 text-black rounded cursor-pointer" onClick={() => deleteTask()}>
