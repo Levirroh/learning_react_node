@@ -96,6 +96,9 @@ export const change_status = (req, res) => {
     const { status, id } = req.body;
     var newStatus = '';
     // ainda não tem como voltar mas é só pra fazer o início da logica da API
+
+    // depois deve receber o que vai ir não o atual
+
     if (status == "ToDo"){
         newStatus = "Doing";
     } else if (status == "Doing"){
