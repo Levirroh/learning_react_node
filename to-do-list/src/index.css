@@ -21,11 +21,12 @@
     align-self: center;
     left: 27vw; /* 27 de cada lado para centralizar*/
     width: 46vw;
-    height: 30vh;
+    height: fit-content;
     align-items: center;
     flex-direction: column;
     border-radius: 10px;
     border: 2px solid black;
+    padding: 5px 5px 20px 5px;
 }
 
 .cem{
