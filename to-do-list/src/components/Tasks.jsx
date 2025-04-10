@@ -54,7 +54,6 @@ function Tasks({ tasks = [] }) {
                     {tasks.filter(task => task.status_task === "ToDo").map((task) => (
                         <Task key={task.id_task}
                             id={task.id_task}
-                            user={task.user_task}
                             title={task.title_task}
                             description={task.description_task}
                             subject={task.subject_task}
@@ -72,7 +71,6 @@ function Tasks({ tasks = [] }) {
                     {tasks.filter(task => task.status_task === "Doing").map((task) => (
                         <Task key={task.id_task}
                             id={task.id_task}
-                            user={task.user_task}
                             title={task.title_task}
                             description={task.description_task}
                             subject={task.subject_task}
@@ -90,7 +88,6 @@ function Tasks({ tasks = [] }) {
                     {tasks.filter(task => task.status_task === "Done").map((task) => (
                         <Task key={task.id_task}
                             id={task.id_task}
-                            user={task.user_task}
                             title={task.title_task}
                             description={task.description_task}
                             subject={task.subject_task}
@@ -105,14 +102,14 @@ function Tasks({ tasks = [] }) {
             
             {selectedTask && (
                 <div id="task_selected">
-                    <div className="flex justify-end w-4/5">
+                    <div className="flex justify-between w-4/5">
                         <p className="bold">{selectedTask.id}</p>
+                        <button className="bold" onClick={() => setSelectedTask(null)} >X</button>
                     </div>
                     <div className="flex justify-evenly items-center w-1/2">
                         <h3 className="bold text-2xl">{selectedTask.title}</h3>
                     </div>
                     <div className="items-center flex flex-col justify-center h-11/12">
-                        <p>User: {selectedTask.user}</p>
                         <p>status: {selectedTask.status}</p>
                         <p>Description: {selectedTask.description}</p>
                         <p>Subject: {selectedTask.subject}</p>
@@ -124,9 +121,9 @@ function Tasks({ tasks = [] }) {
                             </a>
                         </div>
                         <div className="flex items-center justify-center w-1/2 gap-6 text-2xl">
-                                <span title="To Do" className="cursor-pointer" onClick={() => changeStatus("Done", selectedTask.id)}>📝</span>
-                                <span title="Doing" className="cursor-pointer" onClick={() => changeStatus("ToDo", selectedTask.id)}>🔄</span>
-                                <span title="Done" className="cursor-pointer" onClick={() => changeStatus("Doing", selectedTask.id)}>✅</span>
+                                <span title="To Do" className="cursor-pointer" onClick={() => changeStatus("ToDo", selectedTask.id)}>📝</span>
+                                <span title="Doing" className="cursor-pointer" onClick={() => changeStatus("Doing", selectedTask.id)}>🔄</span>
+                                <span title="Done" className="cursor-pointer" onClick={() => changeStatus("Done", selectedTask.id)}>✅</span>
                                 </div>
                         <div className="flex items-center justify-center  w-1/2 gap-10">
                             <a>
