@@ -15,7 +15,6 @@ function Task({ id, user, title, description, subject, date, status, selectedTas
             onClick={showTask}
         >
             <p>ID: {id}</p>
-            <p>User: {user}</p>
             <p>Title: {title}</p>
             <p>Description: {description}</p>
             <p>Subject: {subject}</p>
