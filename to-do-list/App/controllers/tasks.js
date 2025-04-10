@@ -94,21 +94,9 @@ export const delete_task = (req, res) => {
 
 export const change_status = (req, res) => {
     const { status, id } = req.body;
-    var newStatus = '';
-    // ainda não tem como voltar mas é só pra fazer o início da logica da API
-
-    // depois deve receber o que vai ir não o atual
-
-    if (status == "ToDo"){
-        newStatus = "Doing";
-    } else if (status == "Doing"){
-        newStatus = "Done";
-    } else {
-        newStatus = "ToDo"
-    }
 
     const query = "UPDATE tasks SET status_task = ? WHERE id_task = ?";
-    const values = [newStatus, id];
+    const values = [status, id];
 
     con.query(query, values, (err, result) => {
         if (err) {
