@@ -1,6 +1,6 @@
 import React from "react";
 
-function Task({ id, user, title, description, subject, date, status, selectedTask, setSelectedTask }) {
+function Task({ id, user, title, description, subject, date, status, selectedTask, setSelectedTask, color }) {
     const showTask = () => {
         if (selectedTask?.id === id) {
             setSelectedTask(null); 
@@ -8,10 +8,9 @@ function Task({ id, user, title, description, subject, date, status, selectedTas
             setSelectedTask({ id, user, title, description, subject, status, date });
         }
     };
-
     return (
         <div 
-            className={`flex flex-col border p-2 rounded-2xl ${status} mt-3 text-left cursor-pointer`} 
+            className={`flex flex-col border p-2 rounded-2xl ${status} mt-3 text-left cursor-pointer ${color}`} 
             onClick={showTask}
         >
             <p>ID: {id}</p>
