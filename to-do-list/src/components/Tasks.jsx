@@ -7,8 +7,6 @@ function Tasks({ tasks = [] }) {
     const [selectedTask, setSelectedTask] = useState(null);
     const navigate = useNavigate();
 
-    let color = 'yellow';
-
 
     async function deleteTask(){
         try {
@@ -62,6 +60,7 @@ function Tasks({ tasks = [] }) {
                             subject={task.subject_task}
                             date={task.date_task}
                             status={task.status_task}
+                            color={task.color_task}
                             selectedTask={selectedTask}
                             setSelectedTask={setSelectedTask}
                         />
@@ -79,7 +78,7 @@ function Tasks({ tasks = [] }) {
                             subject={task.subject_task}
                             date={task.date_task}
                             status={task.status_task}
-                            color={color}
+                            color={task.color_task}
                             selectedTask={selectedTask}
                             setSelectedTask={setSelectedTask}
                         />
@@ -97,6 +96,7 @@ function Tasks({ tasks = [] }) {
                             subject={task.subject_task}
                             date={task.date_task}
                             status={task.status_task}
+                            color={task.color_task}
                             selectedTask={selectedTask}
                             setSelectedTask={setSelectedTask}
                         />
