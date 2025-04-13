@@ -1,3 +1,7 @@
+DROP DATABASE to_do_list_node; 
+CREATE DATABASE to_do_list_node;
+USE to_do_list_node;
+
 CREATE TABLE users(
 	id_user INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     name_user VARCHAR(90),
@@ -27,6 +31,7 @@ CREATE TABLE task_status(
 	id_status INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     name_status VARCHAR(90),
 	team_status INT,
+    color_task VARCHAR(16),
 	FOREIGN KEY (team_status) REFERENCES teams(id_team)
 );
 
@@ -45,3 +50,22 @@ CREATE TABLE tasks(
 	FOREIGN KEY (status_task) REFERENCES task_status(id_status)
 );
 
+INSERT INTO users (name_user, function_user, email_user, password_user) 
+VALUES ("teste","teste","teste","teste");
+
+INSERT INTO task_status (name_status) 
+VALUES ("ToDo");
+INSERT INTO task_status (name_status) 
+VALUES ("Doing");
+INSERT INTO task_status (name_status) 
+VALUES ("Done");
+
+INSERT INTO tasks (user_task, title_task, description_task, subject_task, status_task) 
+VALUES ( 1 ,"ToDo","ToDo", "ToDo", 1);
+INSERT INTO tasks (user_task, title_task, description_task, subject_task, status_task) 
+VALUES (1 ,"Doing","Doing", "Doing", 2);
+INSERT INTO tasks (user_task, title_task, description_task, subject_task, status_task) 
+VALUES (1 ,"Done","Done", "Done", 3);
+SELECT * FROM users;
+
+SELECT * FROM tasks WHERE user_task = 1;
