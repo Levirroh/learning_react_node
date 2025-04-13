@@ -51,7 +51,7 @@ function Tasks({ tasks = [] }) {
                 <p>TO DO</p>
                 <ul>
                     <NewTask />
-                    {tasks.filter(task => task.status_task === "ToDo").map((task) => (
+                    {tasks.filter(task => task.status_task === 1).map((task) => (
                         <Task key={task.id_task}
                             id={task.id_task}
                             title={task.title_task}
@@ -68,7 +68,7 @@ function Tasks({ tasks = [] }) {
             <div id="Doing" className="text-center w-1/4">
                 <p>Doing</p>
                 <ul>
-                    {tasks.filter(task => task.status_task === "Doing").map((task) => (
+                    {tasks.filter(task => task.status_task === 2).map((task) => (
                         <Task key={task.id_task}
                             id={task.id_task}
                             title={task.title_task}
@@ -85,7 +85,7 @@ function Tasks({ tasks = [] }) {
             <div id="Done" className="text-center w-1/4">
                 <p>Done</p>
                 <ul>
-                    {tasks.filter(task => task.status_task === "Done").map((task) => (
+                    {tasks.filter(task => task.status_task === 3).map((task) => (
                         <Task key={task.id_task}
                             id={task.id_task}
                             title={task.title_task}
