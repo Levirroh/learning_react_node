@@ -7,6 +7,9 @@ function Tasks({ tasks = [] }) {
     const [selectedTask, setSelectedTask] = useState(null);
     const navigate = useNavigate();
 
+    let color = 'yellow';
+
+
     async function deleteTask(){
         try {
             const response = await fetch(`http://localhost:8800/delete/${selectedTask.id}`, {
@@ -76,6 +79,7 @@ function Tasks({ tasks = [] }) {
                             subject={task.subject_task}
                             date={task.date_task}
                             status={task.status_task}
+                            color={color}
                             selectedTask={selectedTask}
                             setSelectedTask={setSelectedTask}
                         />
