@@ -53,12 +53,12 @@ CREATE TABLE tasks(
 INSERT INTO users (name_user, function_user, email_user, password_user) 
 VALUES ("teste","teste","teste","teste");
 
-INSERT INTO task_status (name_status) 
-VALUES ("ToDo");
-INSERT INTO task_status (name_status) 
-VALUES ("Doing");
-INSERT INTO task_status (name_status) 
-VALUES ("Done");
+INSERT INTO task_status (name_status, color_task) 
+VALUES ("ToDo", "red");
+INSERT INTO task_status (name_status, color_task) 
+VALUES ("Doing", "yellow");
+INSERT INTO task_status (name_status, color_task) 
+VALUES ("Done", "green");
 
 INSERT INTO tasks (user_task, title_task, description_task, subject_task, status_task) 
 VALUES ( 1 ,"ToDo","ToDo", "ToDo", 1);
@@ -69,3 +69,5 @@ VALUES (1 ,"Done","Done", "Done", 3);
 SELECT * FROM users;
 
 SELECT * FROM tasks WHERE user_task = 1;
+
+SELECT * FROM tasks INNER JOIN task_status ON task_status.id_status = tasks.status_task WHERE user_task = 1;
