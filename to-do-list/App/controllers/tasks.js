@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 export const get_tasks = (req, res) => {
     const { id_user } = req.body;
 
-    const query = "SELECT * FROM tasks WHERE user_task = ?";
+    const query = "SELECT * FROM tasks INNER JOIN task_status ON task_status.id_status = tasks.status_task WHERE user_task = ?;";
     const values = [id_user];
 
     con.query(query, values, (err, data) => {
