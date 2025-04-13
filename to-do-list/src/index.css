@@ -38,3 +38,17 @@
     height: 100vh;
     width: 100vw;
 }
+
+
+.green{
+    background-color: rgb(159, 194, 106);
+}
+
+.yellow{
+    background-color: rgb(223, 223, 152);
+}
+
+
+.red{
+    background-color: rgb(238, 154, 154);
+}
