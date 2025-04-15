@@ -2,11 +2,19 @@ import { useNavigate } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
 import Tasks from "../components/Tasks";
 import Header from "../components/Header";
+import Menu from "../components/Menu";
 
 function App() {
   const [tasks, setTasks] = useState([]);
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(true); 
+
+
+  function toggleMenu() {
+    setIsMenuOpen(prev => !prev);
+  }
+
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -46,7 +54,8 @@ function App() {
 
   return (
     <section>
-      <Header title="Menu" />
+      <Header title="Menu" onToggleMenu={toggleMenu} />
+      <Menu isOpen={isMenuOpen} onClose={toggleMenu} />
       {user ? (
         <div>
           <h1>Bem-vindo, <em>{user.name_user}</em>!</h1>
