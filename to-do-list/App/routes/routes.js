@@ -10,8 +10,11 @@ router.post("/loginUser", login_user)
 router.post("/newTask", new_task)
 router.post("/updateTask", update_task)
 router.post("/changeStatus", change_status)
+router.post("/getSubjects/", register_user);
+
 
 router.get("/getTaskById/:id", get_task_by_id)
+
 
 router.delete("/delete/:id", delete_task)
 
