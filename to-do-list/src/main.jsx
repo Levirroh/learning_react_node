@@ -9,6 +9,7 @@ import Register from "./Pages/Register.jsx";
 import Welcome from "./Pages/Welcome.jsx";
 import CreateTask from "./Pages/CreateTask";
 import UpdateTask from "./Pages/UpdateTask";
+import ErrorPage from "./Pages/ErrorPage";
 
 
 import "./index.css";
@@ -24,6 +25,11 @@ root.render(
         <Route path="/menu" element={<App />} />
         <Route path="/task" element={<CreateTask />} />
         <Route path={`/update/:id`} element={<UpdateTask />} />
+
+
+
+        {/* se nao cair em nada vem aqui */}
+        <Route path="*" element={<ErrorPage />} />
       </Routes>
     </BrowserRouter>
   </StrictMode>
