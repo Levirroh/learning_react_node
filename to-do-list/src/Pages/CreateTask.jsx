@@ -1,4 +1,4 @@
-import React from "react"; 
+import React, { useEffect, useState } from 'react';
 import Input from "../components/Input"
 import Submit from "../components/Submit"
 import TextArea from "../components/TextArea"
@@ -9,6 +9,32 @@ function CreateTask() {
     const navigate = useNavigate();
     const storedUser = localStorage.getItem("user");
     const id_user = storedUser ? JSON.parse(storedUser).id_user : null;
+
+    // ainda nao pode ser usado pois o codigo nao tem
+    // como saber se é um team ou user sozinho
+
+    // useEffect(() => {
+    //     async function getSubjects() {
+    //     try {
+    //         const response = await fetch("http://localhost:8800/getSubjects", {
+    //         method: "POST",
+    //         headers: { "Content-Type": "application/json" },
+    //         body: JSON.stringify({ id_team })
+    //         });
+
+    //         const data = await response.json();
+
+    //         if (data.length === 0) {
+    //         console.log("Nenhuma tarefa encontrada para este usuário.");
+    //         }
+
+    //     } catch (e) {
+    //         console.error("Erro ao buscar tarefas:", e);
+    //     }
+    //     }
+
+    // });
+
 
     async function create(event){
         event.preventDefault(); 
