@@ -8,7 +8,7 @@ function App() {
   const [tasks, setTasks] = useState([]);
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
-  const [isMenuOpen, setIsMenuOpen] = useState(true); 
+  const [isMenuOpen, setIsMenuOpen] = useState(false); 
 
 
   function toggleMenu() {
