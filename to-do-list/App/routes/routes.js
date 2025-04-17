@@ -1,5 +1,6 @@
 import express from "express";
 import { getUsers, register_user, login_user} from "../controllers/user.js";
+import { getUserTeams} from "../controllers/teams.js";
 import {get_tasks, new_task, update_task, get_task_by_id, delete_task, change_status} from "../controllers/tasks.js";
 
 const router = express.Router();
@@ -11,6 +12,7 @@ router.post("/newTask", new_task)
 router.post("/updateTask", update_task)
 router.post("/changeStatus", change_status)
 router.post("/getSubjects/", register_user);
+router.post("/getUserTeams/", getUserTeams);
 
 
 router.get("/getTaskById/:id", get_task_by_id)
