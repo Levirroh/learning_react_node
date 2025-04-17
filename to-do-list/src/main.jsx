@@ -10,7 +10,7 @@ import Welcome from "./Pages/Welcome.jsx";
 import CreateTask from "./Pages/CreateTask";
 import UpdateTask from "./Pages/UpdateTask";
 import ErrorPage from "./Pages/ErrorPage";
-
+import Teams from "./Pages/Teams.jsx"
 
 import "./index.css";
 
@@ -25,6 +25,7 @@ root.render(
         <Route path="/menu" element={<App />} />
         <Route path="/task" element={<CreateTask />} />
         <Route path={`/update/:id`} element={<UpdateTask />} />
+        <Route path={`/teams`} element={<Teams />} />
 
 
 
