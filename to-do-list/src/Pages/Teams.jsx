@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import Header from '../components/Header';
 import Menu from "../components/Menu";
 import { useNavigate } from "react-router-dom";
-
+import TeamIcon from "../components/TeamIcon"
 
 function Teams() {
     const [teams, setTeams] = useState([]);
@@ -25,28 +25,29 @@ function Teams() {
       }, [navigate]);
 
     useEffect(() => {
-        async function getTasks() {
-        try {
-            const response = await fetch("http://localhost:8800/getUserTeams", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id_user: user.id_user })
-            });
-
-            const data = await response.json();
-
-            if (data.length === 0) {
-            console.log("Nenhuma tarefa encontrada para este usuário.");
+        async function getUserTeams() {
+            if (user){
+                try {
+                    const response = await fetch("http://localhost:8800/getUserTeams", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ id_user: user.id_user })
+                    });
+        
+                    const data = await response.json();
+        
+                    if (data.length === 0) {
+                        console.log("Nenhum time encontrado para este usuário.");
+                      }
+            
+                      setTeams(data);
+                } catch (e) {
+                    console.error("Erro ao buscar times:", e);
+                }
             }
-
-        } catch (e) {
-            console.error("Erro ao buscar tarefas:", e);
         }
-        }
-
-        getTasks(); 
-    });
-
+        getUserTeams()
+    },[user]);
 
     return(
         <section>
@@ -57,11 +58,12 @@ function Teams() {
             <small>Lista horizontal que tem setinhas nas extremidades para ver mais</small>
             <div className='flex gap-5'>
                 {/* Aqui será a lista de times */ }
-                <div className='p-3 bg-black'></div>
-                <div className='p-3 bg-black'></div>
-                <div className='p-3 bg-black'></div>
-                <div className='p-3 bg-black'></div>
-                <div className='p-3 bg-black'></div>
+                {console.log(teams)}
+                {teams.map((team) => (
+                        <TeamIcon key={team.id_team_members}
+                        nomeDoTime={team.name_team}
+                        id={team.id_team_members}/>
+                    ))}
                 {/* Deve ser feito lógica para um scroll ou setinhas para ver mais pra direita ou esquerda */ }
             </div>
             <p>Criar time</p>
