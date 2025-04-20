@@ -13,7 +13,7 @@ CREATE TABLE users(
 CREATE TABLE teams(
 	id_team INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     name_team VARCHAR(90) NOT NULL,
-    creation_team DATETIME NOT NULL,
+    creation_team DATETIME ,
     owner_team INT NOT NULL,
 	FOREIGN KEY (owner_team) REFERENCES users(id_user)
 );
@@ -53,12 +53,29 @@ CREATE TABLE tasks(
 INSERT INTO users (name_user, function_user, email_user, password_user) 
 VALUES ("teste","teste","teste","teste");
 
+INSERT INTO users (name_user, function_user, email_user, password_user) 
+VALUES ("admin","admin","admin","admin");
+
 INSERT INTO task_status (name_status, color_task) 
 VALUES ("ToDo", "red");
 INSERT INTO task_status (name_status, color_task) 
 VALUES ("Doing", "yellow");
 INSERT INTO task_status (name_status, color_task) 
 VALUES ("Done", "green");
+
+INSERT INTO teams (name_team, owner_team)
+VALUES ("Time do teste", 1);
+
+INSERT INTO team_members(user_id, team_id, role_user)
+VALUES(1, 1, "Administrador");
+
+
+INSERT INTO teams (name_team, owner_team)
+VALUES ("Time que convidaram o teste", 2);
+
+INSERT INTO team_members(user_id, team_id, role_user)
+VALUES(1, 2, "Moderador");
+
 
 INSERT INTO tasks (user_task, title_task, description_task, subject_task, status_task) 
 VALUES ( 1 ,"ToDo","ToDo", "ToDo", 1);
@@ -68,6 +85,4 @@ INSERT INTO tasks (user_task, title_task, description_task, subject_task, status
 VALUES (1 ,"Done","Done", "Done", 3);
 SELECT * FROM users;
 
-SELECT * FROM tasks WHERE user_task = 1;
-
-SELECT * FROM tasks INNER JOIN task_status ON task_status.id_status = tasks.status_task WHERE user_task = 1;
+SELECT * FROM team_members INNER JOIN teams ON teams.id_team = team_members.team_id WHERE team_members.user_id = 1
