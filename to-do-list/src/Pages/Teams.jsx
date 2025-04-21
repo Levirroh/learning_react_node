@@ -58,11 +58,10 @@ function Teams() {
             <small>Lista horizontal que tem setinhas nas extremidades para ver mais</small>
             <div className='flex gap-5'>
                 {/* Aqui será a lista de times */ }
-                {console.log(teams)}
                 {teams.map((team) => (
                         <TeamIcon key={team.id_team_members}
                         nomeDoTime={team.name_team}
-                        id={team.id_team_members}/>
+                        id_team={team.id_team}/>
                     ))}
                 {/* Deve ser feito lógica para um scroll ou setinhas para ver mais pra direita ou esquerda */ }
             </div>
