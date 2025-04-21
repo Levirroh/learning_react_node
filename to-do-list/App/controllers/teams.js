@@ -16,3 +16,20 @@ export const getUserTeams = (req, res) => {
         return res.status(200).json(data);
     });
 };
+
+
+export const getStatusTeam = (req, res) => {
+    const { id_team } = req.body;
+
+    const query = "SELECT * FROM tasks WHERE tasks.team_task = ?";
+    const values = [id_team];
+
+    con.query(query, values, (err, data) => {
+        if (err) {
+            console.error("Erro ao buscar times:", err);
+            return res.json(err);
+        }
+
+        return res.status(200).json(data);
+    });
+};
