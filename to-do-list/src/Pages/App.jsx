@@ -30,7 +30,7 @@ function App() {
     if (user) {
       async function getTasks() {
         try {
-          const response = await fetch("http://localhost:8800/getTasks", {
+          const response = await fetch("http://localhost:8800/getUserTasks", {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ id_user: user.id_user })
