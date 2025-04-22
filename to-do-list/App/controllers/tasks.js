@@ -1,10 +1,10 @@
 import { con } from "../connection.js";
 import { useParams } from "react-router-dom";
 
-export const get_tasks = (req, res) => {
+export const get_tasks_user = (req, res) => {
     const { id_user } = req.body;
 
-    const query = "SELECT * FROM tasks INNER JOIN task_status ON task_status.id_status = tasks.status_task WHERE user_task = ?;";
+    const query = "SELECT * FROM tasks INNER JOIN task_status ON task_status.id_status = tasks.status_task WHERE user_task = ? AND team_task IS NULL;";
     const values = [id_user];
 
     con.query(query, values, (err, data) => {
