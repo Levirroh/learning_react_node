@@ -23,8 +23,17 @@ function TeamIcon({nomeDoTime, id_team }) {
                 if (data.length === 0) {
                     console.log("Nenhum status de time encontrado para este usuário.");
                 }
-    
                 setTeam(data);
+
+                for (var i; i <= data.lenght; i++){
+                    if (data[i].status_task == 1){
+                        aFazer += 1;
+                    } else if(data[i].status_task == 2){
+                        Fazendo += 1;
+                    } else{
+                        Feitas += 1;
+                    }
+                }
             } catch (e) {
                 console.error("Erro ao buscar tarefas:", e);
             }
