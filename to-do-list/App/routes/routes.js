@@ -1,11 +1,11 @@
 import express from "express";
 import { getUsers, register_user, login_user} from "../controllers/user.js";
 import { getUserTeams, getStatusTeam} from "../controllers/teams.js";
-import {get_tasks, new_task, update_task, get_task_by_id, delete_task, change_status} from "../controllers/tasks.js";
+import {get_tasks_user, new_task, update_task, get_task_by_id, delete_task, change_status} from "../controllers/tasks.js";
 
 const router = express.Router();
 
-router.post("/getTasks", get_tasks);
+router.post("/getUserTasks", get_tasks_user);
 router.post("/createUser", register_user);
 router.post("/loginUser", login_user)
 router.post("/newTask", new_task)
