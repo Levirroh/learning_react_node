@@ -1,7 +1,8 @@
 import React from "react"; 
 import { StrictMode } from "react";
 import ReactDOM from "react-dom/client";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, createBrowserRouter, RouterProvider  } from "react-router-dom";
+import { createRoot } from 'react-dom/client'
 
 import App from "./Pages/App.jsx";
 import Login from "./Pages/Login.jsx";
@@ -11,6 +12,7 @@ import CreateTask from "./Pages/CreateTask";
 import UpdateTask from "./Pages/UpdateTask";
 import ErrorPage from "./Pages/ErrorPage";
 import Teams from "./Pages/Teams.jsx"
+import Team from "./Pages/Team.jsx"
 
 import "./index.css";
 
@@ -26,6 +28,7 @@ root.render(
         <Route path="/task" element={<CreateTask />} />
         <Route path={`/update/:id`} element={<UpdateTask />} />
         <Route path={`/teams`} element={<Teams />} />
+        <Route path={`/team/:id`} element={<Team />} />
 
 
 
