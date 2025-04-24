@@ -61,7 +61,8 @@ function Teams() {
                 {teams.map((team) => (
                         <TeamIcon key={team.id_team_members}
                         nomeDoTime={team.name_team}
-                        id_team={team.id_team}/>
+                        id_team={team.id_team}
+                        funcao={team.role_user}/>
                     ))}
                 {/* Deve ser feito lógica para um scroll ou setinhas para ver mais pra direita ou esquerda */ }
             </div>
