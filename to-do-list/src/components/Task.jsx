@@ -5,7 +5,7 @@ function Task({ id, user, title, description, subject, date, status, selectedTas
         if (selectedTask?.id === id) {
             setSelectedTask(null); 
         } else {
-            setSelectedTask({ id, user, title, description, subject, status, date });
+            setSelectedTask({ id, user, title, subject, description, status, date });
         }
     };
     return (
@@ -15,7 +15,6 @@ function Task({ id, user, title, description, subject, date, status, selectedTas
         >
             <p>ID: {id}</p>
             <p>Title: {title}</p>
-            <p>Description: {description}</p>
             <p>Subject: {subject}</p>
         </div> 
     );
