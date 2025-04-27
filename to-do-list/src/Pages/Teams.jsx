@@ -3,6 +3,7 @@ import Header from '../components/Header';
 import Menu from "../components/Menu";
 import { useNavigate } from "react-router-dom";
 import TeamIcon from "../components/TeamIcon"
+import NewTeam from "../components/NewTeam"
 
 function Teams() {
     const [teams, setTeams] = useState([]);
@@ -70,6 +71,7 @@ function Teams() {
             <small>Botao similar ao de nova tarefa que vai pra uma tela de cadastro de time</small>
             <div className=''>
                 <div className='p-3 bg-black w-5'></div>
+                <NewTeam />
                 {/* Aqui será um botão para criar um novo time */ }
             </div>
             <small>Templates de times prontos</small>
