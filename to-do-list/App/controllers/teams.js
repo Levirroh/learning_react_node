@@ -50,3 +50,29 @@ export const getTeamTasks = (req, res) => {
         return res.status(200).json(data);
     });
 };
+
+export const createTeam = (req, res) => {
+    const { name, owner  } = req.body;
+
+    var creationTime = Date.now(); 
+
+
+    const query = "INSERT INTO teams (name_team, owner_team, creation_team) VALUES (?,?,?)";
+    const values = [name, owner, creationTime];
+
+
+    if (!name || !owner || !creationTime) {
+        return res.status(400).json({ error: "Todos os campos são obrigatórios!" });
+    }
+
+
+
+    con.query(query, values, (err, data) => {
+        if (err) {
+            console.error("Erro ao buscar times:", err);
+            return res.status(500).json({ error: "Erro ao buscar tarefas", details: err });
+        }
+
+        res.status(201).json({ message: "Tarefa criada com sucesso!" });
+    });
+};
