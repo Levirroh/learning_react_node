@@ -65,7 +65,7 @@ function Team() {
         </div>
       ) : (
         <>
-          <p>usuário não carregou...</p>
+          <p>Time não carregou...</p>
           <a href="http://localhost:5173/login">Voltar</a>
         </>
       )}
