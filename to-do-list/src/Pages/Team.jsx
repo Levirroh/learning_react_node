@@ -1,6 +1,6 @@
 import { useNavigate, useParams } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
-import Tasks from "../components/Tasks";
+import TeamTasks from "../components/TeamTasks";
 import Header from "../components/Header";
 import Menu from "../components/Menu";
 
@@ -40,7 +40,7 @@ function Team() {
           const data = await response.json();
 
           if (data.length === 0) {
-            console.log("Nenhuma tarefa encontrada para este usuário.");
+            console.log("Nenhuma tarefa encontrada para este time.");
           }
 
           setTasks(data);
@@ -61,7 +61,7 @@ function Team() {
       {user ? (
         <div>
           <h1>Bem-vindo, <em>{user.name_user}</em>!</h1>
-          <Tasks tasks={tasks} />
+          <TeamTasks tasks={tasks} />
         </div>
       ) : (
         <>
