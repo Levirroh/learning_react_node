@@ -17,7 +17,7 @@ export const get_tasks_user = (req, res) => {
     });
 };
 
-export const new_task = (req, res) => {
+export const new_team_task = (req, res) => {
     const { title, description, subject, id_user } = req.body;
 
     if (!title || !description || !subject || !id_user) {
