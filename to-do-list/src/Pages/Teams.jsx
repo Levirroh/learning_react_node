@@ -55,10 +55,8 @@ function Teams() {
             <Header title="Teams" onToggleMenu={toggleMenu} />
             <Menu isOpen={isMenuOpen} onClose={toggleMenu} />
             <h1>Times</h1>
-            <p>Se participa de times aparece eles aqui</p>
-            <small>Lista horizontal que tem setinhas nas extremidades para ver mais</small>
+            <p>Seus times:</p>
             <div className='flex gap-5'>
-                {/* Aqui será a lista de times */ }
                 {teams.map((team) => (
                         <TeamIcon key={team.id_team_members}
                         nomeDoTime={team.name_team}
@@ -67,8 +65,7 @@ function Teams() {
                     ))}
                 {/* Deve ser feito lógica para um scroll ou setinhas para ver mais pra direita ou esquerda */ }
             </div>
-            <p>Criar time</p>
-            <small>Botao similar ao de nova tarefa que vai pra uma tela de cadastro de time</small>
+            <p>Criar novo time</p>
             <div className=''>
                 <div className='p-3 bg-black w-5'></div>
                 <NewTeam />
@@ -83,6 +80,11 @@ function Teams() {
                 <div className='p-3 bg-black'></div>
                 <div className='p-3 bg-black'></div>
                 {/* Deve ser feito lógica para um scroll ou setinhas para ver mais pra direita ou esquerda */ }
+            </div>
+
+            <div className='absolute flex top-0 h-screen w-screen p-2 justify-center items-center'>
+                <label htmlFor="" className='bg-white p-2'>Nome do novo time:</label>
+                <input className='bg-white p-2' placeholder='Escola'/>
             </div>
         </section>
     );
