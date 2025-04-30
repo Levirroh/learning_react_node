@@ -1,6 +1,6 @@
 import express from "express";
 import { getUsers, register_user, login_user} from "../controllers/user.js";
-import { getUserTeams, getStatusTeam, getTeamTasks, new_team_task} from "../controllers/teams.js";
+import { getUserTeams, getStatusTeam, getTeamTasks, new_team_task, createTeam} from "../controllers/teams.js";
 import {get_tasks_user, new_task, update_task, get_task_by_id, delete_task, change_status} from "../controllers/tasks.js";
 
 const router = express.Router();
@@ -16,6 +16,7 @@ router.post("/getUserTeams/", getUserTeams);
 router.post("/getStatusTeam/", getStatusTeam);
 router.post("/getTeamTasks", getTeamTasks);
 router.post("/newTeamTask", new_team_task);
+router.post("/createTeam", createTeam);
 
 
 router.get("/getTaskById/:id", get_task_by_id)
