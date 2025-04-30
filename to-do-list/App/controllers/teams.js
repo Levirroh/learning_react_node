@@ -76,11 +76,19 @@ export const getTeamTasks = (req, res) => {
 
 export const createTeam = (req, res) => {
     const { name, owner  } = req.body;
+    const dataAtual = new Date();
 
-    var creationTime = Date.now(); 
+    // YYYY-MM-DD HH:MI:SS
+    const dia = dataAtual.getDate();
+    const mes = dataAtual.getMonth();
+    const ano = dataAtual.getFullYear();
+    const hora = dataAtual.getHours();
+    const minuto = dataAtual.getMinutes();
+    const segundo = dataAtual.getSeconds();
+    
+    var creationTime = ano+'-'+mes+'-'+dia+' '+hora+':'+minuto+':'+segundo; 
 
-
-    const query = "INSERT INTO teams (name_team, owner_team, creation_team) VALUES (?,?,?)";
+    const query = "INSERT INTO teams (name_team, owner_team, creation_team) VALUES (?, ?, ?);";
     const values = [name, owner, creationTime];
 
 
