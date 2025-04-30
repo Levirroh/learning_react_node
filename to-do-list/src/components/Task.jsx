@@ -1,7 +1,7 @@
 import React from "react";
 
 function Task({ id, user, title, description, subject, date, status, selectedTask, setSelectedTask, color }) {
-    const showTask = () => {
+    function showTask() {
         if (selectedTask?.id === id) {
             setSelectedTask(null); 
         } else {
