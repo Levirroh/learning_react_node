@@ -11,7 +11,6 @@ function Team() {
   const [isMenuOpen, setIsMenuOpen] = useState(false); 
   const { id } = useParams();
 
-
   function toggleMenu() {
     setIsMenuOpen(prev => !prev);
   }
@@ -61,7 +60,7 @@ function Team() {
       {user ? (
         <div>
           <h1>Bem-vindo, <em>{user.name_user}</em>!</h1>
-          <TeamTasks tasks={tasks} />
+          <TeamTasks tasks={tasks}/>
         </div>
       ) : (
         <>
