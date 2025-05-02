@@ -13,8 +13,6 @@ function Teams() {
     const [popUp, setPopUp] = useState(false);
     const [newTeamName, setNewTeamName] = useState("");
 
-
-
     function toggleMenu() {
         setIsMenuOpen(prev => !prev);
     }
@@ -33,6 +31,31 @@ function Teams() {
         }
       }, [navigate]);
 
+    async function getUserTeams() {
+        if (user){
+            try {
+                const response = await fetch("http://localhost:8800/getUserTeams", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id_user: user.id_user })
+                });
+
+                const data = await response.json();
+
+                if (data.length === 0) {
+                    console.log("Nenhum time encontrado para este usuário.");
+                    }
+        
+                    setTeams(data);
+            } catch (e) {
+                console.error("Erro ao buscar times:", e);
+            }
+        }
+    }
+
+    useEffect(() => {
+        getUserTeams()
+    },[user]);
 
     async function createTeam() {
         const newTeamName = document.getElementById("newTeamName").value;
@@ -56,33 +79,10 @@ function Teams() {
         };
         setPopUp(false);
         setNewTeamName(""); 
-        //getUserTeams(); 
+        getUserTeams();
     }
 
-    useEffect(() => {
-        async function getUserTeams() {
-            if (user){
-                try {
-                    const response = await fetch("http://localhost:8800/getUserTeams", {
-                    method: "POST",
-                    headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ id_user: user.id_user })
-                    });
-        
-                    const data = await response.json();
-        
-                    if (data.length === 0) {
-                        console.log("Nenhum time encontrado para este usuário.");
-                      }
-            
-                      setTeams(data);
-                } catch (e) {
-                    console.error("Erro ao buscar times:", e);
-                }
-            }
-        }
-        getUserTeams()
-    },[user]);
+
 
     return(
         <section>
@@ -99,7 +99,6 @@ function Teams() {
                             id_team={team.id_team}
                             funcao={team.role_user}/>
                         ))}
-                    {/* Deve ser feito lógica para um scroll ou setinhas para ver mais pra direita ou esquerda */ }
                 </div>
                 <p>Criar novo time</p>
                 <div className='min-w-300'>
@@ -115,8 +114,8 @@ function Teams() {
                 </div>
             </section>
 
-            {popUp && (<div className='absolute flex top-0 h-screen w-screen p-2 justify-center items-center bg-black opacity-45'>
-                <div className='bg-blue-700 h-[17vh] w-[53vw] rounded-2xl'>
+            {popUp && (<div className='absolute flex top-0 h-screen w-screen p-2 justify-center items-center'>
+                <div className='bg-blue-700 h-[17vh] w-[53vw] rounded-2xl' >
                     <div className='flex justify-end w-full pr-6 pt-2'>
                         <button className='text-black font-bold cursor-pointer' onClick={newTeamPopUp}>X</button>
                     </div>
