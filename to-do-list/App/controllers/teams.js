@@ -19,14 +19,15 @@ export const getUserTeams = (req, res) => {
 
 
 export const new_team_task = (req, res) => {
-    const { title, description, subject, id_user, id_team } = req.body;
+    const { title, description, subject, id_user, id } = req.body;
+        console.log(id);
 
-    if (!title || !description || !subject || !id_user) {
+    if (!title || !description || !subject || !id_user || !id) {
         return res.status(400).json({ error: "Todos os campos são obrigatórios!" });
     }
 
     const query = "INSERT INTO tasks (user_task, title_task, description_task, subject_task, status_task, team_task) VALUES (?, ?, ?, ?, ?, ?)";
-    const values = [id_user, title, description, subject, "ToDo", id_team];
+    const values = [id_user, title, description, subject, 1, id];
 
     con.query(query, values, (err, result) => {
         if (err) {
@@ -61,7 +62,7 @@ export const getStatusTeam = (req, res) => {
 export const getTeamTasks = (req, res) => {
     const { id } = req.body;
 
-    const query = "SELECT * FROM tasks INNER JOIN task_status ON task_status.id_status = tasks.status_task WHERE tasks.user_task = ? AND tasks.team_task IS NOT NULL";
+    const query = "SELECT * FROM tasks INNER JOIN task_status ON task_status.id_status = tasks.status_task WHERE tasks.team_task = ?";
     const values = [id];
 
     con.query(query, values, (err, data) => {
@@ -77,33 +78,50 @@ export const getTeamTasks = (req, res) => {
 export const createTeam = (req, res) => {
     const { name, owner  } = req.body;
     const dataAtual = new Date();
+    if (!name || !owner) {
+        return res.status(400).json({ error: "Todos os campos são obrigatórios!" });
+    } 
+
 
     // YYYY-MM-DD HH:MI:SS
     const dia = dataAtual.getDate();
     const mes = dataAtual.getMonth();
-    const ano = dataAtual.getFullYear();
+    const ano = dataAtual.getFullYear()+1;
     const hora = dataAtual.getHours();
     const minuto = dataAtual.getMinutes();
     const segundo = dataAtual.getSeconds();
     
     var creationTime = ano+'-'+mes+'-'+dia+' '+hora+':'+minuto+':'+segundo; 
 
-    const query = "INSERT INTO teams (name_team, owner_team, creation_team) VALUES (?, ?, ?);";
-    const values = [name, owner, creationTime];
+    const insertTeamQuery = "INSERT INTO teams (name_team, owner_team, creation_team) VALUES (?, ?, ?)";
+    const insertTeamValues = [name, owner, creationTime];
 
-
-    if (!name || !owner || !creationTime) {
-        return res.status(400).json({ error: "Todos os campos são obrigatórios!" });
-    }
-
-
-
-    con.query(query, values, (err, data) => {
+    con.query(insertTeamQuery, insertTeamValues, (err) => {
         if (err) {
-            console.error("Erro ao buscar times:", err);
-            return res.status(500).json({ error: "Erro ao buscar tarefas", details: err });
+            console.error("Erro ao inserir time:", err);
+            return res.status(500).json({ error: "Erro ao criar time", details: err });
         }
 
-        res.status(201).json({ message: "Tarefa criada com sucesso!" });
+        const selectTeamQuery = "SELECT id_team FROM teams WHERE name_team = ? AND owner_team = ? AND creation_team = ?";
+        const selectTeamValues = [name, owner, creationTime];
+
+        con.query(selectTeamQuery, selectTeamValues, (err, result) => {
+            if (err || result.length === 0) {
+                return res.status(500).json({ error: "Erro ao buscar o time criado", details: err });
+            }
+
+            const idTeam = result[0].id_team;
+            const insertMemberQuery = "INSERT INTO team_members (user_id, team_id, role_user) VALUES (?, ?, 'Moderador')";
+            const insertMemberValues = [owner, idTeam];
+
+            con.query(insertMemberQuery, insertMemberValues, (err) => {
+                if (err) {
+                    console.error("Erro ao inserir membro:", err);
+                    return res.status(500).json({ error: "Erro ao adicionar membro ao time", details: err });
+                }
+
+                return res.status(201).json({ message: "Time criado com sucesso!", teamId: idTeam });
+            });
+        });
     });
 };
