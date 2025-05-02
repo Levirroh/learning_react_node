@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 import Task from "../components/Task";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import NewTeamTask from "../components/NewTeamTask";
 
 function TeamTasks({ tasks = [] }) {
     const [selectedTask, setSelectedTask] = useState(null);
     const navigate = useNavigate();
-
+    const {id_team} = useParams();
 
     async function deleteTask(){
         try {
