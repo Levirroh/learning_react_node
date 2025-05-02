@@ -29,7 +29,7 @@ root.render(
         <Route path={`/update/:id`} element={<UpdateTask />} />
         <Route path={`/teams`} element={<Teams />} />
         <Route path={`/team/:id`} element={<Team />} />
-        <Route path="/Teamtask" element={<CreateTask />} />
+        <Route path="/Teamtask/:id" element={<CreateTask />} />
 
 
 
