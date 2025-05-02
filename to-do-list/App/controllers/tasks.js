@@ -25,7 +25,7 @@ export const new_task = (req, res) => {
     }
 
     const query = "INSERT INTO tasks (user_task, title_task, description_task, subject_task, status_task) VALUES (?, ?, ?, ?, ?)";
-    const values = [id_user, title, description, subject, "ToDo"];
+    const values = [id_user, title, description, subject, ];
 
     con.query(query, values, (err, result) => {
         if (err) {
