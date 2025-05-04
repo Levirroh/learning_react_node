@@ -1,4 +1,4 @@
-DROP DATABASE to_do_list_node; 
+DROP DATABASE IF EXISTS to_do_list_node; 
 CREATE DATABASE to_do_list_node;
 USE to_do_list_node;
 
@@ -14,6 +14,9 @@ CREATE TABLE teams(
 	id_team INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     name_team VARCHAR(90) NOT NULL,
     creation_team DATETIME ,
+    image_team TEXT,
+    color_team VARCHAR(16),
+    category_team VARCHAR(100),
     owner_team INT NOT NULL,
 	FOREIGN KEY (owner_team) REFERENCES users(id_user)
 );
@@ -85,4 +88,16 @@ INSERT INTO tasks (user_task, title_task, description_task, subject_task, status
 VALUES (1 ,"Done","Done", "Done", 3);
 SELECT * FROM users;
 
-SELECT * FROM team_members INNER JOIN teams ON teams.id_team = team_members.team_id WHERE team_members.user_id = 1
+INSERT INTO tasks (user_task, title_task, description_task, subject_task, status_task, team_task) 
+VALUES ( 1 ,"teamTask","teamTask", "teamTask", 1, 1);
+INSERT INTO tasks (user_task, title_task, description_task, subject_task, status_task, team_task) 
+VALUES ( 1 ,"teamTask2","teamTask", "teamTask", 1, 1);
+INSERT INTO tasks (user_task, title_task, description_task, subject_task, status_task, team_task) 
+VALUES ( 1 ,"teamTask3","teamTask", "teamTask", 1, 1);
+
+SELECT * FROM tasks WHERE tasks.team_task = 1;
+SELECT * FROM tasks WHERE user_task = 1;
+SELECT * FROM tasks INNER JOIN task_status ON task_status.id_status = tasks.status_task WHERE tasks.user_task = 1 AND tasks.team_task IS NOT NULL;
+SELECT * FROM tasks  WHERE tasks.team_task = 1;
+
+SELECT * FROM teams;
