@@ -11,6 +11,11 @@ function Teams() {
     const navigate = useNavigate();
     const [user, setUser] = useState(null);
     const [popUp, setPopUp] = useState(false);
+    const [UpdateConfig, setUpdateConfig] = useState(null);
+    const [selectedTeamConfig, setSelectedTeamConfig] = useState([]);
+
+    const [openConfig, setOpenConfig] = useState(false);
+
     const [newTeamName, setNewTeamName] = useState("");
 
     function toggleMenu() {
@@ -53,6 +58,14 @@ function Teams() {
         }
     }
 
+    function UpdateTeam(){
+        console.log("iria salvar agora");
+    }
+
+    function ChangeConfig(){
+        setOpenConfig(!openConfig);
+    }
+
     useEffect(() => {
         getUserTeams()
     },[user]);
@@ -81,9 +94,10 @@ function Teams() {
         setNewTeamName(""); 
         getUserTeams();
     }
-
-
-
+    
+    function UpdateConfigPopUp(){
+        setUpdateConfig(!UpdateConfig);
+    }
     return(
         <section>
             <Header title="Teams" onToggleMenu={toggleMenu} />
@@ -97,7 +111,10 @@ function Teams() {
                             <TeamIcon key={team.id_team_members}
                             nomeDoTime={team.name_team}
                             id_team={team.id_team}
-                            funcao={team.role_user}/>
+                            funcao={team.role_user}
+                            openConfig={openConfig}
+                            setOpenConfig={setOpenConfig}
+                            setSelectedTeamConfig={setSelectedTeamConfig}/>
                         ))}
                 </div>
                 <p>Criar novo time</p>
@@ -115,7 +132,7 @@ function Teams() {
             </section>
 
             {popUp && (<div className='absolute flex top-0 h-screen w-screen p-2 justify-center items-center'>
-                <div className='bg-blue-700 h-[17vh] w-[53vw] rounded-2xl' >
+                <div className='bg-blue-400 h-[17vh] w-[53vw] rounded-2xl' >
                     <div className='flex justify-end w-full pr-6 pt-2'>
                         <button className='text-black font-bold cursor-pointer' onClick={newTeamPopUp}>X</button>
                     </div>
@@ -127,9 +144,61 @@ function Teams() {
                         <button className='bg-blue-400 rounded-sm pt-2 pb-2 pl-5 pr-5' onClick={createTeam}>Criar</button>
                     </div>
                 </div>
-            </div>)};
+            </div>)}
+
+
+            {openConfig && (
+                <div className='flex absolute top-0 w-screen h-screen justify-center items-center'>
+                    <div className='bg-blue-300 p-5 flex flex-col border rounded-2xl shadow-gray-500 shadow-lg'>
+                        <div className='flex flex-col'>
+                            <p>Nome do time: {selectedTeamConfig[1]}</p>    
+                            <p>integrantes do time: {}</p>
+                            <p>Cor do time: {}</p>
+                            <p>Tarefas do time: {}</p>
+                            <p>Categorias do time: {}</p>
+                        </div>
+                        <div className="flex items-center justify-center gap-10">
+                            <button
+                                className="mt-2 px-4 py-2 bg-red-200 text-black rounded cursor-pointer"
+                                onClick={ChangeConfig}
+                            >Fechar</button>
+                            <button
+                                className="mt-2 px-4 py-2 bg-yellow-100 text-black rounded cursor-pointer"
+                                onClick={UpdateConfigPopUp}
+                            >Alterar</button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+            {UpdateConfig && (
+                <div className='flex absolute top-0 w-screen h-screen justify-center items-center'>
+                    <div className='bg-blue-300 p-5 flex flex-col border rounded-2xl'>
+                        <form action="">
+                            <div className='flex'>
+                                <label htmlFor="">Nome do time:</label>
+                                <input type="text" placeholder={selectedTeamConfig[1]}/>
+                            </div>
+                            <p>integrantes do time:</p>
+                            <p>Cor do time:</p>
+                            <p>Tarefas do time:</p>
+                            <p>Categorias do time:</p>
+                        </form>
+                        <div className="flex items-center justify-center gap-10">
+                            <button
+                                className="mt-2 px-4 py-2 bg-green-200 text-black rounded cursor-pointer"
+                                onClick={UpdateTeam}
+                            >Salvar</button>
+                            <button
+                                className="mt-2 px-4 py-2 bg-red-200 text-black rounded cursor-pointer"
+                                onClick={UpdateConfigPopUp}
+                            >Fechar</button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </section>
-    );
+    )
 }
 
 export default Teams;
