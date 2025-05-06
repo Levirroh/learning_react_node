@@ -17,6 +17,21 @@ export const getUserTeams = (req, res) => {
     });
 };
 
+export const getTeamMembers = (req, res) => {
+    const { id } = req.body;
+
+    const query = "SELECT DISTINCT * FROM users INNER JOIN team_members ON team_members.user_id = users.id_user WHERE team_members.team_id = ?";
+    const values = [id];
+
+    con.query(query, values, (err, data) => {
+        if (err) {
+            console.error("Erro ao buscar usuários do time:", err);
+            return res.json(err);
+        }
+
+        return res.status(200).json(data);
+    });
+};
 
 export const new_team_task = (req, res) => {
     const { title, description, subject, id_user, id } = req.body;
