@@ -13,7 +13,7 @@ function Teams() {
     const [popUp, setPopUp] = useState(false);
     const [UpdateConfig, setUpdateConfig] = useState(null);
     const [selectedTeamConfig, setSelectedTeamConfig] = useState([]);
-
+    const [teamMembers, setTeamMembers] = useState([]);
     const [openConfig, setOpenConfig] = useState(false);
 
     const [newTeamName, setNewTeamName] = useState("");
@@ -94,10 +94,38 @@ function Teams() {
         setNewTeamName(""); 
         getUserTeams();
     }
+    async function getTeamMembers(id_team) {
+        if (user) {
+            try {
+                const response = await fetch("http://localhost:8800/getTeamMembers", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ id: id_team }) 
+                });
     
-    function UpdateConfigPopUp(){
-        setUpdateConfig(!UpdateConfig);
+                const data = await response.json();
+    
+                if (data.length === 0) {
+                    console.log("Nenhum membro encontrado para este time.");
+                }
+    
+                setTeamMembers(data);
+                console.log(setTeamMembers);
+                console.log(teamMembers);
+                
+            } catch (e) {
+                console.error("Erro ao buscar membros do time:", e);
+            }
+        }
     }
+    async function UpdateConfigPopUp(){
+        setUpdateConfig(!UpdateConfig);
+        setOpenConfig(!openConfig);
+        if (UpdateConfig == false){
+            getTeamMembers(selectedTeamConfig[0]);
+        } 
+    }
+    
     return(
         <section>
             <Header title="Teams" onToggleMenu={toggleMenu} />
@@ -114,7 +142,8 @@ function Teams() {
                             funcao={team.role_user}
                             openConfig={openConfig}
                             setOpenConfig={setOpenConfig}
-                            setSelectedTeamConfig={setSelectedTeamConfig}/>
+                            setSelectedTeamConfig={setSelectedTeamConfig}
+                            getTeamMembers={getTeamMembers}/>
                         ))}
                 </div>
                 <p>Criar novo time</p>
@@ -152,7 +181,14 @@ function Teams() {
                     <div className='bg-blue-300 p-5 flex flex-col border rounded-2xl shadow-gray-500 shadow-lg'>
                         <div className='flex flex-col'>
                             <p>Nome do time: {selectedTeamConfig[1]}</p>    
-                            <p>integrantes do time: {}</p>
+                            <p>Integrantes do time:</p>
+                            <div>
+                            {teamMembers.map((member) => (
+                                <div className="flex" key={member.id_user}>
+                                    <p>{member.name_user}</p>
+                                </div>
+                                ))}
+                            </div>
                             <p>Cor do time: {}</p>
                             <p>Tarefas do time: {}</p>
                             <p>Categorias do time: {}</p>
@@ -170,16 +206,24 @@ function Teams() {
                     </div>
                 </div>
             )}
-
             {UpdateConfig && (
                 <div className='flex absolute top-0 w-screen h-screen justify-center items-center'>
                     <div className='bg-blue-300 p-5 flex flex-col border rounded-2xl'>
                         <form action="">
                             <div className='flex'>
                                 <label htmlFor="">Nome do time:</label>
-                                <input type="text" placeholder={selectedTeamConfig[1]}/>
+                                <input type="text" placeholder=""/>
                             </div>
                             <p>integrantes do time:</p>
+                            <div>
+                            {teamMembers.map((member) => (
+                                <div className="flex" key={member.id_user}>
+                                    <p>{member.name_user}</p>
+                                    <p>Deletar</p>
+                                    <p>Permissões</p>
+                                </div>
+                                ))}
+                            </div>
                             <p>Cor do time:</p>
                             <p>Tarefas do time:</p>
                             <p>Categorias do time:</p>
