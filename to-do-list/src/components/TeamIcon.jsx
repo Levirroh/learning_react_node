@@ -2,16 +2,17 @@ import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 import config_icon from "../images/config_icon.svg";
 
-function TeamIcon({nomeDoTime, id_team, funcao, openConfig, setOpenConfig, setSelectedTeamConfig }) {
+function TeamIcon({nomeDoTime, id_team, funcao, openConfig, setOpenConfig, setSelectedTeamConfig, getTeamMembers }) {
     const navigate = useNavigate();
 
     function goToTeam(){
         navigate(`/Team/${id_team}`);
     }
 
-    function OpenConfigo(){
+    function OpenConfig(){
         setOpenConfig(!openConfig);
-        setSelectedTeamConfig([id_team, nomeDoTime, funcao])
+        setSelectedTeamConfig([id_team, nomeDoTime, funcao]);
+        getTeamMembers(id_team);
     }
 
     return (
@@ -21,7 +22,7 @@ function TeamIcon({nomeDoTime, id_team, funcao, openConfig, setOpenConfig, setSe
                 <p>{funcao}</p>
             </div>
             <div className="flex">
-                <img src={config_icon} alt="Configurações" className="h-5" onClick={OpenConfigo} />
+                <img src={config_icon} alt="Configurações" className="h-5" onClick={OpenConfig} />
             </div>
         </div> 
     );
