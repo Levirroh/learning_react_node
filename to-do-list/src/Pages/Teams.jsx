@@ -36,6 +36,11 @@ function Teams() {
         }
       }, [navigate]);
 
+
+    async function unsetUserTeam(userId){
+        console.log(userId);
+    }
+
     async function getUserTeams() {
         if (user){
             try {
@@ -189,9 +194,9 @@ function Teams() {
                                 </div>
                                 ))}
                             </div>
-                            <p>Cor do time: {}</p>
-                            <p>Tarefas do time: {}</p>
-                            <p>Categorias do time: {}</p>
+                            <p>Cor do time: {selectedTeamConfig[3]}</p>
+                            <p>Tarefas do time: {selectedTeamConfig[6]} / {selectedTeamConfig[5]}</p>
+                            <p>Categoria do time: {selectedTeamConfig[4]}</p>
                         </div>
                         <div className="flex items-center justify-center gap-10">
                             <button
@@ -212,21 +217,26 @@ function Teams() {
                         <form action="">
                             <div className='flex'>
                                 <label htmlFor="">Nome do time:</label>
-                                <input type="text" placeholder=""/>
+                                <input type="text" value={selectedTeamConfig[1]}/>
                             </div>
                             <p>integrantes do time:</p>
                             <div>
                             {teamMembers.map((member) => (
-                                <div className="flex" key={member.id_user}>
+                                <div className="flex justify-between" key={member.id_user}>
                                     <p>{member.name_user}</p>
-                                    <p>Deletar</p>
-                                    <p>Permissões</p>
+                                    <button onClick={unsetUserTeam(member.id_user)}>Deletar</button>
+                                    <button>Permissões</button>
                                 </div>
                                 ))}
                             </div>
-                            <p>Cor do time:</p>
-                            <p>Tarefas do time:</p>
-                            <p>Categorias do time:</p>
+                            <div className='flex'>
+                                <p>Cor do time</p>
+                                <input value={selectedTeamConfig[3]}/>
+                            </div>
+                            <div className='flex'>
+                                <p>Categoria do time</p>
+                                <input value={selectedTeamConfig[4]}/>
+                            </div>
                         </form>
                         <div className="flex items-center justify-center gap-10">
                             <button
