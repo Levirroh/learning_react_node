@@ -9,9 +9,12 @@ function TeamIcon({nomeDoTime, id_team, funcao, openConfig, setOpenConfig, setSe
         navigate(`/Team/${id_team}`);
     }
 
+    var totalTasks = 5;
+    var completedTasks = 0;
+
     function OpenConfig(){
         setOpenConfig(!openConfig);
-        setSelectedTeamConfig([id_team, nomeDoTime, funcao]);
+        setSelectedTeamConfig([id_team, nomeDoTime, funcao, 'azul', 'time Teste', totalTasks, completedTasks]);
         getTeamMembers(id_team);
     }
 
