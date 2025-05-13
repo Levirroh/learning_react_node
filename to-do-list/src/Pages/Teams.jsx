@@ -75,6 +75,7 @@ function Teams() {
             }))
         };
     
+    
         try {
             const response = await fetch("http://localhost:8800/updateTeam", {
                 method: "POST",
