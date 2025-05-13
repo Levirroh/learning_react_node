@@ -140,3 +140,37 @@ export const createTeam = (req, res) => {
         });
     });
 };
+
+
+export const updateTeam = (req, res) => {
+    const { id, name, image, users, color, category } = req.body;
+
+    const updateTeam = "UPDATE teams SET name_team = ?, image_team = ?, color_team = ?, category_team = ? WHERE id_team = ?";
+    const valuesUpdateTeam = [name, image, color, category, id];
+
+    con.query(updateTeam, valuesUpdateTeam, (err, data) => {
+        if (err) {
+            console.error("Erro ao atualizar time:", err);
+            return res.status(500).json({ error: "Erro ao atualizar time", details: err });
+        }
+
+        if (Array.isArray(users) && users.length > 0) {
+            console.log('Total de usuários a serem atualizados:', users.length);
+
+            for (let i = 0; i < users.length; i++) {
+                const updateTeamMembers = "UPDATE team_members SET role_user = ? WHERE team_id = ? AND user_id = ?";
+                const values = [users[i].role, id, users[i].id];
+    
+                con.query(updateTeamMembers, values, (err) => {
+                    if (err) {
+                        console.error("Erro ao atualizar membro do time:", err);
+                    }
+                });
+            }
+        } else {
+            console.log("Nenhum usuário para atualizar.");
+        }
+
+        return res.status(200).json({ message: "Time atualizado com sucesso!" });
+    });
+};
