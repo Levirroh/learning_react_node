@@ -15,7 +15,9 @@ function Teams() {
     const [selectedTeamConfig, setSelectedTeamConfig] = useState([]);
     const [teamMembers, setTeamMembers] = useState([]);
     const [openConfig, setOpenConfig] = useState(false);
-
+    const [teamNameEdit, setTeamNameEdit] = useState("");
+    const [teamColorEdit, setTeamColorEdit] = useState("");
+    const [teamCategoryEdit, setTeamCategoryEdit] = useState("");
     const [newTeamName, setNewTeamName] = useState("");
 
     function toggleMenu() {
@@ -35,11 +37,6 @@ function Teams() {
           navigate("/login");
         }
       }, [navigate]);
-
-
-    async function unsetUserTeam(userId){
-        console.log(userId);
-    }
 
     async function getUserTeams() {
         if (user){
@@ -63,10 +60,42 @@ function Teams() {
         }
     }
 
-    function UpdateTeam(){
-        console.log("iria salvar agora");
-    }
+    async function UpdateTeam(e) {
+        e.preventDefault(); 
+    
+        const updatedTeam = {
+            id: selectedTeamConfig[0],
+            name: teamNameEdit,
+            image: null,
+            color: teamColorEdit,
+            category: teamCategoryEdit,
+            users: teamMembers.map(member => ({
+                id: member.id_user,
+                role: member.role_user
+            }))
+        };
+    
+        try {
+            const response = await fetch("http://localhost:8800/updateTeam", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ updatedTeam })
+            });
+    
+            const data = await response.json();
 
+            if (response.ok) {
+                console.log(data.message); 
+                await getUserTeams(); 
+                setUpdateConfig(false); 
+            } else {
+                console.error("Erro na resposta:", data);
+            }
+        } catch (e) {
+            console.error("Erro ao atualizar time:", e);
+        }
+    }
+    
     function ChangeConfig(){
         setOpenConfig(!openConfig);
     }
@@ -115,20 +144,27 @@ function Teams() {
                 }
     
                 setTeamMembers(data);
-                console.log(setTeamMembers);
-                console.log(teamMembers);
+            
                 
             } catch (e) {
                 console.error("Erro ao buscar membros do time:", e);
             }
         }
     }
-    async function UpdateConfigPopUp(){
+    function UpdateConfigPopUp() {
         setUpdateConfig(!UpdateConfig);
         setOpenConfig(!openConfig);
-        if (UpdateConfig == false){
+    
+        if (!UpdateConfig) {
             getTeamMembers(selectedTeamConfig[0]);
-        } 
+            setTeamNameEdit(selectedTeamConfig[1]);
+            setTeamColorEdit(selectedTeamConfig[3]);
+            setTeamCategoryEdit(selectedTeamConfig[4]);
+        } else {
+            setTeamNameEdit("");
+            setTeamColorEdit("");
+            setTeamCategoryEdit("");
+        }
     }
     
     return(
@@ -214,40 +250,57 @@ function Teams() {
             {UpdateConfig && (
                 <div className='flex absolute top-0 w-screen h-screen justify-center items-center'>
                     <div className='bg-blue-300 p-5 flex flex-col border rounded-2xl'>
-                        <form action="">
-                            <div className='flex'>
-                                <label htmlFor="">Nome do time:</label>
-                                <input type="text" value={selectedTeamConfig[1]}/>
-                            </div>
-                            <p>integrantes do time:</p>
-                            <div>
-                            {teamMembers.map((member) => (
-                                <div className="flex justify-between" key={member.id_user}>
-                                    <p>{member.name_user}</p>
-                                    <button onClick={unsetUserTeam(member.id_user)}>Deletar</button>
-                                    <button>Permissões</button>
-                                </div>
-                                ))}
-                            </div>
-                            <div className='flex'>
-                                <p>Cor do time</p>
-                                <input value={selectedTeamConfig[3]}/>
-                            </div>
-                            <div className='flex'>
-                                <p>Categoria do time</p>
-                                <input value={selectedTeamConfig[4]}/>
-                            </div>
-                        </form>
-                        <div className="flex items-center justify-center gap-10">
-                            <button
-                                className="mt-2 px-4 py-2 bg-green-200 text-black rounded cursor-pointer"
-                                onClick={UpdateTeam}
-                            >Salvar</button>
-                            <button
-                                className="mt-2 px-4 py-2 bg-red-200 text-black rounded cursor-pointer"
-                                onClick={UpdateConfigPopUp}
-                            >Fechar</button>
+                    <form onSubmit={UpdateTeam}>
+                        <div className='flex'>
+                            <label>Nome do time:</label>
+                            <input
+                            type="text"
+                            value={teamNameEdit}
+                            onChange={(e) => setTeamNameEdit(e.target.value)}
+                            />
                         </div>
+                        
+                        <p>Integrantes do time:</p>
+                        <div>
+                            {teamMembers.map((member) => (
+                            <div className="flex justify-between" key={member.id_user}>
+                                <p>{member.name_user}</p>
+                                <button>Permissões</button>
+                            </div>
+                            ))}
+                        </div>
+
+                        <div className='flex'>
+                            <p>Cor do time</p>
+                            <input
+                            value={teamColorEdit}
+                            onChange={(e) => setTeamColorEdit(e.target.value)}
+                            />
+                        </div>
+
+                        <div className='flex'>
+                            <p>Categoria do time</p>
+                            <input
+                            value={teamCategoryEdit}
+                            onChange={(e) => setTeamCategoryEdit(e.target.value)}
+                            />
+                        </div>
+
+                        <div className="flex items-center justify-center gap-10">
+                            <input
+                            className="mt-2 px-4 py-2 bg-green-200 text-black rounded cursor-pointer"
+                            value="Salvar"
+                            type='submit'
+                            />
+                            <button
+                            className="mt-2 px-4 py-2 bg-red-200 text-black rounded cursor-pointer"
+                            onClick={UpdateConfigPopUp}
+                            >
+                            Fechar
+                            </button>
+                        </div>
+                        </form>
+
                     </div>
                 </div>
             )}
