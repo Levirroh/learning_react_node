@@ -18,17 +18,28 @@ function TeamIcon({nomeDoTime, id_team, funcao, openConfig, setOpenConfig, setSe
         getTeamMembers(id_team);
     }
 
-    return (
-        <div className={`flex border p-2 rounded-2xl mt-3 text-left cursor-pointer items-top min-w-50`}>
-            <div onClick={goToTeam} className="w-full flex flex-col justify-evenly">
-                <h1 className="w-[90%]">{nomeDoTime}</h1>
-                <p>{funcao}</p>
-            </div>
-            <div className="flex">
-                <img src={config_icon} alt="Configurações" className="h-5" onClick={OpenConfig} />
-            </div>
-        </div> 
-    );
+    if(funcao == "Administrador"){
+        return (
+            <div className={`flex border p-2 rounded-2xl mt-3 text-left cursor-pointer items-top min-w-50`}>
+                <div onClick={goToTeam} className="w-full flex flex-col justify-evenly">
+                    <h1 className="w-[90%]">{nomeDoTime}</h1>
+                    <p>{funcao}</p>
+                </div>
+                <div className="flex">
+                    <img src={config_icon} alt="Configurações" className="h-5" onClick={OpenConfig} />
+                </div>
+            </div> 
+        );
+    } else {
+        return (
+            <div className={`flex border p-2 rounded-2xl mt-3 text-left cursor-pointer items-top min-w-50`}>
+                <div onClick={goToTeam} className="w-full flex flex-col justify-evenly">
+                    <h1 className="w-[90%]">{nomeDoTime}</h1>
+                    <p>{funcao}</p>
+                </div>
+            </div> 
+        );
+    }
 }
 
 export default TeamIcon;
