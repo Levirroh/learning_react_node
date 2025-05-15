@@ -53,7 +53,7 @@ function Teams() {
                     console.log("Nenhum time encontrado para este usuário.");
                     }
         
-                    setTeams(data);
+                setTeams(data);
             } catch (e) {
                 console.error("Erro ao buscar times:", e);
             }
@@ -167,7 +167,9 @@ function Teams() {
             setTeamCategoryEdit("");
         }
     }
-    
+
+    console.log(teams);
+
     return(
         <section>
             <Header title="Teams" onToggleMenu={toggleMenu} />
@@ -266,7 +268,23 @@ function Teams() {
                             {teamMembers.map((member) => (
                             <div className="flex justify-between" key={member.id_user}>
                                 <p>{member.name_user}</p>
-                                <button>Permissões</button>
+                                <select name="permitionUser"
+                                    className='bg-white rounded-2xl pl-2 pr-2'
+                                    value={member.role_user}
+                                    onChange={(e) => {
+                                        const newRole = e.target.value;
+                                        const updatedMembers = [...teamMembers];
+                                        updatedMembers[index] = {
+                                        ...updatedMembers[index],
+                                        role_user: newRole
+                                        };
+                                        setTeamMembers(updatedMembers);
+                                    }}
+                                    >
+                                    <option disabled>Permissões</option>
+                                    <option value="Moderador">Moderador</option>
+                                    <option value="Administrador">Administrador</option>
+                                </select>
                             </div>
                             ))}
                         </div>
