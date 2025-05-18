@@ -16,9 +16,9 @@ function Teams() {
     const [teamMembers, setTeamMembers] = useState([]);
     const [openConfig, setOpenConfig] = useState(false);
     const [teamNameEdit, setTeamNameEdit] = useState("");
-    const [teamColorEdit, setTeamColorEdit] = useState("");
     const [teamCategoryEdit, setTeamCategoryEdit] = useState("");
     const [newTeamName, setNewTeamName] = useState("");
+    const [newTeamColor, setNewTeamColor] = useState("#d3d3f8"); 
 
     function toggleMenu() {
         setIsMenuOpen(prev => !prev);
@@ -67,7 +67,7 @@ function Teams() {
             id: selectedTeamConfig[0],
             name: teamNameEdit,
             image: null,
-            color: teamColorEdit,
+            color: newTeamColor,
             category: teamCategoryEdit,
             users: teamMembers.map(member => ({
                 id: member.id_user,
@@ -205,13 +205,32 @@ function Teams() {
             </section>
 
             {popUp && (<div className='absolute flex top-0 h-screen w-screen p-2 justify-center items-center'>
-                <div className='bg-blue-400 h-[17vh] w-[53vw] rounded-2xl' >
+                <div className='bg-blue-400 h-fit w-[53vw] rounded-2xl' >
                     <div className='flex justify-end w-full pr-6 pt-2'>
                         <button className='text-black font-bold cursor-pointer' onClick={newTeamPopUp}>X</button>
                     </div>
                     <div className='flex items-center justify-center h-[6vh]'>
-                        <label htmlFor="newTeamName" className='bg-white p-2'>Nome do novo time:</label>
+                        <label htmlFor="newTeamName" className='bg-white p-2'>*Nome do novo time:</label>
                         <input className='bg-white p-2' name='newTeamName' id="newTeamName" placeholder='Ex.: escola' onChange={(e) => setNewTeamName(e.target.value)}/>
+                    </div>
+                    <div className='flex items-center justify-center h-[6vh]'>
+                        <label htmlFor="newTeamName" className='bg-white p-2'>Imagem:</label>
+                        <input className='bg-white p-2' name='newTeamName' type="file" id="newTeamName" placeholder='Ex.: escola' onChange={(e) => setNewTeamName(e.target.value)}/>
+                    </div>
+                    <div className='flex items-center justify-center h-[6vh]'>
+                        <label htmlFor="newTeamName" className='bg-white p-2'>Categoria:</label>
+                        <input className='bg-white p-2' name='newTeamName' id="newTeamName" placeholder='Ex.: escola' onChange={(e) => setNewTeamName(e.target.value)}/>
+                    </div>
+                    <div className='flex items-center justify-center h-[6vh]'>
+                        <label htmlFor="newTeamColor" className='bg-white p-2'>Cor:</label>
+                        <input
+                            className='bg-white p-1'
+                            name='newTeamColor'
+                            type='color'
+                            id="newTeamColor"
+                            value={newTeamColor}
+                            onChange={(e) => setNewTeamColor(e.target.value)}
+                        />
                     </div>
                     <div className='flex justify-center mt-2'>
                         <button className='bg-blue-400 rounded-sm pt-2 pb-2 pl-5 pr-5' onClick={createTeam}>Criar</button>
