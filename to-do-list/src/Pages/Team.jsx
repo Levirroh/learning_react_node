@@ -26,6 +26,9 @@ function Team() {
     }
   }, [navigate]);
 
+  const isAdmin = user;
+  console.log(user);
+
   useEffect(() => {
     if (user) {
       async function getTasks() {
@@ -55,7 +58,7 @@ function Team() {
 
   return (
     <section>
-      <Header title="Menu" onToggleMenu={toggleMenu} />
+      <Header title="Menu" team={true} onToggleMenu={toggleMenu} isAdmin={isAdmin}/>
       <Menu isOpen={isMenuOpen} onClose={toggleMenu} />
       {user ? (
         <div>
