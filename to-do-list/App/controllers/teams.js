@@ -91,7 +91,7 @@ export const getTeamTasks = (req, res) => {
 };
 
 export const createTeam = (req, res) => {
-    const { name, owner  } = req.body;
+    const { name, owner, color, image, category } = req.body;
     const dataAtual = new Date();
     if (!name || !owner) {
         return res.status(400).json({ error: "Todos os campos são obrigatórios!" });
@@ -108,13 +108,14 @@ export const createTeam = (req, res) => {
     
     var creationTime = ano+'-'+mes+'-'+dia+' '+hora+':'+minuto+':'+segundo; 
 
-    const insertTeamQuery = "INSERT INTO teams (name_team, owner_team, creation_team) VALUES (?, ?, ?)";
-    const insertTeamValues = [name, owner, creationTime];
+    const insertTeamQuery = "INSERT INTO teams (name_team, owner_team, creation_team, image_team, color_team, category_team) VALUES (?, ?, ?, ?, ?, ?)";
+    const insertTeamValues = [name, owner, creationTime, image, color, category];
 
     con.query(insertTeamQuery, insertTeamValues, (err) => {
         if (err) {
             console.error("Erro ao inserir time:", err);
             return res.status(500).json({ error: "Erro ao criar time", details: err });
+            
         }
 
         const selectTeamQuery = "SELECT id_team FROM teams WHERE name_team = ? AND owner_team = ? AND creation_team = ?";
@@ -126,7 +127,7 @@ export const createTeam = (req, res) => {
             }
 
             const idTeam = result[0].id_team;
-            const insertMemberQuery = "INSERT INTO team_members (user_id, team_id, role_user) VALUES (?, ?, 'Moderador')";
+            const insertMemberQuery = "INSERT INTO team_members (user_id, team_id, role_user) VALUES (?, ?, 'Administrador')";
             const insertMemberValues = [owner, idTeam];
 
             con.query(insertMemberQuery, insertMemberValues, (err) => {
