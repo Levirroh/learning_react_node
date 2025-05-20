@@ -19,7 +19,9 @@ function Teams() {
     const [teamCategoryEdit, setTeamCategoryEdit] = useState("");
     const [newTeamName, setNewTeamName] = useState("");
     const [newTeamColor, setNewTeamColor] = useState("#d3d3f8"); 
-
+    const [newTeamImage, setNewTeamImage] = useState("");
+    const [newTeamCategory, setNewTeamCategory] = useState("");
+    
     function toggleMenu() {
         setIsMenuOpen(prev => !prev);
     }
@@ -112,7 +114,7 @@ function Teams() {
                 const response = await fetch("http://localhost:8800/createTeam", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
-                body: JSON.stringify({ name: newTeamName , owner: user.id_user })
+                body: JSON.stringify({ name: newTeamName , owner: user.id_user, image: newTeamImage, color: newTeamColor, category: newTeamCategory })
                 });
     
                 const data = await response.json();
@@ -168,7 +170,6 @@ function Teams() {
         }
     }
 
-    console.log(teams);
 
     return(
         <section>
@@ -215,11 +216,11 @@ function Teams() {
                     </div>
                     <div className='flex items-center justify-center h-[6vh]'>
                         <label htmlFor="newTeamName" className='bg-white p-2'>Imagem:</label>
-                        <input className='bg-white p-2' name='newTeamName' type="file" id="newTeamName" placeholder='Ex.: escola' onChange={(e) => setNewTeamName(e.target.value)}/>
+                        <input className='bg-white p-2' name='newTeamName' type="file" id="newTeamName" placeholder='Ex.: escola' onChange={(e) => setNewTeamImage(e.target.value)}/>
                     </div>
                     <div className='flex items-center justify-center h-[6vh]'>
                         <label htmlFor="newTeamName" className='bg-white p-2'>Categoria:</label>
-                        <input className='bg-white p-2' name='newTeamName' id="newTeamName" placeholder='Ex.: escola' onChange={(e) => setNewTeamName(e.target.value)}/>
+                        <input className='bg-white p-2' name='newTeamName' id="newTeamName" placeholder='Ex.: escola' onChange={(e) => setNewTeamCategory(e.target.value)}/>
                     </div>
                     <div className='flex items-center justify-center h-[6vh]'>
                         <label htmlFor="newTeamColor" className='bg-white p-2'>Cor:</label>
