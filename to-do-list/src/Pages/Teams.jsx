@@ -21,7 +21,7 @@ function Teams() {
     const [newTeamColor, setNewTeamColor] = useState("#d3d3f8"); 
     const [newTeamImage, setNewTeamImage] = useState("");
     const [newTeamCategory, setNewTeamCategory] = useState("");
-    
+    const [teamColorEdit, setTeamColorEdit] = useState("");
     function toggleMenu() {
         setIsMenuOpen(prev => !prev);
     }
@@ -108,7 +108,6 @@ function Teams() {
     },[user]);
 
     async function createTeam() {
-        const newTeamName = document.getElementById("newTeamName").value;
         if (user){
             try {
                 const response = await fetch("http://localhost:8800/createTeam", {
@@ -274,8 +273,8 @@ function Teams() {
                 <div className='flex absolute top-0 w-screen h-screen justify-center items-center'>
                     <div className='bg-blue-300 p-5 flex flex-col border rounded-2xl'>
                     <form onSubmit={UpdateTeam}>
-                        <div className='flex'>
-                            <label>Nome do time:</label>
+                        <div className='flex gap-5'>
+                            <label>Nome do time: </label>
                             <input
                             type="text"
                             value={teamNameEdit}
@@ -309,16 +308,16 @@ function Teams() {
                             ))}
                         </div>
 
-                        <div className='flex'>
-                            <p>Cor do time</p>
+                        <div className='flex gap-5'>
+                            <p>Cor do time: </p>
                             <input
                             value={teamColorEdit}
                             onChange={(e) => setTeamColorEdit(e.target.value)}
                             />
                         </div>
 
-                        <div className='flex'>
-                            <p>Categoria do time</p>
+                        <div className='flex gap-5'>
+                            <p>Categoria do time: </p>
                             <input
                             value={teamCategoryEdit}
                             onChange={(e) => setTeamCategoryEdit(e.target.value)}
