@@ -10,6 +10,7 @@ function Team() {
   const [user, setUser] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false); 
   const { id } = useParams();
+  const [team, setTeam] = useState(null);
 
   function toggleMenu() {
     setIsMenuOpen(prev => !prev);
@@ -27,7 +28,8 @@ function Team() {
   }, [navigate]);
 
   const isAdmin = user;
-  console.log(user);
+  
+  
 
   useEffect(() => {
     if (user) {
@@ -50,15 +52,41 @@ function Team() {
           console.error("Erro ao buscar tarefas:", e);
         }
       }
-
       getTasks(); 
     }
   }, [user, id]); 
+  useEffect(() => {
+    if (user) {
+      async function getTeamData() {
+        try {
+          const response = await fetch("http://localhost:8800/getTeamData", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({ id })
+          });
 
+          const teamData = await response.json();
+
+          if (!teamData) {
+          console.log("Nenhum dado encontrado para este time.");
+          }
+
+          console.log(teamData);
+          setTeam(teamData);
+        } catch (e) {
+          console.error("Erro ao buscar dados do time:", e);
+        }
+      }
+
+      getTeamData(); 
+    }
+  }, [user, id]); 
+
+  console.log(team);
 
   return (
     <section>
-      <Header title="Menu" team={true} onToggleMenu={toggleMenu} isAdmin={isAdmin}/>
+      <Header title="Menu" team={true} onToggleMenu={toggleMenu} isAdmin={isAdmin} />
       <Menu isOpen={isMenuOpen} onClose={toggleMenu} />
       {user ? (
         <div>
