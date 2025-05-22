@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 
 function Header({ title, onToggleMenu, team }) {
-    const [OpenMenu, setOpenMenu] = useState(false);
+  const [OpenMenu, setOpenMenu] = useState(false);
 
   function abrirMenu(){
     setOpenMenu(!OpenMenu);
