@@ -175,15 +175,16 @@ function Teams() {
             <Header title="Teams" onToggleMenu={toggleMenu} />
             <Menu isOpen={isMenuOpen} onClose={toggleMenu} />
             <section className='pl-3'>
-
                 <h1>Times</h1>
                 <p>Seus times:</p>
                 <div className='flex gap-5'>
                     {teams.map((team) => (
                             <TeamIcon key={team.id_team_members}
                             nomeDoTime={team.name_team}
+                            color={team.color_team}
                             id_team={team.id_team}
                             funcao={team.role_user}
+                            category={team.category_team}
                             openConfig={openConfig}
                             setOpenConfig={setOpenConfig}
                             setSelectedTeamConfig={setSelectedTeamConfig}
@@ -310,10 +311,18 @@ function Teams() {
 
                         <div className='flex gap-5'>
                             <p>Cor do time: </p>
-                            <input
-                            value={teamColorEdit}
-                            onChange={(e) => setTeamColorEdit(e.target.value)}
-                            />
+                            <select name="teamColor" onChange={(e) => setTeamColorEdit(e.target.value)}>
+                                <option value={teamColorEdit} selected disabled>{teamColorEdit}</option>
+                                <option value="vermelho">Vermelho</option>
+                                <option value="amarelo">Amarelo</option>
+                                <option value="rosa">Rosa</option>
+                                <option value="azul">Azul</option>
+                                <option value="verde">Verde</option>
+                                <option value="roxo">Roxo</option>
+                                <option value="laranja">Laranja</option>
+                                <option value="cinza">Cinza</option>
+                                <option value="preto">Preto</option>
+                            </select>
                         </div>
 
                         <div className='flex gap-5'>
