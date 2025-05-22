@@ -17,6 +17,22 @@ export const getUserTeams = (req, res) => {
     });
 };
 
+export const getTeamData = (req,res) => {
+    const { id } = req.body;
+
+    const query = "SELECT * FROM teams WHERE id_team = ?";
+    const values = [id];
+
+    con.query(query, values, (err, data) => {
+        if (err) {
+            console.error("Erro ao buscar dados do time:", err);
+            return res.json(err);
+        }
+
+        return res.status(200).json(data);
+    });
+}
+
 export const getTeamMembers = (req, res) => {
     const { id } = req.body;
 
