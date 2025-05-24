@@ -40,15 +40,32 @@
 }
 
 
-.green{
-    background-color: rgb(159, 194, 106);
+.red{
+    background-color: rgb(238, 154, 154);
 }
-
 .yellow{
     background-color: rgb(223, 223, 152);
 }
+.pink{
+    background-color: pink;
+}
+.blue{
+    background-color: rgb(161, 161, 255);
+}
 
+.green{
+    background-color: rgb(159, 194, 106);
+}
+.purple{
+    background-color: rgb(149, 92, 241);
+}
+.orange{
+    background-color: rgb(255, 209, 124);
+}
+.gray{
+    background-color: rgb(189, 189, 189);
+}
 
-.red{
-    background-color: rgb(238, 154, 154);
+.black{
+    background-color: rgb(50, 50, 50);
 }
