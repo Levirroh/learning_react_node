@@ -86,7 +86,7 @@ function Team() {
 
   return (
     <section>
-      <Header title="Menu" team={true} onToggleMenu={toggleMenu} isAdmin={isAdmin} />
+      <Header title="Menu" team={true} onToggleMenu={toggleMenu} color={team.color_team} isAdmin={isAdmin} />
       <Menu isOpen={isMenuOpen} onClose={toggleMenu} />
       {user ? (
         <div>
