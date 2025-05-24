@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 
-function Header({ title, onToggleMenu, team }) {
+function Header({ title, onToggleMenu, team, color }) {
   const [OpenMenu, setOpenMenu] = useState(false);
 
   function abrirMenu(){
@@ -8,7 +8,7 @@ function Header({ title, onToggleMenu, team }) {
   }
   if (team == true){
     return (
-      <section className="bg-green-200 flex items-center justify-between p-4">
+      <section className={`${color} flex items-center justify-between p-4`}>
         <button onClick={onToggleMenu} className="cursor-pointer">{title}</button>
         <div className="w-50 flex justify-between" onClick={abrirMenu}>
           <div className=''>
