@@ -46,7 +46,7 @@ function TeamTasks({ tasks = [] }) {
     }
 
     return (
-        <section className="flex h-screen w-screen justify-evenly">
+        <section className="flex h-full w-screen justify-evenly">
             <div id="ToDo" className="text-center w-1/4">
                 <p>TO DO</p>
                 <ul>
