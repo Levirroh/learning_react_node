@@ -52,11 +52,6 @@ function Team() {
           console.error("Erro ao buscar tarefas:", e);
         }
       }
-      getTasks(); 
-    }
-  }, [user, id]); 
-  useEffect(() => {
-    if (user) {
       async function getTeamData() {
         try {
           const response = await fetch("http://localhost:8800/getTeamData", {
@@ -70,37 +65,35 @@ function Team() {
           if (!teamData) {
           console.log("Nenhum dado encontrado para este time.");
           }
-
-          console.log(teamData);
-          setTeam(teamData);
-        } catch (e) {
+          setTeam(teamData[0]);
+         } catch (e) {
           console.error("Erro ao buscar dados do time:", e);
         }
       }
-
       getTeamData(); 
+      getTasks(); 
     }
   }, [user, id]); 
 
-  console.log(team);
-
-  return (
-    <section>
-      <Header title="Menu" team={true} onToggleMenu={toggleMenu} color={team.color_team} isAdmin={isAdmin} />
-      <Menu isOpen={isMenuOpen} onClose={toggleMenu} />
-      {user ? (
-        <div>
-          <h1>Bem-vindo, <em>{user.name_user}</em>!</h1>
-          <TeamTasks tasks={tasks}/>
-        </div>
-      ) : (
-        <>
-          <p>Time não carregou...</p>
-          <a href="http://localhost:5173/login">Voltar</a>
-        </>
-      )}
-    </section>
-  );
+  if (team != null){ // ainda nao carregou os dados
+    return (
+      <section>
+        <Header title="Menu" color={team.color_team} team={true} onToggleMenu={toggleMenu} isAdmin={isAdmin} />
+        <Menu isOpen={isMenuOpen} onClose={toggleMenu} />
+        {user ? (
+          <div>
+            <h1>Bem-vindo, <em>{user.name_user}</em>!</h1>
+            <TeamTasks tasks={tasks}/>
+          </div>
+        ) : (
+          <>
+            <p>Time não carregou...</p>
+            <a href="http://localhost:5173/login">Voltar</a>
+          </>
+        )}
+      </section>
+    );
+  }
 }
 
 export default Team;
