@@ -40,32 +40,32 @@
 }
 
 
-.red{
-    background-color: rgb(238, 154, 154);
+.vermelho{
+    background-color: #f1a9a9;
 }
-.yellow{
-    background-color: rgb(223, 223, 152);
+.amarelo{
+    background-color: #f5f5026e;
 }
-.pink{
-    background-color: pink;
+.rosa{
+    background-color: #ffc0cb;
 }
-.blue{
-    background-color: rgb(161, 161, 255);
-}
-
-.green{
-    background-color: rgb(159, 194, 106);
-}
-.purple{
-    background-color: rgb(149, 92, 241);
-}
-.orange{
-    background-color: rgb(255, 209, 124);
-}
-.gray{
-    background-color: rgb(189, 189, 189);
+.azul{
+    background-color: #a1a1ff;
 }
 
-.black{
-    background-color: rgb(50, 50, 50);
+.verde{
+    background-color: #9fc26a;
+}
+.roxo{
+    background-color: #955cf1;
+}
+.laranja{
+    background-color: #ffd17c;
+}
+.cinza{
+    background-color: #bdbdbd;
+}
+
+.preto{
+    background-color: #323232;
 }
