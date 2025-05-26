@@ -19,7 +19,6 @@ export const getUserTeams = (req, res) => {
 
 export const getTeamData = (req,res) => {
     const { id } = req.body;
-
     const query = "SELECT * FROM teams WHERE id_team = ?";
     const values = [id];
 
