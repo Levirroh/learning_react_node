@@ -82,7 +82,6 @@ function Team() {
         <Menu isOpen={isMenuOpen} onClose={toggleMenu} />
         {user ? (
           <div>
-            <h1>Bem-vindo, <em>{user.name_user}</em>!</h1>
             <TeamTasks tasks={tasks}/>
           </div>
         ) : (
