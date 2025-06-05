@@ -44,7 +44,7 @@
     background-color: #f1a9a9;
 }
 .amarelo{
-    background-color: #f5f5026e;
+    background-color: #ffff83;
 }
 .rosa{
     background-color: #ffc0cb;
@@ -68,4 +68,12 @@
 
 .preto{
     background-color: #323232;
+}
+
+#ToDo h1,
+#Doing h1,
+#Done h1{
+    font-weight: 600;
+    font-size: larger;
+    padding: 10px 5px 0px 5px;
 }
