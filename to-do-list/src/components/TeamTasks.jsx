@@ -48,7 +48,7 @@ function TeamTasks({ tasks = [] }) {
     return (
         <section className="flex h-full w-screen justify-evenly">
             <div id="ToDo" className="text-center w-1/4">
-                <p>TO DO</p>
+                <h1>TO DO</h1>
                 <ul>
                     {}
                     <NewTeamTask />
@@ -68,7 +68,7 @@ function TeamTasks({ tasks = [] }) {
                 </ul>
             </div>
             <div id="Doing" className="text-center w-1/4">
-                <p>Doing</p>
+                <h1>Doing</h1>
                 <ul>
                     {tasks.filter(task => task.status_task === 2).map((task) => (
                         <Task key={task.id_task}
@@ -86,7 +86,7 @@ function TeamTasks({ tasks = [] }) {
                 </ul>
             </div>
             <div id="Done" className="text-center w-1/4">
-                <p>Done</p>
+                <h1>Done</h1>
                 <ul>
                     {tasks.filter(task => task.status_task === 3).map((task) => (
                         <Task key={task.id_task}
