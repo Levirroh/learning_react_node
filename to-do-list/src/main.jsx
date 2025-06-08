@@ -13,6 +13,7 @@ import UpdateTask from "./Pages/UpdateTask";
 import ErrorPage from "./Pages/ErrorPage";
 import Teams from "./Pages/Teams.jsx"
 import Team from "./Pages/Team.jsx"
+import Chats from "./Pages/Chats.jsx"
 
 import "./index.css";
 
@@ -30,6 +31,7 @@ root.render(
         <Route path={`/teams`} element={<Teams />} />
         <Route path={`/team/:id`} element={<Team />} />
         <Route path="/Teamtask/:id" element={<CreateTask />} />
+        <Route path="/chats" element={<Chats />} />
 
 
 
