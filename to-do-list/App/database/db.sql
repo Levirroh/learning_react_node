@@ -21,6 +21,8 @@ CREATE TABLE teams(
 	FOREIGN KEY (owner_team) REFERENCES users(id_user)
 );
 
+-- name, image, color, categoru, owner
+
 CREATE TABLE team_members(
 	id_team_members INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     user_id INT NOT NULL,
@@ -53,20 +55,33 @@ CREATE TABLE tasks(
 	FOREIGN KEY (status_task) REFERENCES task_status(id_status)
 );
 
-
-CREATE TABLE chat(
+CREATE TABLE chat (
 	id_chat INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name_chat INT NOT NULL
+    id_team INT, -- chave estrangeira opcional
+    name_chat VARCHAR(100) NOT NULL,
+    description_chat VARCHAR(255),
+    image_chat TEXT,
+    theme_chat VARCHAR(45),
+    total_messages_chat INT DEFAULT 0,
+    FOREIGN KEY (id_team) REFERENCES teams(id_team) -- caso exista uma tabela team
 );
 
-CREATE TABLE team_chat(
-	id_team_chat INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+CREATE TABLE message (
+	id_message INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_user INT NOT NULL,
+	id_chat INT NOT NULL,
+    content_message TEXT NOT NULL,
+    time_message DATETIME NOT NULL,
+    FOREIGN KEY (id_user) REFERENCES users(id_user),
+    FOREIGN KEY (id_chat) REFERENCES chat(id_chat)
+);
+
+CREATE TABLE chat_members (
+    id_chat_member INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_user INT NOT NULL,
     id_chat INT NOT NULL,
-    id_team INT NOT NULL,
-    total_messages_chat INT,
-    description_chat VARCHAR(90),
-	image_chat text,
-	theme_chat VARCHAR(45)
+    FOREIGN KEY (id_user) REFERENCES users(id_user),
+    FOREIGN KEY (id_chat) REFERENCES chat(id_chat)
 );
 
 
@@ -77,25 +92,28 @@ INSERT INTO users (name_user, function_user, email_user, password_user)
 VALUES ("admin","admin","admin","admin");
 
 INSERT INTO task_status (name_status, color_task) 
-VALUES ("ToDo", "red");
+VALUES ("ToDo", "vermelho");
 INSERT INTO task_status (name_status, color_task) 
-VALUES ("Doing", "yellow");
+VALUES ("Doing", "amarelo");
 INSERT INTO task_status (name_status, color_task) 
-VALUES ("Done", "green");
+VALUES ("Done", "verde");
 
-INSERT INTO teams (name_team, owner_team)
-VALUES ("Time do teste", 1);
+INSERT INTO teams (name_team, owner_team, color_team)
+VALUES ("Time do teste", 1, "amarelo");
 
 INSERT INTO team_members(user_id, team_id, role_user)
 VALUES(1, 1, "Administrador");
 
 
-INSERT INTO teams (name_team, owner_team)
-VALUES ("Time que convidaram o teste", 2);
+INSERT INTO teams (name_team, owner_team, color_team)
+VALUES ("Time que convidaram o teste", 2, "azul");
+
+INSERT INTO team_members(user_id, team_id, role_user)
+VALUES(2, 2, "Administrador");
+
 
 INSERT INTO team_members(user_id, team_id, role_user)
 VALUES(1, 2, "Moderador");
-
 
 INSERT INTO tasks (user_task, title_task, description_task, subject_task, status_task) 
 VALUES ( 1 ,"ToDo","ToDo", "ToDo", 1);
@@ -112,9 +130,17 @@ VALUES ( 1 ,"teamTask2","teamTask", "teamTask", 1, 1);
 INSERT INTO tasks (user_task, title_task, description_task, subject_task, status_task, team_task) 
 VALUES ( 1 ,"teamTask3","teamTask", "teamTask", 1, 1);
 
-SELECT * FROM tasks WHERE tasks.team_task = 1;
-SELECT * FROM tasks WHERE user_task = 1;
-SELECT * FROM tasks INNER JOIN task_status ON task_status.id_status = tasks.status_task WHERE tasks.user_task = 1 AND tasks.team_task IS NOT NULL;
-SELECT * FROM tasks  WHERE tasks.team_task = 1;
+
+
+INSERT INTO chat (id_team, name_chat, description_chat)
+VALUES (1, 'Chat do Time 1', 'Canal de comunicação do time 1');
+INSERT INTO message (id_user, id_chat, content_message, time_message)
+VALUES (1, 1, 'EEAE?', NOW());
+INSERT INTO message (id_user, id_chat, content_message, time_message)
+VALUES (2, 1, 'Hello world', NOW());
+
+
+
+UPDATE teams SET name_team = "time atualizado", image_team = null, color_team = "vermelho", category_team = "finanças" WHERE id_team = 2;
 
 SELECT * FROM teams;
