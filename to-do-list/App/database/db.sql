@@ -111,7 +111,6 @@ VALUES ("Time que convidaram o teste", 2, "azul");
 INSERT INTO team_members(user_id, team_id, role_user)
 VALUES(2, 2, "Administrador");
 
-
 INSERT INTO team_members(user_id, team_id, role_user)
 VALUES(1, 2, "Moderador");
 
@@ -124,14 +123,12 @@ VALUES (1 ,"Done","Done", "Done", 3);
 SELECT * FROM users;
 
 INSERT INTO tasks (user_task, title_task, description_task, subject_task, status_task, team_task) 
-VALUES ( 1 ,"teamTask","teamTask", "teamTask", 1, 1);
+VALUES ( 1 ,"teamTask","teamTask", "teamTa	sk", 1, 1);
 INSERT INTO tasks (user_task, title_task, description_task, subject_task, status_task, team_task) 
 VALUES ( 1 ,"teamTask2","teamTask", "teamTask", 1, 1);
 INSERT INTO tasks (user_task, title_task, description_task, subject_task, status_task, team_task) 
 VALUES ( 1 ,"teamTask3","teamTask", "teamTask", 1, 1);
-
-
-
+	
 INSERT INTO chat (id_team, name_chat, description_chat)
 VALUES (1, 'Chat do Time 1', 'Canal de comunicação do time 1');
 INSERT INTO message (id_user, id_chat, content_message, time_message)
@@ -140,7 +137,4 @@ INSERT INTO message (id_user, id_chat, content_message, time_message)
 VALUES (2, 1, 'Hello world', NOW());
 
 
-
 UPDATE teams SET name_team = "time atualizado", image_team = null, color_team = "vermelho", category_team = "finanças" WHERE id_team = 2;
-
-SELECT * FROM teams;
