@@ -73,30 +73,6 @@ function CreateTask() {
             }
         }
     };
-    // ainda nao pode ser usado pois o codigo nao tem
-    // como saber se é um team ou user sozinho
-
-    // useEffect(() => {
-    //     async function getSubjects() {
-    //     try {
-    //         const response = await fetch("http://localhost:8800/getSubjects", {
-    //         method: "POST",
-    //         headers: { "Content-Type": "application/json" },
-    //         body: JSON.stringify({ id_team })
-    //         });
-
-    //         const data = await response.json();
-
-    //         if (data.length === 0) {
-    //         console.log("Nenhuma tarefa encontrada para este usuário.");
-    //         }
-
-    //     } catch (e) {
-    //         console.error("Erro ao buscar tarefas:", e);
-    //     }
-    //     }
-
-    // });
 
     return(
         <section className="bg-slate-300 h-screen w-screen flex flex-col justify-center items-center">
