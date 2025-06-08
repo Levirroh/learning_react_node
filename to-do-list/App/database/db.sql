@@ -53,6 +53,18 @@ CREATE TABLE tasks(
 	FOREIGN KEY (status_task) REFERENCES task_status(id_status)
 );
 
+
+
+CREATE TABLE chat(
+	id_chat INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    name_chat INT NOT NULL,
+    total_messages_chat INT,
+    description_chat VARCHAR(90),
+	image_chat text,
+	theme_chat VARCHAR(45)
+);
+
+
 INSERT INTO users (name_user, function_user, email_user, password_user) 
 VALUES ("teste","teste","teste","teste");
 
