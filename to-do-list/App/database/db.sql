@@ -54,10 +54,15 @@ CREATE TABLE tasks(
 );
 
 
-
 CREATE TABLE chat(
 	id_chat INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    name_chat INT NOT NULL,
+    name_chat INT NOT NULL
+);
+
+CREATE TABLE team_chat(
+	id_team_chat INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_chat INT NOT NULL,
+    id_team INT NOT NULL,
     total_messages_chat INT,
     description_chat VARCHAR(90),
 	image_chat text,
