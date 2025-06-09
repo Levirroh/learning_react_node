@@ -8,9 +8,9 @@ function Team() {
   const [tasks, setTasks] = useState([]);
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
-  const [isMenuOpen, setIsMenuOpen] = useState(false); 
   const { id } = useParams();
   const [team, setTeam] = useState(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false); 
 
   function toggleMenu() {
     setIsMenuOpen(prev => !prev);
