@@ -20,7 +20,6 @@ router.post("/newTeamTask", new_team_task);
 router.post("/getTeamTasks", getTeamTasks);
 
 //user related
-router.post("/createUser", register_user);
 router.post("/loginUser", login_user)
 
 //teams related
