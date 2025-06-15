@@ -32,7 +32,7 @@ router.post("/getTeamData", getTeamData);
 
 //chat related
 
-router.post("/chats", get_chats_user)
+router.post("/getUserChats", get_chats_user)
 
 
 
