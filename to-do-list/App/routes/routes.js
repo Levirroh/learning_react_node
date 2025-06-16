@@ -2,7 +2,7 @@ import express from "express";
 import { login_user} from "../controllers/user.js";
 import { getUserTeams, getStatusTeam, getTeamTasks, new_team_task, createTeam, getTeamMembers, getTeamData, updateTeam} from "../controllers/teams.js";
 import {get_tasks_user, new_task, update_task, get_task_by_id, delete_task, change_status} from "../controllers/tasks.js";
-import {get_chats_user} from "../controllers/chats.js";
+import {get_chat_messages, get_chats_user} from "../controllers/chats.js";
 
 
 const router = express.Router();
@@ -32,7 +32,8 @@ router.post("/getTeamData", getTeamData);
 
 //chat related
 
-router.post("/getUserChats", get_chats_user)
+router.post("/getUserChats", get_chats_user);
+router.post("/getChatMessages", get_chat_messages)
 
 
 
