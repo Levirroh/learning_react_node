@@ -96,7 +96,7 @@ function Chats() {
                     ))}
                 </div>
                 <div className="w-full">
-                    <Chat messagesChat={messagesChat}/>
+                    <Chat messagesChat={messagesChat} user={user}/>
                 </div>
 
             </div>
