@@ -9,6 +9,7 @@ function Chat({messagesChat, user}) {
                 {messagesChat.map((message) => (
                      <Message key={message.id_message} message={message} user={user}></Message>
                 ))}
+                <input type="text" />
             </div> 
         );
     }
