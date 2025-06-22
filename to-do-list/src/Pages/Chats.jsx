@@ -80,25 +80,26 @@ function Chats() {
     }, [selectedChat]);
 
     return(
-        <section>
+        <section className="h-screen overflow-hidden">
             <Header title="Menu" onToggleMenu={toggleMenu} />
             <Menu isOpen={isMenuOpen} onClose={toggleMenu} />
-            <div className="flex w-full">
-                <div className="w-[30%]">
-                    {allChats.map((chat) => (
-                        <ChatIcon key={chat.id_chat}
-                        idChat={chat.id_chat}
-                        nomeDoTime={chat.name_chat}
-                        description={chat.description_chat}
-                        selectedChat={selectedChat}
-                        setSelectedChat={setSelectedChat}
-                        />
-                    ))}
+            <div className="flex w-full h-full">
+                <div className="w-1/3 flex border-r h-[94vh]">
+                    <div className="w-full border-t">
+                        {allChats.map((chat) => (
+                            <ChatIcon key={chat.id_chat}
+                            idChat={chat.id_chat}
+                            nomeDoTime={chat.name_chat}
+                            description={chat.description_chat}
+                            selectedChat={selectedChat}
+                            setSelectedChat={setSelectedChat}
+                            />
+                        ))}
+                    </div>
                 </div>
-                <div className="w-full">
+                <div className="w-full h-[90vh]">
                     <Chat messagesChat={messagesChat} user={user}/>
                 </div>
-
             </div>
         </section>
     )
