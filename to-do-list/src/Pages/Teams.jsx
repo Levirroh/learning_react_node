@@ -69,7 +69,7 @@ function Teams() {
             id: selectedTeamConfig[0],
             name: teamNameEdit,
             image: null,
-            color: newTeamColor,
+            color: teamColorEdit,
             category: teamCategoryEdit,
             users: teamMembers.map(member => ({
                 id: member.id_user,
@@ -222,16 +222,19 @@ function Teams() {
                         <label htmlFor="newTeamName" className='bg-white p-2'>Categoria:</label>
                         <input className='bg-white p-2' name='newTeamName' id="newTeamName" placeholder='Ex.: escola' onChange={(e) => setNewTeamCategory(e.target.value)}/>
                     </div>
-                    <div className='flex items-center justify-center h-[6vh]'>
-                        <label htmlFor="newTeamColor" className='bg-white p-2'>Cor:</label>
-                        <input
-                            className='bg-white p-1'
-                            name='newTeamColor'
-                            type='color'
-                            id="newTeamColor"
-                            value={newTeamColor}
-                            onChange={(e) => setNewTeamColor(e.target.value)}
-                        />
+                    <div className='flex items-center justify-center h-[6vh] gap-10'>
+                        <p>Cor: </p>
+                        <select name="teamColor" onChange={(e) => setNewTeamColor(e.target.value)} className='bg-white p-3 rounded-2xl'>
+                            <option value="vermelho">Vermelho</option>
+                            <option value="amarelo">Amarelo</option>
+                            <option value="rosa">Rosa</option>
+                            <option value="azul">Azul</option>
+                            <option value="verde">Verde</option>
+                            <option value="roxo">Roxo</option>
+                            <option value="laranja">Laranja</option>
+                            <option value="cinza">Cinza</option>
+                            <option value="preto">Preto</option>
+                        </select>
                     </div>
                     <div className='flex justify-center mt-2'>
                         <button className='bg-blue-400 rounded-sm pt-2 pb-2 pl-5 pr-5' onClick={createTeam}>Criar</button>
@@ -309,10 +312,10 @@ function Teams() {
                             ))}
                         </div>
 
-                        <div className='flex gap-5'>
+                        <div className='flex gap-5 text-center items-center'>
                             <p>Cor do time: </p>
-                            <select name="teamColor" onChange={(e) => setTeamColorEdit(e.target.value)}>
-                                <option value={teamColorEdit} selected disabled>{teamColorEdit}</option>
+                            <select name="teamColor" onChange={(e) => setTeamColorEdit(e.target.value)} className={`bg-white p-2 rounded-2xl ${teamColorEdit}`}>
+                                <option value={selectedTeamConfig[3]} selected disabled>{selectedTeamConfig[3]}</option>
                                 <option value="vermelho">Vermelho</option>
                                 <option value="amarelo">Amarelo</option>
                                 <option value="rosa">Rosa</option>
