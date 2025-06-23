@@ -5,11 +5,10 @@ import Message from "./Message.jsx";
 function Chat({messagesChat, user}) {
     if (messagesChat != null){
         return (
-            <div className="w-full h-[90vh] flex flex-col justify-end">
+            <div className="w-full h-[89vh] flex flex-col justify-end">
                 {messagesChat.map((message) => (
                      <Message key={message.id_message} message={message} user={user}></Message>
                 ))}
-                <input type="text" />
             </div> 
         );
     }
