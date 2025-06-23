@@ -4,6 +4,7 @@ import Menu from "../components/Menu";
 import ChatIcon from '../components/ChatIcon';
 import React, { useEffect, useState } from 'react';
 import Chat from '../components/Chat';
+import ChatInput from "../components/ChatInput";
 
 
 function Chats() {
@@ -99,6 +100,9 @@ function Chats() {
                 </div>
                 <div className="w-full h-[90vh]">
                     <Chat messagesChat={messagesChat} user={user}/>
+                    {selectedChat != null && (
+                        <ChatInput messagesChat={messagesChat}/>
+                    )}
                 </div>
             </div>
         </section>
