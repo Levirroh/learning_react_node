@@ -32,3 +32,19 @@ export const get_chat_messages = (req, res) => {
         return res.status(200).json(data);
     });
 };
+export const new_chat_message = (req, res) => {
+    const { id_chat, id_user, message } = req.body;
+
+    const query = "INSERT INTO message (id_user, id_chat, content_message, time_message) VALUES (?, ?, ?, NOW());";
+    const values = [id_chat, id_user, message];
+
+    con.query(query, values, (err, data) => {
+        if (err) {
+            console.error("Erro ao ao criar nova mensagem:", err);
+            return res.json(err);
+        }
+
+        return res.status(200).json(data);
+    });
+};
+
