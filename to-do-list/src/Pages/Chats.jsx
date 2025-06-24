@@ -107,7 +107,7 @@ function Chats() {
 
         socket.current.on("receiveMessage", (msg) => {
             if (msg.id_chat === selectedChat) {
-                getChatMessages(); // atualiza se a mensagem for do chat atual
+                getChatMessages(); 
             }
         });
 
