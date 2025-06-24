@@ -2,9 +2,10 @@ import { useNavigate } from "react-router-dom";
 import Header from '../components/Header';
 import Menu from "../components/Menu";
 import ChatIcon from '../components/ChatIcon';
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import Chat from '../components/Chat';
 import ChatInput from "../components/ChatInput";
+import { io } from "socket.io-client";
 
 
 function Chats() {
@@ -14,6 +15,7 @@ function Chats() {
     const [allChats, setAllChats] = useState([]);
     const [selectedChat, setSelectedChat] = useState(null);
     const [messagesChat, setMessagesChat] = useState([]);
+    const socket = useRef(null);
     
 
   function toggleMenu() {
@@ -21,12 +23,12 @@ function Chats() {
   }
     useEffect(() => {
         const storedUser = localStorage.getItem("user");
-        if (storedUser) {
-        const parsedUser = JSON.parse(storedUser);
-        setUser(parsedUser);
-        } else {
-        navigate("/login");
-        }
+            if (storedUser) {
+            const parsedUser = JSON.parse(storedUser);
+            setUser(parsedUser);
+            } else {
+            navigate("/login");
+            }
     }, [navigate]);
 
 
@@ -55,30 +57,72 @@ function Chats() {
     getUserChats();
     }, [user]);
 
-    useEffect(() => {
-        async function getChatMessages() {
-            if (selectedChat) {
-                try {
-                    const response = await fetch("http://localhost:8800/getChatMessages", {
-                        method: "POST",
-                        headers: { "Content-Type": "application/json" },
-                        body: JSON.stringify({ id_chat: selectedChat })
-                    });
+    async function getChatMessages() {
+        if (selectedChat) {
+            try {
+                const response = await fetch("http://localhost:8800/getChatMessages", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ id_chat: selectedChat })
+                });
 
-                    const data = await response.json();
-                    if (data.length === 0) {
-                        console.log("Nenhuma mensagem de chat encontrada.");
-                    }
-
-                    setMessagesChat(data);
-                } catch (e) {
-                    console.error("Erro ao buscar mensagens:", e);
+                const data = await response.json();
+                if (data.length === 0) {
+                    console.log("Nenhuma mensagem de chat encontrada.");
                 }
+
+                setMessagesChat(data);
+            } catch (e) {
+                console.error("Erro ao buscar mensagens:", e);
             }
         }
+    }
 
+    useEffect(() => {
         getChatMessages();
     }, [selectedChat]);
+
+
+    async function newMessage(e) {
+        if (e.key !== "Enter") return;
+
+        const message = e.target.value.trim();
+        if (message === "") return;
+
+        try {
+            await fetch("http://localhost:8800/newMessage", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id_user: user.id_user, id_chat: selectedChat, message: message })
+            });
+            e.target.value = ""; 
+        } catch (err) {
+            console.error("Erro ao enviar mensagem:", err);
+        }
+        await getChatMessages(); 
+    }
+    
+    useEffect(() => {
+        socket.current = io("http://localhost:8800");
+
+        socket.current.on("receiveMessage", (msg) => {
+            if (msg.id_chat === selectedChat) {
+                getChatMessages(); // atualiza se a mensagem for do chat atual
+            }
+        });
+
+        return () => {
+            socket.current.disconnect();
+        };
+    }, [selectedChat]);
+
+
+
+
+
+
+
+
 
     return(
         <section className="h-screen overflow-hidden">
@@ -101,7 +145,7 @@ function Chats() {
                 <div className="w-full h-[90vh]">
                     <Chat messagesChat={messagesChat} user={user}/>
                     {selectedChat != null && (
-                        <ChatInput messagesChat={messagesChat}/>
+                        <ChatInput selectedChat={selectedChat} id_user={user.id_user} newMessage={newMessage}/>
                     )}
                 </div>
             </div>
