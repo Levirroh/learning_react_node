@@ -346,7 +346,7 @@ function Teams() {
                             className="mt-2 px-4 py-2 bg-red-200 text-black rounded cursor-pointer"
                             onClick={UpdateConfigPopUp}
                             >
-                            Fechar
+                            Voltar
                             </button>
                         </div>
                         </form>
