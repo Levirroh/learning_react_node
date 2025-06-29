@@ -36,7 +36,7 @@ export const new_chat_message = (req, res) => {
     const { id_chat, id_user, message } = req.body;
 
     const query = "INSERT INTO message (id_user, id_chat, content_message, time_message) VALUES (?, ?, ?, NOW());";
-    const values = [id_chat, id_user, message];
+    const values = [id_user, id_chat, message];
 
     con.query(query, values, (err, data) => {
         if (err) {
