@@ -29,7 +29,7 @@ function Header({ title, onToggleMenu, team, color }) {
     );
   } else {
     return (
-      <section className="bg-blue-400 flex items-center justify-between p-4">
+      <section className="bg-blue-400 flex items-center justify-between p-3 fixed top-0 left-0 w-full z-50">
         <button onClick={onToggleMenu} className="cursor-pointer">{title}</button>
         <a href="/login"><button>Sair</button></a>
       </section>
