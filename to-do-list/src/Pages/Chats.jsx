@@ -116,19 +116,11 @@ function Chats() {
         };
     }, [selectedChat]);
 
-
-
-
-
-
-
-
-
     return(
         <section className="h-screen overflow-hidden">
-            <Header title="Menu" onToggleMenu={toggleMenu} />
+            <Header title="Menu" onToggleMenu={toggleMenu}/>
             <Menu isOpen={isMenuOpen} onClose={toggleMenu} />
-            <div className="flex w-full h-full">
+            <div className="flex w-full h-full pt-12">
                 <div className="w-1/3 flex border-r h-[94vh]">
                     <div className="w-full border-t">
                         {allChats.map((chat) => (
