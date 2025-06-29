@@ -15,14 +15,11 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-    console.log("Usuário conectado via WebSocket");
-
     socket.on("sendMessage", (data) => {
         io.emit("receiveMessage", data); 
     });
 
     socket.on("disconnect", () => {
-        console.log("Usuário desconectado");
     });
 });
 
