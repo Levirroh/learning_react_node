@@ -6,6 +6,7 @@ import React, { useEffect, useState, useRef } from 'react';
 import Chat from '../components/Chat';
 import ChatInput from "../components/ChatInput";
 import { io } from "socket.io-client";
+import new_task from "../images/new_task.svg";
 
 
 function Chats() {
@@ -16,6 +17,7 @@ function Chats() {
     const [selectedChat, setSelectedChat] = useState(null);
     const [messagesChat, setMessagesChat] = useState([]);
     const socket = useRef(null);
+    const [formCreateChat, setFormCreateChat] = useState(false); 
     
 
   function toggleMenu() {
@@ -116,6 +118,11 @@ function Chats() {
         };
     }, [selectedChat]);
 
+    function openCreateChat(){
+        setFormCreateChat(true);
+    }
+    
+
     return(
         <section className="h-screen overflow-hidden">
             <Header title="Menu" onToggleMenu={toggleMenu}/>
@@ -123,6 +130,12 @@ function Chats() {
             <div className="flex w-full h-full pt-12">
                 <div className="w-1/3 flex border-r h-[94vh]">
                     <div className="w-full border-t">
+                        <div className={`flex border-b p-2 text-left cursor-pointer items-top`}
+                            onClick={openCreateChat}>
+                                <div className="flex w-full justify-center items-center">
+                                    <img src={new_task} alt="Criar novo chat" className="h-15"/>
+                                </div>
+                            </div> 
                         {allChats.map((chat) => (
                             <ChatIcon key={chat.id_chat}
                             idChat={chat.id_chat}
@@ -130,12 +143,13 @@ function Chats() {
                             description={chat.description_chat}
                             selectedChat={selectedChat}
                             setSelectedChat={setSelectedChat}
+                            setFormCreateChat={setFormCreateChat} formCreateChat={formCreateChat}
                             />
                         ))}
                     </div>
                 </div>
                 <div className="w-full h-[90vh]">
-                    <Chat messagesChat={messagesChat} user={user}/>
+                    <Chat messagesChat={messagesChat} user={user} setFormCreateChat={setFormCreateChat} formCreateChat={formCreateChat}/>
                     {selectedChat != null && (
                         <ChatInput selectedChat={selectedChat} id_user={user.id_user} newMessage={newMessage}/>
                     )}
