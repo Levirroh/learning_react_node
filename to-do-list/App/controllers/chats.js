@@ -48,3 +48,19 @@ export const new_chat_message = (req, res) => {
     });
 };
 
+export const create_new_chat = (req, res) => {
+    const { id_team, chat_name, chat_desc, chat_subject, chat_image } = req.body;
+
+    const query = "INSERT INTO chat (id_team, name_chat, description_chat, subject_chat, image_chat) VALUES (?, ?, ?, ?, ?);";
+    const values = [id_team, chat_name, chat_desc, chat_subject, chat_image];
+
+    con.query(query, values, (err, data) => {
+        if (err) {
+            console.error("Erro ao ao criar novo time:", err);
+            return res.json(err);
+        }
+
+        return res.status(200).json(data);
+    });
+};
+
