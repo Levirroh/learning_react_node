@@ -56,11 +56,10 @@ export const create_new_chat = (req, res) => {
 
     con.query(query, values, (err, data) => {
         if (err) {
-            console.error("Erro ao ao criar novo time:", err);
-            return res.json(err);
+            console.error("Erro ao criar novo chat:", err);
+            return res.status(500).json({ error: "Erro ao criar novo chat", details: err });
         }
 
-        return res.status(200).json(data);
+        return res.status(200).json({ message: "Chat criado com sucesso", data });
     });
 };
-
