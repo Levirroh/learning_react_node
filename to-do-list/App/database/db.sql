@@ -61,7 +61,7 @@ CREATE TABLE chat (
     name_chat VARCHAR(100) NOT NULL,
     description_chat VARCHAR(255),
     image_chat TEXT,
-    theme_chat VARCHAR(45),
+    subject_chat VARCHAR(45),
     total_messages_chat INT DEFAULT 0,
     FOREIGN KEY (id_team) REFERENCES teams(id_team) -- caso exista uma tabela team
 );
@@ -111,6 +111,7 @@ VALUES ("Time que convidaram o teste", 2, "azul");
 INSERT INTO team_members(user_id, team_id, role_user)
 VALUES(2, 2, "Administrador");
 
+
 INSERT INTO team_members(user_id, team_id, role_user)
 VALUES(1, 2, "Moderador");
 
@@ -128,6 +129,8 @@ INSERT INTO tasks (user_task, title_task, description_task, subject_task, status
 VALUES ( 1 ,"teamTask2","teamTask", "teamTask", 1, 1);
 INSERT INTO tasks (user_task, title_task, description_task, subject_task, status_task, team_task) 
 VALUES ( 1 ,"teamTask3","teamTask", "teamTask", 1, 1);
+
+
 	
 INSERT INTO chat (id_team, name_chat, description_chat)
 VALUES (1, 'Chat do Time 1', 'Canal de comunicação do time 1');
@@ -137,4 +140,16 @@ INSERT INTO message (id_user, id_chat, content_message, time_message)
 VALUES (2, 1, 'Hello world', NOW());
 
 
+INSERT INTO chat (id_team, name_chat, description_chat)
+VALUES (1, 'Chat do Time 2', 'Canal de comunicação do time 2');
+INSERT INTO message (id_user, id_chat, content_message, time_message)
+VALUES (1, 2, 'TIME 2 EBAAA?', NOW());
+INSERT INTO message (id_user, id_chat, content_message, time_message)
+VALUES (2, 2, 'ASDOIJASD', NOW());
+
 UPDATE teams SET name_team = "time atualizado", image_team = null, color_team = "vermelho", category_team = "finanças" WHERE id_team = 2;
+
+SELECT * FROM teams;
+
+SELECT * FROM message INNER JOIN chat ON message.id_chat = chat.id_chat WHERE chat.id_chat = 1;
+SELECT * FROM chat JOIN team_members ON team_members.team_id = chat.id_team WHERE team_members.user_id = 1;
