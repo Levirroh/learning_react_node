@@ -2,14 +2,15 @@ import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import Message from "./Message.jsx";
 
-function Chat({messagesChat, user, formCreateChat, setFormCreateChat}) {
+function Chat({messagesChat, formCreateChat, setFormCreateChat, getUserChats}) {
     const [teams, setTeams] = useState([]);
+    const [user, setUser] = useState([]);
     const [newChatName, setNewChatName] = useState("");
     const [newChatTeam, setNewChatTeam] = useState("");
     const [newChatImage, setNewChatImage] = useState("");
     const [newChatDesc, setNewChatDesc] = useState("");
     const [newChatSubject, setNewChatSubject] = useState("");
-
+    const navigate = useNavigate();
     useEffect(() => {
         const storedUser = localStorage.getItem("user");
             if (storedUser) {
@@ -46,26 +47,34 @@ function Chat({messagesChat, user, formCreateChat, setFormCreateChat}) {
         getUserTeams()
     },[user]);
 
-    async function createChat(){
-        if(newChatDesc != null || newChatDesc != "" || newChatName != null || newChatName != "" || newChatSubject != null || newChatSubject != ""){
+    async function createChat(e) {
+        e.preventDefault();
+
+        if (newChatName && newChatDesc && newChatSubject && newChatTeam != "") {
             try {
                 const response = await fetch("http://localhost:8800/createNewChat", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ id_user: user.id_user, chat_name: newChatName, chat_desc: newChatDesc, chat_subject: newChatSubject, chat_image: newChatImage })
+                    body: JSON.stringify({
+                        id_team: newChatTeam,
+                        chat_name: newChatName,
+                        chat_desc: newChatDesc,
+                        chat_subject: newChatSubject,
+                        chat_image: newChatImage
+                    })
                 });
 
                 const data = await response.json();
-                if (data.length === 0) {
-                    console.log("Nenhuma mensagem de chat encontrada.");
-                }
-
-                setMessagesChat(data);
+                setFormCreateChat(false); 
+                getUserChats();
             } catch (e) {
-                console.error("Erro ao buscar mensagens:", e);
+                console.error("Erro ao criar chat:", e);
             }
+        } else {
+            console.warn("Preencha todos os campos obrigatórios.");
         }
     }
+
 
 
     if (!formCreateChat){
@@ -81,27 +90,32 @@ function Chat({messagesChat, user, formCreateChat, setFormCreateChat}) {
     } else {
         return(
             <div className="w-full h-[89vh] flex flex-col justify-end">
-                <form>
-                    <label htmlFor="">Nome</label>
-                    <input className='bg-white p-2' name='newChatName' id="newChatName" placeholder='Ex.: Chat do trabalho' onChange={(e) => setNewChatName(e.target.value)}/>
-
-                    <label htmlFor="">Time do chat</label>s
-                    <select name="" id="" className='bg-white p-2' placeholder='Ex.: Trabalho' onChange={(e) => setNewChatTeam(e.target.value)}>
-                        {teams.map((team) => (
-                            <option value={team.id_team}>{team.name_team}</option>
-                        ))}
-                    </select>
-                    
-                    <label htmlFor="">Descrição</label>
-                    <input className='bg-white p-2' name='newChatName' id="newChatName" placeholder='Ex.: Chat para trabalho' onChange={(e) => setNewChatDesc(e.target.value)}/>
-                    
-                    <label htmlFor="">Imagem</label>
-                    <input className='bg-white p-2' type="image" name='newChatName' id="newChatName" onChange={(e) => setNewChatImage(e.target.value)}/>
-                    
-                    <label htmlFor="">Assunto</label>
-                    <input className='bg-white p-2' name='newChatName' id="newChatName" placeholder='Ex.: Trabalho' onChange={(e) => setNewChatSubject(e.target.value)}/>
-
-                    <input type="submit" onClick={createChat}/>
+                <form className="flex flex-col gap-10" onSubmit={createChat}>
+                    <div>
+                        <label htmlFor="chatName">Nome</label>
+                        <input className='bg-white p-2' id="chatName" placeholder='Ex.: Chat do trabalho' onChange={(e) => setNewChatName(e.target.value)} />
+                    </div>
+                    <div>
+                        <label htmlFor="chatTeam">Time do chat</label>
+                        <select id="chatTeam" className='bg-white p-2' onChange={(e) => setNewChatTeam(e.target.value)}>
+                            {teams.map((team) => (
+                                <option key={team.id_team} value={team.id_team}>{team.name_team}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div>
+                        <label htmlFor="chatDesc">Descrição</label>
+                        <input className='bg-white p-2' id="chatDesc" placeholder='Ex.: Chat para trabalho' onChange={(e) => setNewChatDesc(e.target.value)} />
+                    </div>
+                    <div>
+                        <label htmlFor="chatImage">Imagem</label>
+                        <input className='bg-white p-2' id="chatImage" type="image" onChange={(e) => setNewChatImage(e.target.value)} />
+                    </div>
+                    <div>
+                        <label htmlFor="chatSubject">Assunto</label>
+                        <input className='bg-white p-2' id="chatSubject" placeholder='Ex.: Trabalho' onChange={(e) => setNewChatSubject(e.target.value)} />
+                    </div>
+                    <button type="submit">Criar chat</button>
                 </form>
             </div> 
         )
