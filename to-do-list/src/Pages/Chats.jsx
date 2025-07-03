@@ -36,6 +36,8 @@ function Chats() {
 
 
     useEffect(() => {
+        getUserChats();
+    }, [user]);
     async function getUserChats() {
         if (user) {
             try {
@@ -56,8 +58,6 @@ function Chats() {
         }
     }
 
-    getUserChats();
-    }, [user]);
 
     async function getChatMessages() {
         if (selectedChat) {
@@ -149,9 +149,9 @@ function Chats() {
                     </div>
                 </div>
                 <div className="w-full h-[90vh]">
-                    <Chat messagesChat={messagesChat} user={user} setFormCreateChat={setFormCreateChat} formCreateChat={formCreateChat}/>
+                    <Chat messagesChat={messagesChat} user={user} setFormCreateChat={setFormCreateChat} formCreateChat={formCreateChat} getUserChats={getUserChats}/>
                     {selectedChat != null && (
-                        <ChatInput selectedChat={selectedChat} id_user={user.id_user} newMessage={newMessage}/>
+                        <ChatInput selectedChat={selectedChat} newMessage={newMessage}/>
                     )}
                 </div>
             </div>
