@@ -57,7 +57,7 @@ function Chats() {
             }
         }
     }
-
+    console.log(selectedChat)
 
     async function getChatMessages() {
         if (selectedChat) {
@@ -128,7 +128,7 @@ function Chats() {
             <Header title="Menu" onToggleMenu={toggleMenu}/>
             <Menu isOpen={isMenuOpen} onClose={toggleMenu} />
             <div className="flex w-full h-full pt-12">
-                <div className="w-1/3 flex border-r h-[94vh]">
+                <div className="w-1/3 flex border-r h-full">
                     <div className="w-full border-t">
                         <div className={`flex border-b p-2 text-left cursor-pointer items-top`}
                             onClick={openCreateChat}>
@@ -149,7 +149,7 @@ function Chats() {
                     </div>
                 </div>
                 <div className="w-full h-[90vh]">
-                    <Chat messagesChat={messagesChat} user={user} setFormCreateChat={setFormCreateChat} formCreateChat={formCreateChat} getUserChats={getUserChats}/>
+                    <Chat messagesChat={messagesChat} user={user} setFormCreateChat={setFormCreateChat} formCreateChat={formCreateChat} getUserChats={getUserChats} selectedChat={selectedChat}/>
                     {selectedChat != null && (
                         <ChatInput selectedChat={selectedChat} newMessage={newMessage}/>
                     )}
