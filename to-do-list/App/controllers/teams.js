@@ -50,7 +50,6 @@ export const getTeamMembers = (req, res) => {
 
 export const new_team_task = (req, res) => {
     const { title, description, subject, id_user, id } = req.body;
-        console.log(id);
 
     if (!title || !description || !subject || !id_user || !id) {
         return res.status(400).json({ error: "Todos os campos são obrigatórios!" });
@@ -175,23 +174,6 @@ export const updateTeam = (req, res) => {
             console.error("Erro ao atualizar time:", err);
             return res.status(500).json({ error: "Erro ao atualizar time", details: err });
         }
-
-        // if (Array.isArray(users) && users.length > 0) {
-        //     console.log('Total de usuários a serem atualizados:', users.length);
-
-        //     for (let i = 0; i < users.length; i++) {
-        //         const updateTeamMembers = "UPDATE team_members SET role_user = ? WHERE team_id = ? AND user_id = ?";
-        //         const values = [users[i].role, id, users[i].id];
-    
-        //         con.query(updateTeamMembers, values, (err) => {
-        //             if (err) {
-        //                 console.error("Erro ao atualizar membro do time:", err);
-        //             }
-        //         });
-        //     }
-        // } else {
-        //     console.log("Nenhum usuário para atualizar.");
-        // }
 
         return res.status(200).json({ message: "Time atualizado com sucesso!" });
     });
