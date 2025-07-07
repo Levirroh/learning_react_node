@@ -34,8 +34,6 @@ function Login() {
                 email_user: userData.email_user,
                 function_user: userData.function_user
             }));
-            console.log(userData);
-
             navigate("/menu");
 
         } catch (e) {
