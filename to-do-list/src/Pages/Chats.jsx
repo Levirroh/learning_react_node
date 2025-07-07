@@ -57,8 +57,6 @@ function Chats() {
             }
         }
     }
-    console.log(selectedChat)
-
     async function getChatMessages() {
         if (selectedChat) {
             try {
