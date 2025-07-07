@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import { useNavigate } from "react-router-dom";
 import Message from "./Message.jsx";
 import configIcon from "../images/config_icon.svg"
+import Li from "../components/Li";
 
 function Chat({messagesChat, formCreateChat, setFormCreateChat, getUserChats, selectedChat}) {
     const [teams, setTeams] = useState([]);
@@ -34,11 +35,7 @@ function Chat({messagesChat, formCreateChat, setFormCreateChat, getUserChats, se
                 });
 
                 const data = await response.json();
-
-                if (data.length === 0) {
-                    console.log("Nenhum time encontrado para este usuário.");
-                    }
-        
+                
                 setTeams(data);
             } catch (e) {
                 console.error("Erro ao buscar times:", e);
@@ -82,10 +79,14 @@ function Chat({messagesChat, formCreateChat, setFormCreateChat, getUserChats, se
         setPopUpChatConfig(!popUpChatConfig)
     }
 
+    function getChatUsers(){
+        console.log("ASDIasdlkn");
+    }
+
     if (!formCreateChat){
         if (messagesChat != null){
             return (
-                <div className="w-full h-[89vh] flex flex-col justify-end">
+                <div className="w-full h-[89vh] flex flex-col justify-end relative">
                     <div className="fixed top-13 right-3">
                         {selectedChat && (
                             <div className="w-full flex justify-end p-2">
@@ -94,15 +95,17 @@ function Chat({messagesChat, formCreateChat, setFormCreateChat, getUserChats, se
                         )}
                     </div>
                     {messagesChat.map((message) => (
-                         <Message key={message.id_message} message={message} user={user}></Message>
+                        <Message key={message.id_message} message={message} user={user}></Message>
                     ))}
-                    {popUpChatConfig && (
-                        <div className="absolute h-[89vh] w-full flex justify-center items-center">
-                            <div>
-                                <p>Pop Up config</p>
+                    <div className={`fixed top-12 right-0 w-64 h-fit bg-blue-400 shadow-lg shadow-black pt-1 pb-10 pl-3 pr-3 z-50 transform transition-transform duration-300 ease-in-out ${popUpChatConfig ? "translate-x-0" : "translate-x-full"}`}>
+                            <div className="w-full flex justify-end p-2">
+                                <img src={configIcon} alt="Configurações" className="h-8 cursor-pointer" onClick={openChatConfig}/>
                             </div>
-                        </div>    
-                    )}
+                            <div className="flex flex-col">
+                                <Li text="Integrantes" onclick={getChatUsers}/>
+                                <Li text="Moderação" onclick={getChatUsers}/>
+                            </div>
+                    </div>    
                 </div> 
             );
         }
