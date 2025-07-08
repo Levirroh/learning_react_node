@@ -67,9 +67,6 @@ function Chats() {
                 });
 
                 const data = await response.json();
-                if (data.length === 0) {
-                    console.log("Nenhuma mensagem de chat encontrada.");
-                }
 
                 setMessagesChat(data);
             } catch (e) {
@@ -117,6 +114,7 @@ function Chats() {
     }, [selectedChat]);
 
     function openCreateChat(){
+        setSelectedChat(null);
         setFormCreateChat(true);
     }
     
