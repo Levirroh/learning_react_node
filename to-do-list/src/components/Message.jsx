@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 
 function Message({message, user}) {
-    console.log(message);
-    console.log(user);
     if(user.id_user == message.id_user){
         return (
             <div className="flex w-full justify-end p-3">
