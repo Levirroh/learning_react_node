@@ -20,7 +20,7 @@ export const get_chats_user = (req, res) => {
 export const get_chat_messages = (req, res) => {
     const { id_chat } = req.body;
 
-    const query = "SELECT * FROM message INNER JOIN chat ON message.id_chat = chat.id_chat WHERE chat.id_chat = ?";
+    const query = "SELECT * FROM message INNER JOIN chat ON message.id_chat = chat.id_chat INNER JOIN users ON users.id_user = message.id_user WHERE chat.id_chat = ?";
     const values = [id_chat];
 
     con.query(query, values, (err, data) => {
