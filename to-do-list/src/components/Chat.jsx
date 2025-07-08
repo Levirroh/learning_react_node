@@ -141,10 +141,7 @@ function Chat({ messagesChat, formCreateChat, setFormCreateChat, getUserChats, s
                     </div>
                 )}
     
-                <div className={`fixed top-12 right-0 w-64 h-fit bg-blue-400 shadow-lg shadow-black pt-1 pb-10 pl-3 pr-3 z-50 transform transition-transform duration-300 ease-in-out ${popUpChatConfig ? "translate-x-0" : "translate-x-full"}`}>
-                    <div className="w-full flex justify-end p-2">
-                        <img src={configIcon} alt="Configurações" className="h-8 cursor-pointer" onClick={openChatConfig} />
-                    </div>
+                <div className={`fixed top-25 right-0 w-64 h-fit rounded-l-2xl bg-blue-400 shadow-lg shadow-black pt-1 pb-10 pl-3 pr-3 z-50 transform transition-transform duration-300 ease-in-out ${popUpChatConfig ? "translate-x-0" : "translate-x-full"}`}>
                     <div className="flex flex-col">
                         <Li text="Integrantes" onclick={getChatUsers} />
                         <Li text="Moderação" onclick={getChatUsers} />
