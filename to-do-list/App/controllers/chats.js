@@ -63,3 +63,19 @@ export const create_new_chat = (req, res) => {
         return res.status(200).json({ message: "Chat criado com sucesso", data });
     });
 };
+
+
+export const get_chat_users = (req, res) => {
+    const { id_chat } = req.body;
+    const query = "SELECT * FROM team_members INNER JOIN users ON team_members.user_id = users.id_user WHERE team_id = ?";
+    const values = [id_chat];
+
+    con.query(query, values, (err, data) => {
+        if (err) {
+            console.error("Erro buscar usuários:", err);
+            return res.status(500).json({ error: "Erro ao buscar novo chat:", details: err });
+        }
+
+        return res.status(200).json(data);
+    });
+};
