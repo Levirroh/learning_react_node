@@ -13,6 +13,7 @@ function Chat({ messagesChat, formCreateChat, setFormCreateChat, getUserChats, s
     const [newChatDesc, setNewChatDesc] = useState("");
     const [newChatSubject, setNewChatSubject] = useState("");
     const [popUpChatConfig, setPopUpChatConfig] = useState(false);
+    const [chatUsers, setChatUsers] = useState(null);
 
     const navigate = useNavigate();
 
@@ -77,10 +78,24 @@ function Chat({ messagesChat, formCreateChat, setFormCreateChat, getUserChats, s
         setPopUpChatConfig(!popUpChatConfig);
     }
 
-    function getChatUsers() {
-        console.log("Abrir lista de integrantes do chat (ainda não implementado).");
-    }
+    async function getChatUsers(){
+        try {
+            const response = await fetch("http://localhost:8800/getChatUsers", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ id_chat: selectedChat })
+            });
 
+            const data = await response.json();
+            setChatUsers(data);
+        } catch (e) {
+            console.error("Erro ao buscar times:", e);
+        }
+    }
+    
+    useEffect(() => {
+    }, [chatUsers]);
+    
     if (formCreateChat) {
         return (
             <div className="w-full h-[89vh] flex flex-col justify-center items-center">
@@ -143,8 +158,7 @@ function Chat({ messagesChat, formCreateChat, setFormCreateChat, getUserChats, s
     
                 <div className={`fixed top-25 right-0 w-64 h-fit rounded-l-2xl bg-blue-400 shadow-lg shadow-black pt-1 pb-10 pl-3 pr-3 z-50 transform transition-transform duration-300 ease-in-out ${popUpChatConfig ? "translate-x-0" : "translate-x-full"}`}>
                     <div className="flex flex-col">
-                        <Li text="Integrantes" onclick={getChatUsers} />
-                        <Li text="Moderação" onclick={getChatUsers} />
+                        <Li text="Integrantes" onClick={getChatUsers} />
                     </div>
                 </div>
             </div>
