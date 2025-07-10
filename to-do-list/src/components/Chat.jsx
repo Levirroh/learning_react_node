@@ -13,8 +13,10 @@ function Chat({ messagesChat, formCreateChat, setFormCreateChat, getUserChats, s
     const [newChatDesc, setNewChatDesc] = useState("");
     const [newChatSubject, setNewChatSubject] = useState("");
     const [popUpChatConfig, setPopUpChatConfig] = useState(false);
-    const [chatUsers, setChatUsers] = useState(null);
-
+    const [chatUsers, setChatUsers] = useState([]);
+    const [popUpChatUsers, setPopUpChatUsers] = useState(false);
+    const [formRoles, setFormRoles] = useState({});
+    
     const navigate = useNavigate();
 
     useEffect(() => {
@@ -91,11 +93,50 @@ function Chat({ messagesChat, formCreateChat, setFormCreateChat, getUserChats, s
         } catch (e) {
             console.error("Erro ao buscar times:", e);
         }
+        openChatUsers()
     }
     
     useEffect(() => {
     }, [chatUsers]);
     
+    function openChatUsers(){
+        setPopUpChatUsers(!popUpChatUsers);
+    }
+
+    const handleSaveRoles = async (e) => {
+    e.preventDefault();
+
+    if (!Array.isArray(chatUsers)) {
+        console.error("chatUsers não é um array:", chatUsers);
+        return;
+    }
+
+    const updatedUsers = chatUsers.map(user => ({
+        id_user: user.id_user,
+        role_user: formRoles[user.id_user] || user.role_user,
+    }));
+
+    try {
+        const response = await fetch("http://localhost:8800/UpdateChatUsers", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify({
+                chat_id: selectedChat,
+                users_roles: updatedUsers
+            }),
+        });
+
+        const data = await response.json();
+        console.log("Resposta do backend:", data);
+
+        setPopUpChatUsers(false);
+    } catch (e) {
+        console.error("Erro ao salvar cargos:", e);
+    }
+};
+    
+    
+
     if (formCreateChat) {
         return (
             <div className="w-full h-[89vh] flex flex-col justify-center items-center">
@@ -156,11 +197,58 @@ function Chat({ messagesChat, formCreateChat, setFormCreateChat, getUserChats, s
                     </div>
                 )}
     
-                <div className={`fixed top-25 right-0 w-64 h-fit rounded-l-2xl bg-blue-400 shadow-lg shadow-black pt-1 pb-10 pl-3 pr-3 z-50 transform transition-transform duration-300 ease-in-out ${popUpChatConfig ? "translate-x-0" : "translate-x-full"}`}>
+                <div className={`fixed top-25 right-0 w-64 h-fit rounded-l-2xl bg-blue-400 shadow-lg shadow-black pt-1 pb-3 pl-3 pr-3 z-50 transform transition-transform duration-300 ease-in-out ${popUpChatConfig ? "translate-x-0" : "translate-x-full"}`}>
                     <div className="flex flex-col">
                         <Li text="Integrantes" onClick={getChatUsers} />
                     </div>
                 </div>
+               {popUpChatUsers && (
+                    <div className="absolute top-0 left-0 w-full h-[89vh] flex justify-center items-center bg-black bg-opacity-50 z-50">
+                        <div className="bg-white w-[90%] max-w-md rounded-lg shadow-lg p-6">
+                        <div className="flex justify-between items-center mb-4">
+                            <h2 className="text-lg font-semibold">Editar usuários do chat</h2>
+                            <button
+                            onClick={() => setPopUpChatUsers(false)}
+                            className="text-red-600 font-bold text-xl"
+                            >
+                            ×
+                            </button>
+                        </div>
+
+                        <form onSubmit={handleSaveRoles} className="flex flex-col gap-4">
+                            {chatUsers.map((user) => (
+                            <div key={user.id_user} className="flex items-center gap-4">
+                                <label className="w-32">{user.name_user}</label>
+                                <select
+                                value={formRoles[user.id_user] || user.role_user}
+                                onChange={(e) =>
+                                    setFormRoles((prev) => ({
+                                    ...prev,
+                                    [user.id_user]: e.target.value,
+                                    }))
+                                }
+                                className="flex-1 border rounded px-2 py-1"
+                                >
+                                <option disabled value="">
+                                    Selecione o cargo
+                                </option>
+                                <option value="Administrador">Administrador</option>
+                                <option value="Moderador">Moderador</option>
+                                <option value="Visitante">Visitante</option>
+                                </select>
+                            </div>
+                            ))}
+
+                            <button
+                            type="submit"
+                            className="bg-blue-500 hover:bg-blue-600 text-white font-medium py-2 rounded mt-4"
+                            >
+                            Salvar alterações
+                            </button>
+                        </form>
+                        </div>
+                    </div>
+                    )}
             </div>
         );
     }
