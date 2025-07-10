@@ -79,3 +79,52 @@ export const get_chat_users = (req, res) => {
         return res.status(200).json(data);
     });
 };
+
+export const update_chat_users = (req, res) => {
+  const { chat_id, users_roles } = req.body;
+
+  if (!chat_id || !Array.isArray(users_roles)) {
+    return res.status(400).json({ error: "Dados inválidos." });
+  }
+
+  const getTeamQuery = "SELECT id_team FROM chat WHERE id_chat = ?";
+
+  con.query(getTeamQuery, [chat_id], (err, result) => {
+    if (err) {
+      console.error("Erro ao buscar time do chat:", err);
+      return res.status(500).json({ error: "Erro interno ao buscar time." });
+    }
+
+    if (result.length === 0) {
+      return res.status(404).json({ error: "Chat não encontrado." });
+    }
+
+    const team_id = result[0].id_team;
+
+    const updatePromises = users_roles.map(({ id_user, role_user }) => {
+      return new Promise((resolve, reject) => {
+        const updateQuery = `
+          UPDATE team_members
+          SET role_user = ?
+          WHERE team_id = ? AND user_id = ?
+        `;
+        con.query(updateQuery, [role_user, team_id, id_user], (err, data) => {
+          if (err) {
+            console.error(`Erro ao atualizar usuário ${id_user}:`, err);
+            return reject(err);
+          }
+          resolve(data);
+        });
+      });
+    });
+
+    Promise.all(updatePromises)
+      .then(() => {
+        return res.status(200).json({ message: "Cargos atualizados com sucesso." });
+      })
+      .catch((error) => {
+        console.error("Erro ao atualizar cargos:", error);
+        return res.status(500).json({ error: "Erro ao atualizar cargos.", details: error });
+      });
+  });
+};
