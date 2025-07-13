@@ -14,6 +14,7 @@ import ErrorPage from "./Pages/ErrorPage";
 import Teams from "./Pages/Teams.jsx"
 import Team from "./Pages/Team.jsx"
 import Chats from "./Pages/Chats.jsx"
+import DashBoard from "./Pages/DashBoard.jsx"
 
 import "./index.css";
 
@@ -25,13 +26,15 @@ root.render(
         <Route path="/" element={<Welcome />} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
-        <Route path="/menu" element={<App />} />
+        <Route path="/tasks" element={<App />} />
         <Route path="/task" element={<CreateTask />} />
         <Route path={`/update/:id`} element={<UpdateTask />} />
         <Route path={`/teams`} element={<Teams />} />
         <Route path={`/team/:id`} element={<Team />} />
         <Route path="/Teamtask/:id" element={<CreateTask />} />
         <Route path="/chats" element={<Chats />} />
+        <Route path="/dashboard" element={<DashBoard />} />
+        <Route path="/menu" element={<DashBoard />} />
 
 
 
