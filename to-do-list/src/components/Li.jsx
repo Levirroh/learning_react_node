@@ -1,16 +1,24 @@
 import React from "react";
 
-function Li({ link, text, onClick }) {
-    if (onClick){
-        return (
-            <li className="border border-blue-600 bg-blue-500 rounded-2xl
-            h-12 flex items-center text-white p-3 mt-3 hover:cursor-pointer" onClick={onClick}>{text}</li>
-        );    
-    }
-    return (
-        <a href={`${link}`} ><li className="border border-blue-600 bg-blue-500 rounded-2xl
-        h-12 flex items-center text-white p-3 mt-3 hover:cursor-pointer">{text}</li></a>
+function Li({ link, text, onClick, color, borderColor, textColor }) {
+    const borderClass = borderColor ? borderColor : "border-blue-600";
+    const bgClass = color ? color : "bg-blue-500";
+    const txtColor = textColor ? textColor : "text-white";
+
+    const liContent = (
+        <li
+            className={`border ${borderClass} ${bgClass} rounded-2xl h-12 flex items-center p-3 mt-3 hover:cursor-pointer ${txtColor}`}
+            onClick={onClick}
+        >
+            {text}
+        </li>
     );
-  }
-  
-  export default Li;
+
+    if (onClick) {
+        return liContent;
+    }
+
+    return <a href={link}>{liContent}</a>;
+}
+
+export default Li;
