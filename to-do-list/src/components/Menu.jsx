@@ -17,7 +17,7 @@ function Menu({ onClose, isOpen }) {
             <Li text="Chats" link={"/chats"} />
           </div>
           <div>
-            <Li text="Logout" link={"/"}/>
+            <Li text="Logout" link={"/"} color={"bg-red-500"} textColor={"text-white"} borderColor={"border-black"}/>
             </div>
         </div>
       </div>
