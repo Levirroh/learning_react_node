@@ -140,13 +140,13 @@ function Chat({ messagesChat, formCreateChat, setFormCreateChat, getUserChats, s
     if (formCreateChat) {
         return (
             <div className="w-full h-[89vh] flex flex-col justify-center items-center">
-                <form className="flex flex-col gap-10 bg-slate-300 p-10 rounded-2xl" onSubmit={createChat}>
+                <form className="flex flex-col gap-10 bg-blue-200 p-15 rounded-2xl" onSubmit={createChat}>
                     <div className="flex flex-col gap-2">
-                        <label htmlFor="chatName" className="text-slate-500 font-semibold">Nome:</label>
+                        <label htmlFor="chatName" className="text-slate-600 font-semibold">Nome:</label>
                         <input className='bg-white p-2 rounded-2xl' id="chatName" placeholder='Ex.: Chat do trabalho' onChange={(e) => setNewChatName(e.target.value)} autoFocus />
                     </div>
                     <div className="flex flex-col gap-2">
-                        <label htmlFor="chatTeam" className="text-slate-500 font-semibold">Time do chat</label>
+                        <label htmlFor="chatTeam" className="text-slate-600 font-semibold">Time do chat</label>
                         <select id="chatTeam" className='bg-white p-2 rounded-2xl' onChange={(e) => setNewChatTeam(e.target.value)} value={newChatTeam}>
                             <option value="" disabled>Selecione o time do chat</option>
                             {teams.map((team) => (
@@ -155,15 +155,15 @@ function Chat({ messagesChat, formCreateChat, setFormCreateChat, getUserChats, s
                         </select>
                     </div>
                     <div className="flex flex-col gap-2">
-                        <label htmlFor="chatDesc" className="text-slate-500 font-semibold">Descrição</label>
+                        <label htmlFor="chatDesc" className="text-slate-600 font-semibold">Descrição</label>
                         <input className='bg-white p-2 rounded-2xl' id="chatDesc" placeholder='Ex.: Chat para trabalho' onChange={(e) => setNewChatDesc(e.target.value)} />
                     </div>
                     <div className="flex flex-col gap-2">
-                        <label htmlFor="chatImage" className="text-slate-500 font-semibold">Imagem (URL)</label>
+                        <label htmlFor="chatImage" className="text-slate-600 font-semibold">Imagem (URL)</label>
                         <input className='bg-white p-2 rounded-2xl' id="chatImage" type="text" placeholder='https://exemplo.com/imagem.png' onChange={(e) => setNewChatImage(e.target.value)} />
                     </div>
                     <div className="flex flex-col gap-2">
-                        <label htmlFor="chatSubject" className="text-slate-500 font-semibold">Assunto</label>
+                        <label htmlFor="chatSubject" className="text-slate-600 font-semibold">Assunto</label>
                         <input className='bg-white p-2 rounded-2xl' id="chatSubject" placeholder='Ex.: Trabalho' onChange={(e) => setNewChatSubject(e.target.value)} />
                     </div>
                     <div className="flex justify-center">
@@ -203,13 +203,13 @@ function Chat({ messagesChat, formCreateChat, setFormCreateChat, getUserChats, s
                     </div>
                 </div>
                {popUpChatUsers && (
-                    <div className="absolute top-0 left-0 w-full h-[89vh] flex justify-center items-center bg-black bg-opacity-50 z-50">
+                    <div className="absolute top-0 left-0 w-full h-[89vh] flex justify-center items-center bg-opacity-50 z-50 backdrop-blur-xs">
                         <div className="bg-white w-[90%] max-w-md rounded-lg shadow-lg p-6">
                         <div className="flex justify-between items-center mb-4">
                             <h2 className="text-lg font-semibold">Editar usuários do chat</h2>
                             <button
                             onClick={() => setPopUpChatUsers(false)}
-                            className="text-red-600 font-bold text-xl"
+                            className="font-bold text-xl cursor-pointer"
                             >
                             ×
                             </button>
@@ -227,7 +227,7 @@ function Chat({ messagesChat, formCreateChat, setFormCreateChat, getUserChats, s
                                     [user.id_user]: e.target.value,
                                     }))
                                 }
-                                className="flex-1 border rounded px-2 py-1"
+                                className="flex-1 border rounded px-2 py-1 cursor-pointer"
                                 >
                                 <option disabled value="">
                                     Selecione o cargo
