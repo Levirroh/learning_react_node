@@ -107,3 +107,19 @@ export const change_status = (req, res) => {
         res.status(201).json({ id: result.insertId, message: "Tarefa atualizada com sucesso!" });
     });
 };
+
+export const get_all_tasks_data = (req, res) => {
+    const { id_user } = req.body;
+
+    // const query = "SELECT * FROM chat JOIN team_members ON team_members.team_id = chat.id_team WHERE team_members.user_id = ?;";
+    // const values = [id_user];
+
+    // con.query(query, values, (err, data) => {
+    //     if (err) {
+    //         console.error("Erro ao buscar chat:", err);
+    //         return res.json(err);
+    //     }
+
+    //     return res.status(200).json(data);
+    // });
+};
