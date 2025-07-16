@@ -55,7 +55,6 @@ function Chat({ messagesChat, formCreateChat, setFormCreateChat, getUserChats, s
             alert("Preencha todos os campos obrigatórios.");
             return;
         }
-
         try {
             await fetch("http://localhost:8800/createNewChat", {
                 method: "POST",
@@ -65,10 +64,11 @@ function Chat({ messagesChat, formCreateChat, setFormCreateChat, getUserChats, s
                     chat_name: newChatName,
                     chat_desc: newChatDesc,
                     chat_subject: newChatSubject,
-                    chat_image: newChatImage
+                    chat_image: newChatImage,
+                    id_user: user.id_user
                 })
             });
-
+            
             setFormCreateChat(false);
             getUserChats();
         } catch (e) {
@@ -149,6 +149,7 @@ function Chat({ messagesChat, formCreateChat, setFormCreateChat, getUserChats, s
                         <label htmlFor="chatTeam" className="text-slate-600 font-semibold">Time do chat</label>
                         <select id="chatTeam" className='bg-white p-2 rounded-2xl' onChange={(e) => setNewChatTeam(e.target.value)} value={newChatTeam}>
                             <option value="" disabled>Selecione o time do chat</option>
+                            <option value="-1">Sem time</option>
                             {teams.map((team) => (
                                 <option key={team.id_team} value={team.id_team}>{team.name_team}</option>
                             ))}
