@@ -133,7 +133,9 @@ export const update_chat_users = (req, res) => {
 export const get_all_chats_data = (req, res) => {
     const { id_user } = req.body;
 
-    // const query = "SELECT * FROM chat JOIN team_members ON team_members.team_id = chat.id_team WHERE team_members.user_id = ?;";
+    //criar tabela de notificações
+
+    // const query = "SELECT * FROM chat JOIN team_members ON team_members.team_id = chat.id_team WHERE team_members.user_id = 1;";
     // const values = [id_user];
 
     // con.query(query, values, (err, data) => {
