@@ -10,7 +10,10 @@ function App() {
   const [tasks, setTasks] = useState(null);
   const [teams, setTeams] = useState(null);
   const [chat, setChats] = useState(null);
-  
+  const [toDoTasks, setToDoTasks] = useState(0);
+  const [doingTasks, setDoingTasks] = useState(0);
+  const [doneTasks, setDoneTasks] = useState(0);
+
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
     if (storedUser) {
@@ -25,7 +28,7 @@ function App() {
     if (user) {
       getTasksData();
       getTeamsData();
-      getChatsData();
+      //getChatsData();
     }
   }, [user]);
   
@@ -42,28 +45,42 @@ function App() {
       if (data.length === 0) {
           console.log("Nenhum chat encontrado para este usuário.");
       }
-      setTasks(data);
-    } catch (e) {
-        console.error("Erro ao buscar chats:", e);
-    } 
-  }
-  async function getChatsData() {
-    try {
-      const response = await fetch("http://localhost:8800/GetAllChatData", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ id_user: user.id_user })
+      let toDo = 0;
+      let doing = 0;
+      let done = 0;
+
+      data.forEach(task => {
+        if (task.status_task === 1) toDo++;
+        else if (task.status_task === 2) doing++;
+        else done++;
       });
 
-      const data = await response.json();
-      if (data.length === 0) {
-          console.log("Nenhum chat encontrado para este usuário.");
-      }
+      setToDoTasks(toDo);
+      setDoingTasks(doing);
+      setDoneTasks(done);
       setTasks(data);
     } catch (e) {
-        console.error("Erro ao buscar chats:", e);
+        console.error("Erro ao buscar tasks:", e);
     } 
   }
+
+  // async function getChatsData() {
+  //   try {
+  //     const response = await fetch("http://localhost:8800/GetAllChatData", {
+  //         method: "POST",
+  //         headers: { "Content-Type": "application/json" },
+  //         body: JSON.stringify({ id_user: user.id_user })
+  //     });
+
+  //     const data = await response.json();
+  //     if (data.length === 0) {
+  //         console.log("Nenhum chat encontrado para este usuário.");
+  //     }
+  //     setChats(data);
+  //   } catch (e) {
+  //       console.error("Erro ao buscar chats:", e);
+  //   } 
+  // }
   async function getTeamsData() {
     try {
       const response = await fetch("http://localhost:8800/GetAllTeamsData", {
@@ -89,10 +106,15 @@ function App() {
       <Header title="Dashboard"  />
       <section className="flex flex-col w-full h-full pt-12 pl-3 pr-3">
         <div className="w-full">
-            <Card text={"Tasks"} gradientFrom={"from-red-300"} gradientTo={"to-purple-600"} to={"/tasks"}/>
-            <Card text={"Teams"} gradientFrom={"from-green-500"} gradientTo={"to-blue-600"} to={"/teams"}/>
-            <Card text={"Chats"} gradientFrom={"from-purple-800"} gradientTo={"to-yellow-500"} to={"/chats"}/>
-            <Card text={"Notifications"} gradientFrom={"from-blue-700"} gradientTo={"to-white"} to={"/notifications"}/>
+            <Card text={"Your Tasks"} gradientFrom={"from-red-300"} gradientTo={"to-purple-600"} to={"/tasks"} data1={toDoTasks} data2={doingTasks} data3={doneTasks}/>
+            <h1>Teams</h1>
+            <div className="flex">
+              <Card text={"Teams"} gradientFrom={"from-green-500"} gradientTo={"to-blue-600"} to={"/teams"}/>
+            </div>
+            <h1>Chats</h1>
+            <div className="flex">
+              <Card text={"Chats"} gradientFrom={"from-purple-800"} gradientTo={"to-yellow-500"} to={"/chats"}/>
+            </div>          
             <Card text={"Configurations"} gradientFrom={"from-black"} gradientTo={"to-purple-600"} to={"/configurations"}/>
 
         </div>
