@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 export const get_chats_user = (req, res) => {
     const { id_user } = req.body;
 
-    const query = "SELECT * FROM chat JOIN team_members ON team_members.team_id = chat.id_team WHERE team_members.user_id = ?;";
+    const query = "SELECT * FROM chat_members INNER JOIN chat ON chat.id_chat = chat_members.id_chat WHERE chat_members.id_user = ?;";
     const values = [id_user];
 
     con.query(query, values, (err, data) => {
@@ -49,19 +49,72 @@ export const new_chat_message = (req, res) => {
 };
 
 export const create_new_chat = (req, res) => {
-    const { id_team, chat_name, chat_desc, chat_subject, chat_image } = req.body;
+  const {
+    id_team,
+    chat_name,
+    chat_desc,
+    chat_subject,
+    chat_image,
+    id_user
+  } = req.body;
 
-    const query = "INSERT INTO chat (id_team, name_chat, description_chat, subject_chat, image_chat) VALUES (?, ?, ?, ?, ?);";
-    const values = [id_team, chat_name, chat_desc, chat_subject, chat_image];
+  const isPrivate = id_team === "-1";
+  const values = isPrivate
+    ? [chat_name, chat_desc, chat_subject, chat_image]
+    : [id_team, chat_name, chat_desc, chat_subject, chat_image];
 
-    con.query(query, values, (err, data) => {
-        if (err) {
-            console.error("Erro ao criar novo chat:", err);
-            return res.status(500).json({ error: "Erro ao criar novo chat", details: err });
-        }
+  const query = isPrivate
+    ? "INSERT INTO chat (name_chat, description_chat, subject_chat, image_chat) VALUES (?, ?, ?, ?);"
+    : "INSERT INTO chat (id_team, name_chat, description_chat, subject_chat, image_chat) VALUES (?, ?, ?, ?, ?);";
 
-        return res.status(200).json({ message: "Chat criado com sucesso", data });
+  con.query(query, values, (err, result) => {
+    if (err) {
+      console.error("Erro ao criar novo chat:", err);
+      return res.status(500).json({ error: "Erro ao criar novo chat", details: err });
+    }
+
+    const newChatId = result.insertId;
+
+    insert_user_chat(newChatId, id_user, id_team, res);
+  });
+};
+
+const insert_user_chat = (chatId, creatorUserId, id_team, res) => {
+  if (id_team === "-1") {
+    const query = "INSERT INTO chat_members (id_user, id_chat) VALUES (?, ?)";
+    const values = [creatorUserId, chatId];
+
+    con.query(query, values, (err, result) => {
+      if (err) {
+        console.error("Erro ao adicionar usuário no chat privado:", err);
+        return res.status(500).json({ error: "Erro ao inserir usuário", details: err });
+      }
+      return res.status(200).json({ message: "Chat privado criado com sucesso", chat_id: chatId });
     });
+  } else {
+    const query_members = "SELECT user_id FROM team_members WHERE team_id = ?";
+    con.query(query_members, [id_team], (err, members) => {
+      if (err) {
+        console.error("Erro ao buscar membros do time:", err);
+        return res.status(500).json({ error: "Erro ao buscar membros", details: err });
+      }
+
+      if (!members || members.length === 0) {
+        return res.status(200).json({ message: "Chat criado, mas o time não tem membros", chat_id: chatId });
+      }
+
+      const insertQuery = "INSERT INTO chat_members (id_user, id_chat) VALUES ?";
+      const insertValues = members.map(member => [member.user_id, chatId]);
+
+      con.query(insertQuery, [insertValues], (err, result) => {
+        if (err) {
+          console.error("Erro ao inserir membros no chat:", err);
+          return res.status(500).json({ error: "Erro ao inserir membros", details: err });
+        }
+        return res.status(200).json({ message: "Chat de time criado com sucesso", chat_id: chatId });
+      });
+    });
+  }
 };
 
 
@@ -130,20 +183,18 @@ export const update_chat_users = (req, res) => {
 };
 
 
-export const get_all_chats_data = (req, res) => {
+export const get_all_messages_unread_by_chat = (req, res) => {
     const { id_user } = req.body;
 
-    //criar tabela de notificações
+    const query = "SELECT message.id_chat, COUNT(*) AS unread_count FROM message JOIN chat_members ON chat_members.id_chat = message.id_chat WHERE chat_members.id_user = ? AND message.id_user != ? AND NOT EXISTS ( SELECT 1 FROM message_reads WHERE message_reads.id_user = ? AND message_reads.id_message = message.id_message ) GROUP BY message.id_chat";
+    const values = [id_user, id_user, id_user];
 
-    // const query = "SELECT * FROM chat JOIN team_members ON team_members.team_id = chat.id_team WHERE team_members.user_id = 1;";
-    // const values = [id_user];
+    con.query(query, values, (err, data) => {
+        if (err) {
+            console.error("Erro ao buscar chat:", err);
+            return res.json(err);
+        }
 
-    // con.query(query, values, (err, data) => {
-    //     if (err) {
-    //         console.error("Erro ao buscar chat:", err);
-    //         return res.json(err);
-    //     }
-
-    //     return res.status(200).json(data);
-    // });
+        return res.status(200).json(data);
+    });
 };
