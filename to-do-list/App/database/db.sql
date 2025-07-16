@@ -84,6 +84,17 @@ CREATE TABLE chat_members (
     FOREIGN KEY (id_chat) REFERENCES chat(id_chat)
 );
 
+CREATE TABLE message_reads (
+    id_message_read INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_user INT NOT NULL,
+    id_message INT NOT NULL,
+    read_at DATETIME NOT NULL DEFAULT NOW(),
+
+    FOREIGN KEY (id_user) REFERENCES users(id_user),
+    FOREIGN KEY (id_message) REFERENCES message(id_message),
+    
+    UNIQUE (id_user, id_message) -- garante que cada leitura de mensagem por usuário seja única
+);
 
 INSERT INTO users (name_user, function_user, email_user, password_user) 
 VALUES ("teste","teste","teste","teste");
@@ -114,6 +125,10 @@ VALUES(2, 2, "Administrador");
 
 INSERT INTO team_members(user_id, team_id, role_user)
 VALUES(1, 2, "Moderador");
+
+
+INSERT INTO team_members(user_id, team_id, role_user)
+VALUES(2, 1, "Moderador");
 
 INSERT INTO tasks (user_task, title_task, description_task, subject_task, status_task) 
 VALUES ( 1 ,"ToDo","ToDo", "ToDo", 1);
@@ -146,10 +161,3 @@ INSERT INTO message (id_user, id_chat, content_message, time_message)
 VALUES (1, 2, 'TIME 2 EBAAA?', NOW());
 INSERT INTO message (id_user, id_chat, content_message, time_message)
 VALUES (2, 2, 'ASDOIJASD', NOW());
-
-UPDATE teams SET name_team = "time atualizado", image_team = null, color_team = "vermelho", category_team = "finanças" WHERE id_team = 2;
-
-SELECT * FROM teams;
-
-SELECT * FROM message INNER JOIN chat ON message.id_chat = chat.id_chat WHERE chat.id_chat = 1;
-SELECT * FROM chat JOIN team_members ON team_members.team_id = chat.id_team WHERE team_members.user_id = 1;
