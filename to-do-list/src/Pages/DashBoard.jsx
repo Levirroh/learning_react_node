@@ -9,10 +9,11 @@ function App() {
   const [user, setUser] = useState(null);
   const [tasks, setTasks] = useState(null);
   const [teams, setTeams] = useState(null);
-  const [chat, setChats] = useState(null);
+  const [unreadMessagesByChat, setUnreadMessagesByChat] = useState(null);
   const [toDoTasks, setToDoTasks] = useState(0);
   const [doingTasks, setDoingTasks] = useState(0);
   const [doneTasks, setDoneTasks] = useState(0);
+  const [chats, setChats] = useState(null);
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -28,7 +29,8 @@ function App() {
     if (user) {
       getTasksData();
       getTeamsData();
-      //getChatsData();
+      getAllChats();
+      getAllUnreadMessagesByChat();
     }
   }, [user]);
   
@@ -64,23 +66,41 @@ function App() {
     } 
   }
 
-  // async function getChatsData() {
-  //   try {
-  //     const response = await fetch("http://localhost:8800/GetAllChatData", {
-  //         method: "POST",
-  //         headers: { "Content-Type": "application/json" },
-  //         body: JSON.stringify({ id_user: user.id_user })
-  //     });
+  async function getAllUnreadMessagesByChat() {
+    try {
+      const response = await fetch("http://localhost:8800/GetAllUnreadMessagesByChat", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id_user: user.id_user })
+      });
 
-  //     const data = await response.json();
-  //     if (data.length === 0) {
-  //         console.log("Nenhum chat encontrado para este usuário.");
-  //     }
-  //     setChats(data);
-  //   } catch (e) {
-  //       console.error("Erro ao buscar chats:", e);
-  //   } 
-  // }
+      const data = await response.json();
+      if (data.length === 0) {
+          console.log("Nenhum chat encontrado para este usuário.");
+      }
+      setUnreadMessagesByChat(data);
+    } catch (e) {
+        console.error("Erro ao buscar chats:", e);
+    } 
+  }
+  async function getAllChats() {
+    try {
+      const response = await fetch("http://localhost:8800/getUserChats", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id_user: user.id_user })
+      });
+
+      const data = await response.json();
+      if (data.length === 0) {
+          console.log("Nenhum chat encontrado para este usuário.");
+      }
+      setChats(data);
+    } catch (e) {
+        console.error("Erro ao buscar chats:", e);
+    } 
+  }
+
   async function getTeamsData() {
     try {
       const response = await fetch("http://localhost:8800/GetAllTeamsData", {
@@ -99,22 +119,36 @@ function App() {
     } 
   }
 
-  console.log(tasks)
-  console.log(teams)
+  console.log(chats)
   return (
     <section className="h-screen overflow-hidden">
       <Header title="Dashboard"  />
       <section className="flex flex-col w-full h-full pt-12 pl-3 pr-3">
         <div className="w-full">
-            <Card text={"Your Tasks"} gradientFrom={"from-red-300"} gradientTo={"to-purple-600"} to={"/tasks"} data1={toDoTasks} data2={doingTasks} data3={doneTasks}/>
+            <Card text={"Your Tasks"} gradientFrom={"from-red-300"} gradientTo={"to-purple-600"} to={"/tasks"} data1={toDoTasks} data2={doingTasks} data3={doneTasks} type="tasks"/>
             <h1>Teams</h1>
             <div className="flex">
-              <Card text={"Teams"} gradientFrom={"from-green-500"} gradientTo={"to-blue-600"} to={"/teams"}/>
+              <Card text={"Teams"} gradientFrom={"from-green-500"} gradientTo={"to-blue-600"} to={"/teams"} type="tasks"/>
             </div>
             <h1>Chats</h1>
-            <div className="flex">
-              <Card text={"Chats"} gradientFrom={"from-purple-800"} gradientTo={"to-yellow-500"} to={"/chats"}/>
-            </div>          
+            <div className="flex flex-wrap gap-4">
+              {chats && chats.map(chat => {
+                const unreadData = unreadMessagesByChat?.find(un => un.id_chat === chat.id_chat);
+                const unreadCount = unreadData ? unreadData.unread_count : 0;
+
+                return (
+                  <Card
+                    key={chat.id_chat}
+                    type="chat"
+                    text={chat.name_chat}
+                    gradientFrom={"from-purple-800"}
+                    gradientTo={"to-yellow-500"}
+                    to={`/chats`}
+                    data1={unreadCount}
+                  />
+                );
+              })}
+            </div>         
             <Card text={"Configurations"} gradientFrom={"from-black"} gradientTo={"to-purple-600"} to={"/configurations"}/>
 
         </div>
