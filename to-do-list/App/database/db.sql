@@ -111,22 +111,15 @@ VALUES ("Done", "verde");
 
 INSERT INTO teams (name_team, owner_team, color_team)
 VALUES ("Time do teste", 1, "amarelo");
-
-INSERT INTO team_members(user_id, team_id, role_user)
-VALUES(1, 1, "Administrador");
-
-
 INSERT INTO teams (name_team, owner_team, color_team)
 VALUES ("Time que convidaram o teste", 2, "azul");
 
 INSERT INTO team_members(user_id, team_id, role_user)
+VALUES(1, 1, "Administrador");
+INSERT INTO team_members(user_id, team_id, role_user)
 VALUES(2, 2, "Administrador");
-
-
 INSERT INTO team_members(user_id, team_id, role_user)
 VALUES(1, 2, "Moderador");
-
-
 INSERT INTO team_members(user_id, team_id, role_user)
 VALUES(2, 1, "Moderador");
 
@@ -136,7 +129,6 @@ INSERT INTO tasks (user_task, title_task, description_task, subject_task, status
 VALUES (1 ,"Doing","Doing", "Doing", 2);
 INSERT INTO tasks (user_task, title_task, description_task, subject_task, status_task) 
 VALUES (1 ,"Done","Done", "Done", 3);
-SELECT * FROM users;
 
 INSERT INTO tasks (user_task, title_task, description_task, subject_task, status_task, team_task) 
 VALUES ( 1 ,"teamTask","teamTask", "teamTa	sk", 1, 1);
@@ -149,15 +141,22 @@ VALUES ( 1 ,"teamTask3","teamTask", "teamTask", 1, 1);
 	
 INSERT INTO chat (id_team, name_chat, description_chat)
 VALUES (1, 'Chat do Time 1', 'Canal de comunicação do time 1');
+INSERT INTO chat (id_team, name_chat, description_chat)
+VALUES (1, 'Chat do Time 2', 'Canal de comunicação do time 2');
+
+INSERT INTO chat_members (id_user, id_chat) VALUES (1, 1);
+INSERT INTO chat_members (id_user, id_chat) VALUES (1, 2);
+INSERT INTO chat_members (id_user, id_chat) VALUES (2, 1);
+INSERT INTO chat_members (id_user, id_chat) VALUES (2, 2);
+
+
 INSERT INTO message (id_user, id_chat, content_message, time_message)
 VALUES (1, 1, 'EEAE?', NOW());
 INSERT INTO message (id_user, id_chat, content_message, time_message)
 VALUES (2, 1, 'Hello world', NOW());
-
-
-INSERT INTO chat (id_team, name_chat, description_chat)
-VALUES (1, 'Chat do Time 2', 'Canal de comunicação do time 2');
 INSERT INTO message (id_user, id_chat, content_message, time_message)
 VALUES (1, 2, 'TIME 2 EBAAA?', NOW());
 INSERT INTO message (id_user, id_chat, content_message, time_message)
 VALUES (2, 2, 'ASDOIJASD', NOW());
+
+UPDATE teams SET name_team = "time atualizado", image_team = null, color_team = "vermelho", category_team = "finanças" WHERE id_team = 2;
