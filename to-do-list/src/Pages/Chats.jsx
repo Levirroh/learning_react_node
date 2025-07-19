@@ -121,7 +121,7 @@ function Chats() {
 
     return(
         <section className="h-screen overflow-hidden">
-            <Header title="Menu" onToggleMenu={toggleMenu}/>
+            <Header title="Chats" onToggleMenu={toggleMenu}/>
             <Menu isOpen={isMenuOpen} onClose={toggleMenu} />
             <div className="flex w-full h-full pt-12">
                 <div className="w-1/3 flex border-r h-full">
