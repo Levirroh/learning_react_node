@@ -14,6 +14,11 @@ function App() {
   const [doingTasks, setDoingTasks] = useState(0);
   const [doneTasks, setDoneTasks] = useState(0);
   const [chats, setChats] = useState(null);
+  const [isMenuOpen, setIsMenuOpen] = useState(false); 
+
+  function toggleMenu() {
+    setIsMenuOpen(prev => !prev);
+  }
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
@@ -104,31 +109,45 @@ function App() {
   async function getTeamsData() {
     try {
       const response = await fetch("http://localhost:8800/GetAllTeamsData", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ id_user: user.id_user })
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id_user: user.id_user })
       });
 
       const data = await response.json();
       if (data.length === 0) {
-          console.log("Nenhum time encontrado para este usuário.");
+        console.log("Nenhum dado encontrado para este usuário.");
       }
+
       setTeams(data);
     } catch (e) {
-        console.error("Erro ao buscar times:", e);
-    } 
+      console.error("Erro ao buscar times:", e);
+    }
   }
-
-  console.log(chats)
   return (
     <section className="h-screen overflow-hidden">
-      <Header title="Dashboard"  />
+      <Header title="Menu" onToggleMenu={toggleMenu}/>
+      <Menu isOpen={isMenuOpen} onClose={toggleMenu} />
       <section className="flex flex-col w-full h-full pt-12 pl-3 pr-3">
         <div className="w-full">
             <Card text={"Your Tasks"} gradientFrom={"from-red-300"} gradientTo={"to-purple-600"} to={"/tasks"} data1={toDoTasks} data2={doingTasks} data3={doneTasks} type="tasks"/>
             <h1>Teams</h1>
-            <div className="flex">
-              <Card text={"Teams"} gradientFrom={"from-green-500"} gradientTo={"to-blue-600"} to={"/teams"} type="tasks"/>
+            <div className="flex flex-wrap gap-4">
+              {teams && teams.map(team => {
+                return (
+                  <Card
+                    key={team.id_team}
+                    type="tasks"
+                    text={team.name_team}
+                    gradientFrom={"from-green-500"}
+                    gradientTo={"to-blue-600"}
+                    to={`/Team/${team.id_team}`}
+                    data1={team.to_do}
+                    data2={team.doing}
+                    data3={team.done}
+                  />
+                );
+              })}
             </div>
             <h1>Chats</h1>
             <div className="flex flex-wrap gap-4">
