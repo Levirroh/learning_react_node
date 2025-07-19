@@ -182,7 +182,7 @@ export const updateTeam = (req, res) => {
 export const get_all_teams_data = (req, res) => {
     const { id_user } = req.body;
 
-    const query = "SELECT * FROM tasks WHERE team_task = 1;";
+    const query = "SELECT teams.id_team, teams.name_team, teams.color_team, COUNT(CASE WHEN tasks.status_task = 1 THEN 1 END) AS to_do, COUNT(CASE WHEN tasks.status_task = 2 THEN 1 END) AS doing, COUNT(CASE WHEN tasks.status_task = 3 THEN 1 END) AS done FROM team_members JOIN teams ON teams.id_team = team_members.team_id LEFT JOIN tasks ON tasks.team_task = teams.id_team WHERE team_members.user_id = ? GROUP BY teams.id_team, teams.name_team, teams.color_team;";
     const values = [id_user];
 
     con.query(query, values, (err, data) => {
