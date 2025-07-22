@@ -2,7 +2,7 @@ import express from "express";
 import { login_user} from "../controllers/user.js";
 import { getUserTeams, getStatusTeam, getTeamTasks, new_team_task, createTeam, getTeamMembers, getTeamData, updateTeam, get_all_teams_data} from "../controllers/teams.js";
 import {get_tasks_user, new_task, update_task, get_task_by_id, delete_task, change_status, get_all_tasks_data} from "../controllers/tasks.js";
-import {create_new_chat, get_all_messages_unread_by_chat, get_chat_messages, get_chat_users, get_chats_user, new_chat_message, update_chat_users} from "../controllers/chats.js";
+import {create_new_chat, get_all_messages_unread_by_chat, get_chat_messages, get_chat_users, get_chats_user, new_chat_message, update_chat_users, update_read_message} from "../controllers/chats.js";
 
 
 const router = express.Router();
@@ -41,6 +41,8 @@ router.post("/createNewChat", create_new_chat);
 router.post("/getChatUsers", get_chat_users);
 router.post("/UpdateChatUsers", update_chat_users);
 router.post("/GetAllUnreadMessagesByChat", get_all_messages_unread_by_chat);
+router.post("/updateReadMessages", update_read_message);
+
 
 
 
