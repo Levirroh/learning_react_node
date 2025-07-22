@@ -18,6 +18,7 @@ function Chats() {
     const [messagesChat, setMessagesChat] = useState([]);
     const socket = useRef(null);
     const [formCreateChat, setFormCreateChat] = useState(false); 
+    const [unreadMessages, setUnreadMessages] = useState([]); 
     
 
   function toggleMenu() {
@@ -63,21 +64,47 @@ function Chats() {
                 const response = await fetch("http://localhost:8800/getChatMessages", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
-                    body: JSON.stringify({ id_chat: selectedChat })
+                    body: JSON.stringify({ id_chat: selectedChat, id_user: user.id_user })
                 });
 
                 const data = await response.json();
-
+                data.forEach(message => {
+                    if(!message.was_read_by_user){
+                        setUnreadMessages(prev => [...prev, message.id_message]);                    
+                    }
+                });
                 setMessagesChat(data);
             } catch (e) {
                 console.error("Erro ao buscar mensagens:", e);
             }
         }
     }
+    async function ReadMessages() {
+        if (selectedChat) {
+            try {
+                const response = await fetch("http://localhost:8800/updateReadMessages", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ messages: unreadMessages, id_user: user.id_user })
+                });
+
+                setUnreadMessages(null);
+            } catch (e) {
+                console.error("Erro ao atualizar mensagens:", e);
+            }
+        }
+    }
 
     useEffect(() => {
-        getChatMessages();
+        getChatMessages(); 
     }, [selectedChat]);
+
+    useEffect(() => {
+        console.log(unreadMessages)
+        if (unreadMessages && unreadMessages.length > 0) {
+            ReadMessages();
+        }
+}, [unreadMessages]);
 
 
     async function newMessage(e) {
