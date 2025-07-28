@@ -53,19 +53,32 @@ function Register() {
     }; 
 
     return(
-        <section className="flex flex-col items-center justify-center bg-blue-400 h-dvh w-dvw">
-            <a href="/"><button>Voltar</button></a>
-            <form className="flex flex-col bg-blue-200 border-1 p-3 gap-5 rounded-2xl" onSubmit={createUser}>
-                <Input id="name_user" name="name_user" label="Nome:" placeholder="..."/>
-                <Input id="email_user" name="email_user" label="Email:" placeholder="email@email.com"/>
-                <Input id="function_user" name="function_user" label="Função:" placeholder="..."/>
-                <Input id="password_user" name="password_user" label="Senha:" placeholder="..."/>
-                <Input id="confirma_senha" name="confirma_senha" label="Confirme sua senha:" placeholder="..."/>
-                <div className="flex items-center justify-center">
-                    <Submit text="Cadastre-se"/>
-                </div>
-            </form>
-        </section>
+        <section className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-200 to-blue-400 px-4">
+        <div className="absolute top-6 left-6">
+            <a href="/">
+                <button className="bg-white/80 hover:bg-white text-blue-800 font-semibold px-4 py-2 rounded-full shadow transition duration-300">
+                    ← Voltar
+                </button>
+            </a>
+        </div>
+        <form
+            onSubmit={createUser}
+            className="w-full max-w-lg bg-white/60 backdrop-blur-md p-8 rounded-2xl shadow-xl flex flex-col gap-6 mt-10"
+        >
+            <h1 className="text-3xl font-bold text-blue-900 text-center mb-2">Crie sua conta</h1>
+
+            <Input id="name_user" name="name_user" label="Nome:" placeholder="Seu nome completo..." />
+            <Input id="email_user" name="email_user" label="Email:" placeholder="email@email.com" />
+            <Input id="function_user" name="function_user" label="Função:" placeholder="Desenvolvedor, Designer..." />
+            <Input id="password_user" name="password_user" label="Senha:" placeholder="Crie uma senha segura" type="password" />
+            <Input id="confirma_senha" name="confirma_senha" label="Confirme sua senha:" placeholder="Repita sua senha" type="password" />
+
+            <div className="flex justify-center">
+                <Submit text="Cadastre-se" />
+            </div>
+        </form>
+    </section>
+
     );
 };
 
