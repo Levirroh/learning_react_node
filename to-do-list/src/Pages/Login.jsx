@@ -42,17 +42,35 @@ function Login() {
     }
 
     return(
-        <section className="flex flex-col items-center justify-center bg-blue-400 h-dvh w-dvw">
-            <a href="/"><button>Voltar</button></a>
-            <form className="flex flex-col bg-blue-200 border-1 p-3 gap-5 rounded-2xl" onSubmit={enter}>
-                <Input label="Email de usuário:" placeholder="Digite seu email..." name="login"/>
-                <Input label="Senha:" placeholder="Digite sua senha..." name="password" type="password"/>
-                {error && <p className="text-red-500">{error}</p>}
-                <div className="flex items-center justify-center">
-                    <Submit text="Entrar"/>
+       <section className="flex flex-col items-center justify-center min-h-screen bg-gradient-to-br from-blue-200 to-blue-400 px-4">
+        <div className="absolute top-6 left-6">
+            <a href="/">
+                <button className="bg-white/80 hover:bg-white text-blue-800 font-semibold px-4 py-2 rounded-full shadow transition-all cursor-pointer">
+                    ← Voltar
+                </button>
+            </a>
+        </div>
+        <form className="w-full max-w-md bg-white/60 backdrop-blur-md p-8 rounded-2xl shadow-xl flex flex-col gap-6 mt-8" onSubmit={enter}>
+            <h1 className="text-3xl font-bold text-blue-900 text-center mb-2">Entrar na sua conta</h1>
+            <Input label="Email de usuário:"
+                placeholder="Digite seu email..."
+                name="login" />
+            <Input label="Senha:"
+                placeholder="Digite sua senha..."
+                name="password"
+                type="password"/>
+            {error && (
+                <div className="bg-orange-600 p-5 flex rounded-2xl text-center w-50 self-center">
+                    <p className="text-white font-bold text-center">{error}</p>
                 </div>
-            </form>
-        </section>
+            )}
+
+            <div className="flex justify-center">
+                <Submit text="Entrar" />
+            </div>
+        </form>
+    </section>
+
     );
 };
 
