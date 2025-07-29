@@ -130,7 +130,7 @@ function App() {
     <Menu isOpen={isMenuOpen} onClose={toggleMenu} />
 
     <section className="flex-1 overflow-y-auto pl-3 pb-6 pt-16">
-      <div className="space-y-10 max-w-screen-lg mx-auto">
+      <div className="space-y-10 max-w-screen-lg">
         <div>
           <h2 className="text-2xl font-bold text-blue-900 mb-4">Minhas Tarefas</h2>
           <Card
@@ -163,7 +163,7 @@ function App() {
             ))}
           </div>
         </div>
-        <div>
+        <div className="flex w-full">
          <div>
           <h2 className="text-2xl font-bold text-blue-900 mb-4">Conversas</h2>
           <div className="flex overflow-x-auto overflow-y-hidden gap-4 pb-5 px-1 scrollbar-thin scrollbar-thumb-blue-400 scrollbar-track-blue-200">

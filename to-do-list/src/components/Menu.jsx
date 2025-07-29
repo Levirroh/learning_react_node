@@ -17,7 +17,7 @@ function Menu({ onClose, isOpen }) {
         <Li text="Dashboard" link="/dashboard" />
         <Li text="Teams" link="/teams" />
         <Li text="Configurations" link="/config" />
-        <Li text="Tasks" link="/menu" />
+        <Li text="Tasks" link="/tasks" />
         <Li text="Notifications" link="/notications" />
         <Li text="Chats" link="/chats" />
       </nav>

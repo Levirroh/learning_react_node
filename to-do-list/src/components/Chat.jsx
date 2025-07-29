@@ -187,7 +187,7 @@ function Chat({ messagesChat, formCreateChat, setFormCreateChat, getUserChats, s
         <div className="w-full h-[89vh] flex flex-col justify-end relative overflow-y-auto p-4">
             <div className="fixed top-13 right-3">
                 {selectedChat && (
-                    <div className="w-full flex justify-end p-2">
+                    <div className="w-full flex justify-end p-5">
                         <img src={configIcon} alt="Configurações" className="h-8 cursor-pointer" onClick={openChatConfig} />
                     </div>
                 )}
