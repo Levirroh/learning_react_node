@@ -68,11 +68,10 @@ function Chats() {
                 });
 
                 const data = await response.json();
-                data.forEach(message => {
-                    if(!message.was_read_by_user){
-                        setUnreadMessages(prev => [...prev, message.id_message]);                    
-                    }
-                });
+                console.log("Mensagens recebidas:", data);
+                const unreadIds = data.filter(message => !message.was_read_by_user).map(message => message.id_message);
+
+                setUnreadMessages(unreadIds);
                 setMessagesChat(data);
             } catch (e) {
                 console.error("Erro ao buscar mensagens:", e);
@@ -88,23 +87,25 @@ function Chats() {
                     body: JSON.stringify({ messages: unreadMessages, id_user: user.id_user })
                 });
 
-                setUnreadMessages(null);
+                setUnreadMessages([]);
             } catch (e) {
                 console.error("Erro ao atualizar mensagens:", e);
             }
         }
     }
+    
+useEffect(() => {
+    setMessagesChat([]);
+    setUnreadMessages([]);
+    getChatMessages();
+}, [selectedChat]);
+
 
     useEffect(() => {
-        getChatMessages(); 
-    }, [selectedChat]);
-
-    useEffect(() => {
-        console.log(unreadMessages)
         if (unreadMessages && unreadMessages.length > 0) {
             ReadMessages();
         }
-}, [unreadMessages]);
+    }, [unreadMessages]);
 
 
     async function newMessage(e) {
@@ -143,31 +144,33 @@ function Chats() {
     function openCreateChat(){
         setSelectedChat(null);
         setFormCreateChat(true);
-    }
-    
+    }   
 
     return(
         <section className="h-screen overflow-hidden">
             <Header title="Chats" onToggleMenu={toggleMenu}/>
             <Menu isOpen={isMenuOpen} onClose={toggleMenu} />
-            <div className="flex w-full h-full pt-12">
-                <div className="w-1/3 flex border-r h-full">
-                    <div className="w-full border-t">
-                        <div className={`flex border-b p-2 text-left cursor-pointer items-top`}
-                            onClick={openCreateChat}>
-                                <div className="flex w-full justify-center items-center">
-                                    <img src={new_task} alt="Criar novo chat" className="h-15"/>
-                                </div>
-                            </div> 
+            <div className="flex w-full h-full pt-16">
+                <div className="w-1/3 max-w-sm border-r border-gray-300 bg-white/70 backdrop-blur-md h-full overflow-y-auto shadow-inner">
+                    <div
+                        onClick={openCreateChat}
+                        className="flex items-center justify-center border-b border-gray-200 p-4 cursor-pointer hover:bg-blue-100 transition"
+                    >
+                        <img src={new_task} alt="Criar novo chat" className="h-8 w-8" />
+                    </div>
+
+                    <div className="flex flex-col divide-y divide-gray-200">
                         {allChats.map((chat) => (
-                            <ChatIcon key={chat.id_chat}
+                        <ChatIcon
+                            key={chat.id_chat}
                             idChat={chat.id_chat}
                             nomeDoTime={chat.name_chat}
                             description={chat.description_chat}
                             selectedChat={selectedChat}
                             setSelectedChat={setSelectedChat}
-                            setFormCreateChat={setFormCreateChat} formCreateChat={formCreateChat}
-                            />
+                            setFormCreateChat={setFormCreateChat}
+                            formCreateChat={formCreateChat}
+                        />
                         ))}
                     </div>
                 </div>
