@@ -125,54 +125,82 @@ function App() {
     }
   }
   return (
-    <section className="h-screen overflow-hidden">
-      <Header title="Menu" onToggleMenu={toggleMenu}/>
-      <Menu isOpen={isMenuOpen} onClose={toggleMenu} />
-      <section className="flex flex-col w-full h-full pt-12 pl-3 pr-3">
-        <div className="w-full">
-            <Card text={"Your Tasks"} gradientFrom={"from-red-300"} gradientTo={"to-purple-600"} to={"/tasks"} data1={toDoTasks} data2={doingTasks} data3={doneTasks} type="tasks"/>
-            <h1>Teams</h1>
-            <div className="flex flex-wrap gap-4">
-              {teams && teams.map(team => {
-                return (
-                  <Card
-                    key={team.id_team}
-                    type="tasks"
-                    text={team.name_team}
-                    gradientFrom={"from-green-500"}
-                    gradientTo={"to-blue-600"}
-                    to={`/Team/${team.id_team}`}
-                    data1={team.to_do}
-                    data2={team.doing}
-                    data3={team.done}
-                  />
-                );
-              })}
-            </div>
-            <h1>Chats</h1>
-            <div className="flex flex-wrap gap-4">
-              {chats && chats.map(chat => {
-                const unreadData = unreadMessagesByChat?.find(un => un.id_chat === chat.id_chat);
-                const unreadCount = unreadData ? unreadData.unread_count : 0;
+   <section className="h-screen flex flex-col bg-gradient-to-br from-blue-100 to-blue-200">
+    <Header title="Menu" onToggleMenu={toggleMenu} />
+    <Menu isOpen={isMenuOpen} onClose={toggleMenu} />
 
-                return (
-                  <Card
-                    key={chat.id_chat}
-                    type="chat"
-                    text={chat.name_chat}
-                    gradientFrom={"from-purple-800"}
-                    gradientTo={"to-yellow-500"}
-                    to={`/chats`}
-                    data1={unreadCount}
-                  />
-                );
-              })}
-            </div>         
-            <Card text={"Configurations"} gradientFrom={"from-black"} gradientTo={"to-purple-600"} to={"/configurations"}/>
-
+    <section className="flex-1 overflow-y-auto pl-3 pb-6 pt-16">
+      <div className="space-y-10 max-w-screen-lg mx-auto">
+        <div>
+          <h2 className="text-2xl font-bold text-blue-900 mb-4">Minhas Tarefas</h2>
+          <Card
+            text="Your Tasks"
+            gradientFrom="from-red-300"
+            gradientTo="to-purple-600"
+            to="/tasks"
+            data1={toDoTasks}
+            data2={doingTasks}
+            data3={doneTasks}
+            type="tasks"
+          />
         </div>
-      </section>
+       <div>
+          <h2 className="text-2xl font-bold text-blue-900 mb-4">Equipes</h2>
+          <div className="flex overflow-x-auto overflow-y-hidden gap-4 pb-2 px-1 scrollbar-thin scrollbar-thumb-blue-400 scrollbar-track-blue-200">
+            {teams?.map(team => (
+              <div key={team.id_team} className="min-w-[250px] shrink-0">
+                <Card
+                  text={team.name_team}
+                  gradientFrom="from-green-500"
+                  gradientTo="to-blue-600"
+                  to={`/Team/${team.id_team}`}
+                  data1={team.to_do}
+                  data2={team.doing}
+                  data3={team.done}
+                  type="tasks"
+                />
+              </div>
+            ))}
+          </div>
+        </div>
+        <div>
+         <div>
+          <h2 className="text-2xl font-bold text-blue-900 mb-4">Conversas</h2>
+          <div className="flex overflow-x-auto overflow-y-hidden gap-4 pb-5 px-1 scrollbar-thin scrollbar-thumb-blue-400 scrollbar-track-blue-200">
+            {chats?.map(chat => {
+              const unreadData = unreadMessagesByChat?.find(un => un.id_chat === chat.id_chat);
+              const unreadCount = unreadData ? unreadData.unread_count : 0;
+
+              return (
+                <div key={chat.id_chat} className="min-w-[250px] shrink-0">
+                  <Card
+                    text={chat.name_chat}
+                    gradientFrom="from-purple-800"
+                    gradientTo="to-yellow-500"
+                    to="/chats"
+                    data1={unreadCount}
+                    type="chat"
+                  />
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        </div>
+        <div>
+          <h2 className="text-2xl font-bold text-blue-900 mb-4">Outros</h2>
+          <Card
+            text="Configurações"
+            gradientFrom="from-black"
+            gradientTo="to-purple-600"
+            to="/configurations"
+          />
+        </div>
+
+      </div>
     </section>
+  </section>
+
   );
 }
 
