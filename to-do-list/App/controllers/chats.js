@@ -20,8 +20,8 @@ export const get_chats_user = (req, res) => {
 export const get_chat_messages = (req, res) => {
     const { id_chat, id_user } = req.body;
 
-    const query = "SELECT message.*, message_reads.id_user AS was_read_by_user FROM message LEFT JOIN message_reads ON message.id_message = message_reads.id_message AND message_reads.id_user = 1 WHERE message.id_chat = 1 ORDER BY message.time_message;";
-    const values = [id_chat, id_user];
+    const query = "SELECT message.*, message_reads.id_user AS was_read_by_user FROM message LEFT JOIN message_reads ON message.id_message = message_reads.id_message AND message_reads.id_user = ? WHERE message.id_chat = ? ORDER BY message.time_message;";
+    const values = [id_user, id_chat];
 
     con.query(query, values, (err, data) => {
         if (err) {
@@ -33,32 +33,32 @@ export const get_chat_messages = (req, res) => {
     });
 };
 
-export const update_read_message = (req, res) => {
+export const update_read_message = async (req, res) => {
     const { messages, id_user } = req.body;
-    console.log(messages);
-    const query = "INSERT INTO message_reads (id_user, id_message, read_at) VALUES (?, ?, NOW())";
-
     if (!messages || messages.length === 0) {
         return res.status(400).json({ error: "Nenhuma mensagem recebida." });
     }
-    let completed = 0;
-    let hasError = false;
-    messages.forEach(id_message => {
-        const values = [id_user, id_message];
 
-        con.query(query, values, (err, result) => {
-            if (hasError) return; 
-            if (err) {
-                hasError = true;
-                console.error("Erro ao inserir leitura de mensagem:", err);
-                return res.status(500).json({ error: "Erro ao atualizar leituras.", details: err });
-            }
-            completed++;
-            if (completed === messages.length) {
-                return res.status(200).json({ success: true });
-            }
-        });
-    });
+    const query = "INSERT IGNORE INTO message_reads (id_user, id_message, read_at) VALUES (?, ?, NOW())";
+
+    try {
+        await Promise.all(
+            messages.map(id_message => 
+                new Promise((resolve, reject) => {
+                    con.query(query, [id_user, id_message], (err, result) => {
+                        if (err) {
+                            console.error("Erro ao inserir leitura de mensagem:", err);
+                            return reject(err);
+                        }
+                        resolve(result);
+                    });
+                })
+            )
+        );
+        return res.status(200).json({ success: true });
+    } catch (err) {
+        return res.status(500).json({ error: "Erro ao atualizar leituras.", details: err });
+    }
 };
 export const new_chat_message = (req, res) => {
     const { id_chat, id_user, message } = req.body;
