@@ -171,190 +171,233 @@ function Teams() {
 
 
     return(
-        <section>
+        <section className="min-h-screen bg-gray-50">
             <Header title="Teams" onToggleMenu={toggleMenu} />
             <Menu isOpen={isMenuOpen} onClose={toggleMenu} />
-            <section className='pl-3'>
-                <h1>Times</h1>
-                <p>Seus times:</p>
-                <div className='flex gap-5'>
-                    {teams.map((team) => (
-                            <TeamIcon key={team.id_team_members}
-                            nomeDoTime={team.name_team}
-                            color={team.color_team}
-                            id_team={team.id_team}
-                            funcao={team.role_user}
-                            category={team.category_team}
-                            openConfig={openConfig}
-                            setOpenConfig={setOpenConfig}
-                            setSelectedTeamConfig={setSelectedTeamConfig}
-                            getTeamMembers={getTeamMembers}/>
-                        ))}
-                </div>
-                <p>Criar novo time</p>
-                <div className='min-w-300'>
-                    <NewTeam popUp={popUp} setPopUp={setPopUp}/>
-                </div>
-                <small>Templates de times prontos</small>
-                <div className='flex gap-5'>
-                    <div className='p-3 bg-black'></div>
-                    <div className='p-3 bg-black'></div>
-                    <div className='p-3 bg-black'></div>
-                    <div className='p-3 bg-black'></div>
-                    <div className='p-3 bg-black'></div>
-                </div>
-            </section>
 
-            {popUp && (<div className='absolute flex top-0 h-screen w-screen p-2 justify-center items-center'>
-                <div className='bg-blue-400 h-fit w-[53vw] rounded-2xl' >
-                    <div className='flex justify-end w-full pr-6 pt-2'>
-                        <button className='text-black font-bold cursor-pointer' onClick={newTeamPopUp}>X</button>
+            <div className="p-6">
+                <h1 className="text-3xl font-semibold text-gray-800 mb-2">Times</h1>
+                <p className="text-gray-600 mb-4">Seus times:</p>
+
+                <div className="flex flex-wrap gap-5 mb-8">
+                {teams.map((team) => (
+                    <TeamIcon
+                    key={team.id_team_members}
+                    nomeDoTime={team.name_team}
+                    color={team.color_team}
+                    id_team={team.id_team}
+                    funcao={team.role_user}
+                    category={team.category_team}
+                    openConfig={openConfig}
+                    setOpenConfig={setOpenConfig}
+                    setSelectedTeamConfig={setSelectedTeamConfig}
+                    getTeamMembers={getTeamMembers}
+                    />
+                ))}
+                </div>
+
+                <div className="mb-8">
+                <p className="text-lg font-medium mb-2">Criar novo time</p>
+                <div className="min-w-[300px]">
+                    <NewTeam popUp={popUp} setPopUp={setPopUp} />
+                    <button
+                    onClick={newTeamPopUp}
+                    className="mt-4 px-5 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition"
+                    >
+                    Novo Time
+                    </button>
+                </div>
+                </div>
+
+                <p className="text-sm text-gray-500 mb-3">Templates de times prontos</p>
+                <div className="flex gap-4">
+                {[...Array(5)].map((_, i) => (
+                    <div key={i} className="w-16 h-16 bg-gray-300 rounded-xl"></div>
+                ))}
+                </div>
+            </div>
+
+            {popUp && (
+                <div className="fixed inset-0 bg-gradient-to-br from-blue-100 to-blue-300 bg-opacity-40 flex justify-center items-center z-50">
+                <div className="bg-white rounded-xl p-6 w-full max-w-2xl shadow-lg space-y-4">
+                    <div className="flex justify-end">
+                    <button className="text-gray-600 font-bold" onClick={newTeamPopUp}>
+                        ✕
+                    </button>
                     </div>
-                    <div className='flex items-center justify-center h-[6vh]'>
-                        <label htmlFor="newTeamName" className='bg-white p-2'>*Nome do novo time:</label>
-                        <input className='bg-white p-2' name='newTeamName' id="newTeamName" placeholder='Ex.: escola' onChange={(e) => setNewTeamName(e.target.value)}/>
+                    <div className="space-y-4">
+                    <div className="flex items-center gap-3">
+                        <label className="w-40 font-medium">*Nome do time:</label>
+                        <input
+                        className="flex-1 p-2 border rounded-md"
+                        placeholder="Ex.: escola"
+                        onChange={(e) => setNewTeamName(e.target.value)}
+                        />
                     </div>
-                    <div className='flex items-center justify-center h-[6vh]'>
-                        <label htmlFor="newTeamName" className='bg-white p-2'>Imagem:</label>
-                        <input className='bg-white p-2' name='newTeamName' type="file" id="newTeamName" placeholder='Ex.: escola' onChange={(e) => setNewTeamImage(e.target.value)}/>
+                    <div className="flex items-center gap-3">
+                        <label className="w-40 font-medium">Imagem:</label>
+                        <input
+                        type="file"
+                        className="flex-1"
+                        onChange={(e) => setNewTeamImage(e.target.value)}
+                        />
                     </div>
-                    <div className='flex items-center justify-center h-[6vh]'>
-                        <label htmlFor="newTeamName" className='bg-white p-2'>Categoria:</label>
-                        <input className='bg-white p-2' name='newTeamName' id="newTeamName" placeholder='Ex.: escola' onChange={(e) => setNewTeamCategory(e.target.value)}/>
+                    <div className="flex items-center gap-3">
+                        <label className="w-40 font-medium">Categoria:</label>
+                        <input
+                        className="flex-1 p-2 border rounded-md"
+                        placeholder="Ex.: escola"
+                        onChange={(e) => setNewTeamCategory(e.target.value)}
+                        />
                     </div>
-                    <div className='flex items-center justify-center h-[6vh] gap-10'>
-                        <p>Cor: </p>
-                        <select name="teamColor" onChange={(e) => setNewTeamColor(e.target.value)} className='bg-white p-3 rounded-2xl'>
-                            <option value="vermelho">Vermelho</option>
-                            <option value="amarelo">Amarelo</option>
-                            <option value="rosa">Rosa</option>
-                            <option value="azul">Azul</option>
-                            <option value="verde">Verde</option>
-                            <option value="roxo">Roxo</option>
-                            <option value="laranja">Laranja</option>
-                            <option value="cinza">Cinza</option>
-                            <option value="preto">Preto</option>
+                    <div className="flex items-center gap-3">
+                        <label className="w-40 font-medium">Cor:</label>
+                        <select
+                        className="flex-1 p-2 border rounded-md"
+                        onChange={(e) => setNewTeamColor(e.target.value)}
+                        >
+                        <option>vermelho</option>
+                        <option>amarelo</option>
+                        <option>rosa</option>
+                        <option>azul</option>
+                        <option>verde</option>
+                        <option>roxo</option>
+                        <option>laranja</option>
+                        <option>cinza</option>
+                        <option>preto</option>
                         </select>
                     </div>
-                    <div className='flex justify-center mt-2'>
-                        <button className='bg-blue-400 rounded-sm pt-2 pb-2 pl-5 pr-5' onClick={createTeam}>Criar</button>
+                    </div>
+                    <div className="flex justify-center pt-4">
+                    <button
+                        onClick={createTeam}
+                        className="px-6 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-md"
+                    >
+                        Criar
+                    </button>
                     </div>
                 </div>
-            </div>)}
-
-
-            {openConfig && (
-                <div className='flex absolute top-0 w-screen h-screen justify-center items-center'>
-                    <div className='bg-blue-300 p-5 flex flex-col border rounded-2xl shadow-gray-500 shadow-lg'>
-                        <div className='flex flex-col'>
-                            <p>Nome do time: {selectedTeamConfig[1]}</p>    
-                            <p>Integrantes do time:</p>
-                            <div>
-                            {teamMembers.map((member) => (
-                                <div className="flex" key={member.id_user}>
-                                    <p>{member.name_user}</p>
-                                </div>
-                                ))}
-                            </div>
-                            <p>Cor do time: {selectedTeamConfig[3]}</p>
-                            <p>Tarefas do time: {selectedTeamConfig[6]} / {selectedTeamConfig[5]}</p>
-                            <p>Categoria do time: {selectedTeamConfig[4]}</p>
-                        </div>
-                        <div className="flex items-center justify-center gap-10">
-                            <button
-                                className="mt-2 px-4 py-2 bg-red-200 text-black rounded cursor-pointer"
-                                onClick={ChangeConfig}
-                            >Fechar</button>
-                            <button
-                                className="mt-2 px-4 py-2 bg-yellow-100 text-black rounded cursor-pointer"
-                                onClick={UpdateConfigPopUp}
-                            >Alterar</button>
-                        </div>
-                    </div>
                 </div>
             )}
-            {UpdateConfig && (
-                <div className='flex absolute top-0 w-screen h-screen justify-center items-center'>
-                    <div className='bg-blue-300 p-5 flex flex-col border rounded-2xl'>
-                    <form onSubmit={UpdateTeam}>
-                        <div className='flex gap-5'>
-                            <label>Nome do time: </label>
-                            <input
-                            type="text"
-                            value={teamNameEdit}
-                            onChange={(e) => setTeamNameEdit(e.target.value)}
-                            />
-                        </div>
-                        
-                        <p>Integrantes do time:</p>
-                        <div>
-                            {teamMembers.map((member) => (
-                            <div className="flex justify-between" key={member.id_user}>
-                                <p>{member.name_user}</p>
-                                <select name="permitionUser"
-                                    className='bg-white rounded-2xl pl-2 pr-2'
-                                    value={member.role_user}
-                                    onChange={(e) => {
-                                        const newRole = e.target.value;
-                                        const updatedMembers = [...teamMembers];
-                                        updatedMembers[index] = {
-                                        ...updatedMembers[index],
-                                        role_user: newRole
-                                        };
-                                        setTeamMembers(updatedMembers);
-                                    }}
-                                    >
-                                    <option disabled>Permissões</option>
-                                    <option value="Moderador">Moderador</option>
-                                    <option value="Administrador">Administrador</option>
-                                </select>
-                            </div>
-                            ))}
-                        </div>
 
-                        <div className='flex gap-5 text-center items-center'>
-                            <p>Cor do time: </p>
-                            <select name="teamColor" onChange={(e) => setTeamColorEdit(e.target.value)} className={`bg-white p-2 rounded-2xl ${teamColorEdit}`}>
-                                <option value={selectedTeamConfig[3]} selected disabled>{selectedTeamConfig[3]}</option>
-                                <option value="vermelho">Vermelho</option>
-                                <option value="amarelo">Amarelo</option>
-                                <option value="rosa">Rosa</option>
-                                <option value="azul">Azul</option>
-                                <option value="verde">Verde</option>
-                                <option value="roxo">Roxo</option>
-                                <option value="laranja">Laranja</option>
-                                <option value="cinza">Cinza</option>
-                                <option value="preto">Preto</option>
+            {openConfig && (
+                <div className="fixed inset-0 bg-gradient-to-br from-blue-100 to-blue-300 bg-opacity-40 flex justify-center items-center z-50">
+                <div className="bg-white p-6 rounded-xl shadow-lg w-full max-w-md space-y-4">
+                    <h2 className="text-xl font-bold">Time: {selectedTeamConfig[1]}</h2>
+                    <p><strong>Cor:</strong> {selectedTeamConfig[3]}</p>
+                    <p><strong>Tarefas:</strong> {selectedTeamConfig[6]} / {selectedTeamConfig[5]}</p>
+                    <p><strong>Categoria:</strong> {selectedTeamConfig[4]}</p>
+                    <div>
+                    <p className="font-medium mb-1">Integrantes:</p>
+                    {teamMembers.map((member) => (
+                        <div key={member.id_user} className="border-b py-1">{member.name_user}</div>
+                    ))}
+                    </div>
+                    <div className="flex justify-end gap-4 pt-2">
+                    <button
+                        className="bg-gray-300 px-4 py-2 rounded-md"
+                        onClick={ChangeConfig}
+                    >
+                        Fechar
+                    </button>
+                    <button
+                        className="bg-yellow-300 px-4 py-2 rounded-md"
+                        onClick={UpdateConfigPopUp}
+                    >
+                        Alterar
+                    </button>
+                    </div>
+                </div>
+                </div>
+            )}
+
+            {UpdateConfig && (
+                <div className="fixed inset-0 bg-gradient-to-br from-blue-100 to-blue-300 bg-opacity-40 flex justify-center items-center z-50 p-4">
+                <div className="bg-white p-6 rounded-xl shadow-lg w-full max-w-md space-y-6">
+                    <form onSubmit={UpdateTeam} className="space-y-4">
+                    <div className="flex items-center gap-3">
+                        <label className="w-36 font-medium">Nome:</label>
+                        <input
+                        type="text"
+                        value={teamNameEdit}
+                        onChange={(e) => setTeamNameEdit(e.target.value)}
+                        className="flex-1 p-2 border rounded-md"
+                        />
+                    </div>
+                    <div className="flex items-center gap-3">
+                        <label className="w-36 font-medium">Categoria:</label>
+                        <input
+                        type="text"
+                        value={teamCategoryEdit}
+                        onChange={(e) => setTeamCategoryEdit(e.target.value)}
+                        className="flex-1 p-2 border rounded-md"
+                        />
+                    </div>
+                    <div className="flex items-center gap-3">
+                        <label className="w-36 font-medium">Cor:</label>
+                        <select
+                        value={teamColorEdit}
+                        onChange={(e) => setTeamColorEdit(e.target.value)}
+                        className="flex-1 p-2 border rounded-md"
+                        >
+                        <option disabled>Selecione...</option>
+                        <option value="vermelho">Vermelho</option>
+                        <option value="amarelo">Amarelo</option>
+                        <option value="rosa">Rosa</option>
+                        <option value="azul">Azul</option>
+                        <option value="verde">Verde</option>
+                        <option value="roxo">Roxo</option>
+                        <option value="laranja">Laranja</option>
+                        <option value="cinza">Cinza</option>
+                        <option value="preto">Preto</option>
+                        </select>
+                    </div>
+
+                    <div>
+                        <p className="font-medium mb-2">Permissões:</p>
+                        {teamMembers.map((member, index) => (
+                        <div className="flex justify-between items-center mb-2" key={member.id_user}>
+                            <span>{member.name_user}</span>
+                            <select
+                            className="p-1 rounded-md border"
+                            value={member.role_user}
+                            onChange={(e) => {
+                                const newRole = e.target.value;
+                                const updatedMembers = [...teamMembers];
+                                updatedMembers[index] = {
+                                ...updatedMembers[index],
+                                role_user: newRole
+                                };
+                                setTeamMembers(updatedMembers);
+                            }}
+                            >
+                            <option value="Moderador">Moderador</option>
+                            <option value="Administrador">Administrador</option>
                             </select>
                         </div>
-
-                        <div className='flex gap-5'>
-                            <p>Categoria do time: </p>
-                            <input
-                            value={teamCategoryEdit}
-                            onChange={(e) => setTeamCategoryEdit(e.target.value)}
-                            />
-                        </div>
-
-                        <div className="flex items-center justify-center gap-10">
-                            <input
-                            className="mt-2 px-4 py-2 bg-green-200 text-black rounded cursor-pointer"
-                            value="Salvar"
-                            type='submit'
-                            />
-                            <button
-                            className="mt-2 px-4 py-2 bg-red-200 text-black rounded cursor-pointer"
-                            onClick={UpdateConfigPopUp}
-                            >
-                            Voltar
-                            </button>
-                        </div>
-                        </form>
-
+                        ))}
                     </div>
+
+                    <div className="flex justify-end gap-4 pt-4">
+                        <input
+                        type="submit"
+                        value="Salvar"
+                        className="px-6 py-2 bg-green-500 text-white rounded-md cursor-pointer hover:bg-green-600"
+                        />
+                        <button
+                        type="button"
+                        onClick={UpdateConfigPopUp}
+                        className="px-6 py-2 bg-red-400 text-white rounded-md hover:bg-red-500"
+                        >
+                        Voltar
+                        </button>
+                    </div>
+                    </form>
+                </div>
                 </div>
             )}
         </section>
+
     )
 }
 
