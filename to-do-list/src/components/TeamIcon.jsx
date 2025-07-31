@@ -12,34 +12,43 @@ function TeamIcon({nomeDoTime, id_team, funcao, openConfig, setOpenConfig, setSe
     var totalTasks = 5;
     var completedTasks = 0;
 
-    function OpenConfig(){
+    const OpenConfig = (e) => {
+        e.stopPropagation(); 
         setOpenConfig(!openConfig);
-        setSelectedTeamConfig([id_team, nomeDoTime, funcao, 'azul', 'time Teste', totalTasks, completedTasks]);
+        setSelectedTeamConfig([
+        id_team,
+        nomeDoTime,
+        funcao,
+        color || "azul",
+        "time Teste",
+        totalTasks,
+        completedTasks
+        ]);
         getTeamMembers(id_team);
-    }
+    };
 
-    if(funcao == "Administrador"){
-        return (
-            <div className={`${color} flex border p-2 rounded-2xl mt-3 text-left cursor-pointer items-top min-w-50`}>
-                <div onClick={goToTeam} className="w-full flex flex-col justify-evenly">
-                    <h1 className="w-[90%]">{nomeDoTime}</h1>
-                    <p>{funcao}</p>
-                </div>
-                <div className="flex">
-                    <img src={config_icon} alt="Configurações" className="h-5" onClick={OpenConfig} />
-                </div>
-            </div> 
-        );
-    } else {
-        return (
-            <div className={`${color} flex border p-2 rounded-2xl mt-3 text-left cursor-pointer items-top min-w-50`}>
-                <div onClick={goToTeam} className="w-full flex flex-col justify-evenly">
-                    <h1 className="w-[90%]">{nomeDoTime}</h1>
-                    <p>{funcao}</p>
-                </div>
-            </div> 
-        );
-    }
+    return (
+        <div
+        className={`relative flex flex-col justify-between rounded-2xl shadow-md transition transform hover:scale-[1.02] cursor-pointer w-48 min-h-[120px] p-4 text-white ${color}`}
+        onClick={goToTeam}
+        >
+        {funcao === "Administrador" && (
+            <div className="absolute top-2 right-2">
+            <img
+                src={config_icon}
+                alt="Config"
+                onClick={OpenConfig}
+                className="w-5 h-5 hover:scale-110 transition"
+            />
+            </div>
+        )}
+
+        <div className="flex flex-col justify-between h-full">
+            <h2 className="text-lg font-bold truncate">{nomeDoTime}</h2>
+            <p className="text-sm opacity-90 mt-1">{funcao}</p>
+        </div>
+        </div>
+    );
 }
 
 export default TeamIcon;
