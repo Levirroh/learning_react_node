@@ -8,12 +8,14 @@ function NewTeam({popUp, setPopUp}){
         setPopUp(!popUp);
     }
     return(
-        <div className={`flex flex-col border-1 p-2 rounded-2xl ToDo mt-3 text-left justify-center items-center h-25 w-1/6 hover:cursor-pointer`} onClick={newTeamPopUp}>
-            <div className="flex justify-center items-center">
-                <img src={team_icon} className="h-20" />
-                <img src={new_task} alt="Nova tarefa" className="h-13" />
-            </div>
-        </div> 
+       <div className="flex flex-col items-center justify-center gap-2 p-4 rounded-2xl shadow-md border border-gray-300 bg-white hover:bg-blue-100 transition duration-200 cursor-pointer w-100 h-48" onClick={newTeamPopUp} >
+        <div className="flex justify-center items-center gap-2">
+            <img src={team_icon} className="h-16" alt="Ícone de time" />
+            <img src={new_task} className="h-10" alt="Nova tarefa" />
+        </div>
+        <p className="text-gray-700 font-semibold text-center">Criar novo time</p>
+    </div>
+
 );
 }
 
