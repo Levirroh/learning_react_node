@@ -33,32 +33,49 @@ body{
     padding: 5px 5px 20px 5px;
 }
 
-.vermelho{
-    background-color: #f1a9a9;
+.vermelho {
+    background-color: #f26d6d;
+    color: white;
 }
-.amarelo{
-    background-color: #ffff83;
+
+.amarelo {
+    background-color: #f0c93d;
+    color: #333;
 }
-.rosa{
-    background-color: #ffc0cb;
+
+.rosa {
+    background-color: #f48fb1;
+    color: white;
 }
-.azul{
-    background-color: #a1a1ff;
+
+.azul {
+    background-color: #5c9ded;
+    color: white;
 }
-.verde{
-    background-color: #9fc26a;
+
+.verde {
+    background-color: #81c784;
+    color: white;
 }
-.roxo{
-    background-color: #955cf1;
+
+.roxo {
+    background-color: #9575cd;
+    color: white;
 }
-.laranja{
-    background-color: #ffd17c;
+
+.laranja {
+    background-color: #ffb74d;
+    color: #333;
 }
-.cinza{
-    background-color: #bdbdbd;
+
+.cinza {
+    background-color: #b0b0b0;
+    color: black;
 }
-.preto{
-    background-color: #323232;
+
+.preto {
+    background-color: #2c2c2c;
+    color: white;
 }
 
 #ToDo h1,
