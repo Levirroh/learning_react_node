@@ -9,14 +9,14 @@ function Task({ id, user, title, description, subject, date, status, selectedTas
         }
     };
     return (
-        <div 
-            className={`flex flex-col border p-2 rounded-2xl ${status} mt-3 text-left cursor-pointer ${color}`} 
-            onClick={showTask}
-        >
-            <p>ID: {id}</p>
-            <p>Title: {title}</p>
-            <p>Subject: {subject}</p>
-        </div> 
+       <div className={`flex flex-col gap-2 border rounded-2xl shadow-sm p-4 transition-all hover:shadow-md hover:scale-[1.01] ${status} ${color} cursor-pointer mt-3`}
+        onClick={showTask} >
+            <p className="text-xs text-gray-600">Tarefa n°: {id}</p>
+            <h3 className="text-base font-semibold text-gray-800 truncate">Título: {title}</h3>
+            <p className="text-sm text-gray-700 italic">Descrição:</p>
+            <p className="text-sm text-gray-700 p-2">{subject}</p>
+        </div>
+
     );
 }
 
