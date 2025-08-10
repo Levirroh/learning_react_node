@@ -16,7 +16,7 @@ function Menu({ onClose, isOpen }) {
       <nav className="space-y-3">
         <Li text="Dashboard" link="/dashboard" />
         <Li text="Teams" link="/teams" />
-        <Li text="Configurations" link="/config" />
+        <Li text="Configurations" link="/settings" />
         <Li text="Tasks" link="/tasks" />
         <Li text="Notifications" link="/notications" />
         <Li text="Chats" link="/chats" />
