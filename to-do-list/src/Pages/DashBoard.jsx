@@ -193,7 +193,7 @@ function App() {
             text="Configurações"
             gradientFrom="from-black"
             gradientTo="to-purple-600"
-            to="/configurations"
+            to="/settings"
           />
         </div>
 
