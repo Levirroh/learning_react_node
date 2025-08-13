@@ -16,6 +16,7 @@ import Team from "./Pages/Team.jsx"
 import Chats from "./Pages/Chats.jsx"
 import DashBoard from "./Pages/DashBoard.jsx"
 import Settings from "./Pages/Settings.jsx"
+import Notifications from "./Pages/Notifications.jsx"
 
 import "./index.css";
 
@@ -35,6 +36,7 @@ root.render(
         <Route path="/Teamtask/:id" element={<CreateTask />} />
         <Route path="/chats" element={<Chats />} />
         <Route path="/settings" element={<Settings />} />
+        <Route path="/notifications" element={<Notifications />} />
 
         <Route path="/dashboard" element={<DashBoard />} />
         <Route path="/menu" element={<DashBoard />} />
