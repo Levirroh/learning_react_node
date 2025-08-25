@@ -20,11 +20,11 @@ body{
 #task_selected{
     position: absolute;
     color: white;
-    background-color: var(--color-blue-400);
+    background-color: #5c9ded;
     display: flex;
     align-self: center;
-    left: 27vw; /* 27 de cada lado para centralizar*/
-    width: 46vw;
+    left: 40vw; /* 40 de cada lado para centralizar*/
+    width: 20vw;
     height: fit-content;
     align-items: center;
     flex-direction: column;
