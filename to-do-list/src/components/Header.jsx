@@ -9,7 +9,7 @@ function Header({ title, onToggleMenu, team, color }) {
   if (team == true){
     return (
       <section className={`${color} flex items-center justify-between px-6 py-4 shadow-md`}>
-      <button onClick={onToggleMenu} className="text-white font-semibold text-lg hover:underline transition">
+      <button onClick={onToggleMenu} className="text-white font-semibold text-lg hover:underline transition hover:cursor-pointer">
         {title}
       </button>
       <div className="flex items-center gap-4 relative">
