@@ -16,7 +16,7 @@ function Welcome() {
                             Este software foi feito com <strong>Node.js</strong> & <strong>React</strong>. Aqui você pode gerenciar tarefas, usuários, times e bate-papos!
                         </p>
                         <a href="/login">
-                            <button className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition-all shadow">
+                            <button className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition duration-100 ease-in-out shadow hover:scale-110 hover:cursor-pointer">
                                 Entre já!
                             </button>
                         </a>
@@ -27,7 +27,7 @@ function Welcome() {
                             O <strong>objetivo</strong> desta aplicação é o <strong>gerenciamento de tarefas</strong>, onde você pode trabalhar com <strong>times</strong>, conversar com diferentes pessoas e <strong>times</strong> por <strong>chats</strong> e ter um bom <strong>gerenciamento</strong> dos seus afazeres.
                         </p>
                         <a href="/register">
-                            <button className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition-all shadow">
+                            <button className="bg-blue-600 text-white px-6 py-2 rounded-full hover:bg-blue-700 transition duration-100 ease-in-out shadow hover:scale-110 hover:cursor-pointer">
                                 Cadastre-se já
                             </button>
                         </a>
