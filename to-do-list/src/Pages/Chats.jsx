@@ -174,7 +174,7 @@ useEffect(() => {
                         ))}
                     </div>
                 </div>
-                <div className="w-full h-[90vh]">
+                <div className="w-full">
                     <Chat messagesChat={messagesChat} user={user} setFormCreateChat={setFormCreateChat} formCreateChat={formCreateChat} getUserChats={getUserChats} selectedChat={selectedChat}/>
                     {selectedChat != null && (
                         <ChatInput selectedChat={selectedChat} newMessage={newMessage}/>
