@@ -62,10 +62,9 @@ function CreateTask() {
                 if(!response.ok){
                     throw new Error('Error to create task');
                 }
-
                 if (taskData){
                     alert("Cadastro realizado com sucesso!");
-                    navigate(`/menu`)    
+                    navigate(`/tasks`); 
                 }
 
             } catch (e) {
