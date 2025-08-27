@@ -198,14 +198,8 @@ function Teams() {
 
                 <div className="mb-8">
                 <p className="text-lg font-medium mb-2">Criar novo time</p>
-                <div className="min-w-[300px]">
+                <div className="min-w-[200px]">
                     <NewTeam popUp={popUp} setPopUp={setPopUp} />
-                    <button
-                    onClick={newTeamPopUp}
-                    className="mt-4 px-5 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg transition"
-                    >
-                    Novo Time
-                    </button>
                 </div>
                 </div>
 
