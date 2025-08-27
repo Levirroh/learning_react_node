@@ -47,7 +47,7 @@ function Tasks({ tasks = [] }) {
 
 
     return (
-        <section className="flex h-screen w-screen justify-evenly bg-gray-100 gap-6">
+        <section className="flex h-full w-screen justify-evenly bg-gray-100 gap-6">
             <div id="ToDo" className="w-1/4 bg-white rounded-xl shadow-md p-4 mt-16">
                 <h2 className="text-xl font-semibold text-gray-800 text-center">TO DO</h2>
                 <ul className="space-y-2">
