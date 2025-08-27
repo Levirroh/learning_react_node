@@ -40,7 +40,7 @@ function Header({ title, onToggleMenu, team, color }) {
   } else {
     return (
       <section className="bg-blue-400 flex items-center justify-between px-6 py-3 fixed top-0 left-0 w-full z-50 shadow-md">
-      <button onClick={onToggleMenu} className="text-white font-semibold text-lg hover:underline transition">
+      <button onClick={onToggleMenu} className="text-white font-semibold text-lg hover:underline transition hover:cursor-pointer">
         {title}
       </button>
       <a href="/login">
