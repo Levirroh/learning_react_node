@@ -48,7 +48,7 @@ function UpdateTask() {
                 throw new Error("Erro ao atualizar tarefa");
             }
             alert("Tarefa alterada com sucesso!");
-            navigate("/menu");
+            navigate("/tasks");
         } catch (e) {
             console.log("Erro ao atualizar tarefa: ", e);
         }
