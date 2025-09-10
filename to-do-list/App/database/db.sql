@@ -96,6 +96,36 @@ CREATE TABLE message_reads (
     UNIQUE (id_user, id_message) -- garante que cada leitura de mensagem por usuário seja única
 );
 
+-- CONFIGS
+
+CREATE TABLE preference_defaults (
+    id_default INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    key_preference VARCHAR(50) NOT NULL UNIQUE,
+    default_value VARCHAR(255) NOT NULL
+);
+
+
+INSERT INTO preference_defaults (key_preference, default_value) VALUES
+('theme', 'light'),
+('notifications', 'true');
+
+-- trigger para adicionar as configurações sempre que criar um usuário novo
+
+DELIMITER $$
+
+CREATE TRIGGER after_user_insert
+AFTER INSERT ON users
+FOR EACH ROW
+BEGIN
+    INSERT INTO user_preferences (id_user, key_preference, value_preference)
+    SELECT NEW.id_user, key_preference, default_value
+    FROM preference_defaults;
+END$$
+
+DELIMITER ;
+
+-- UPDATE user_preferences SET value_preference = 'dark' WHERE id_user = 1 AND key_preference = 'theme';
+
 INSERT INTO users (name_user, function_user, email_user, password_user) 
 VALUES ("teste","teste","teste","teste");
 
@@ -160,3 +190,57 @@ INSERT INTO message (id_user, id_chat, content_message, time_message)
 VALUES (2, 2, 'ASDOIJASD', NOW());
 
 UPDATE teams SET name_team = "time atualizado", image_team = null, color_team = "vermelho", category_team = "finanças" WHERE id_team = 2;
+
+SELECT * FROM teams;
+/*
+SELECT * FROM chat_members;
+SELECT * FROM users;
+SELECT * FROM message INNER JOIN chat ON message.id_chat = chat.id_chat WHERE chat.id_chat = 1;
+SELECT * FROM chat JOIN team_members ON team_members.team_id = chat.id_team WHERE team_members.user_id = 1;
+SELECT * FROM message INNER JOIN chat ON message.id_chat = chat.id_chat INNER JOIN users ON users.id_user = message.id_user WHERE chat.id_chat = 1;
+SELECT * FROM tasks WHERE team_task = 1;
+
+SELECT * FROM chat_members WHERE id_chat  = 1;
+
+
+-- todas notificações por chat
+
+SELECT 
+  message.id_chat,
+  COUNT(*) AS unread_count
+FROM message
+JOIN chat_members ON chat_members.id_chat = message.id_chat
+WHERE chat_members.id_user = 1
+  AND message.id_user != 1
+  AND NOT EXISTS (
+    SELECT 1
+    FROM message_reads
+    WHERE message_reads.id_user = 1
+      AND message_reads.id_message = message.id_message
+)
+GROUP BY message.id_chat;
+
+SELECT * FROM message 
+INNER JOIN message_reads ON message_reads.id_message = message.id_message 
+WHERE id_chat = 1
+AND NOT EXISTS ( 
+SELECT 1 FROM message_reads WHERE id_user = 1
+AND id_message = message.id_message);
+/*
+-- todas as notificações não lidas
+SELECT * 
+FROM message 
+JOIN chat_members ON chat_members.id_chat = message.id_chat 
+WHERE chat_members.id_user = 1
+  AND message.id_user != 1
+  AND NOT EXISTS (
+    SELECT 1 
+    FROM message_reads 
+    WHERE message_reads.id_user = 1 
+      AND message_reads.id_message = message.id_message
+)
+ORDER BY message.time_message DESC;
+
+-- SELECT * FROM tasks WHERE user_task = ?;
+
+-- SELECT * FROM chats JOIN team_members ON team_members.team_id = chat.id_team INNER JOIN users ON team_members.user_id = users.id_user INNER JOIN teams ON team_members.team_id = teams.id_team
