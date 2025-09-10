@@ -41,3 +41,20 @@ export const login_user = async (req, res) => {
         });
     });
 };
+
+export const get_user_settings = async (req, res) => {
+    const { id_user } = req.body;
+
+    const query = "SELECT * FROM user_preferences WHERE id_user = ?";
+    const values = [id_user];
+
+    con.query(query, values, (err, result) => {
+        
+        if (err) {
+            console.error("Erro ao buscar configurações:", err);
+            return res.status(500).json({ error: "Erro ao buscar configurações:" });
+        }
+        return res.status(200).json(result)
+
+    });
+};
