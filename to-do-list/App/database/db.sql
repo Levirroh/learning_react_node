@@ -100,12 +100,22 @@ CREATE TABLE message_reads (
 
 CREATE TABLE preference_defaults (
     id_default INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    key_preference VARCHAR(50) NOT NULL UNIQUE,
+    name_preference VARCHAR(50) NOT NULL UNIQUE,
     default_value VARCHAR(255) NOT NULL
 );
 
+CREATE TABLE user_preferences (
+    id_preference INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_user INT NOT NULL,
+    name_preference VARCHAR(50) NOT NULL,
+    value_preference VARCHAR(255) NOT NULL,
+    updated_at DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW(),
+    
+    FOREIGN KEY (id_user) REFERENCES users(id_user),
+    UNIQUE (id_user, name_preference) -- garante que é só um
+);
 
-INSERT INTO preference_defaults (key_preference, default_value) VALUES
+INSERT INTO preference_defaults (name_preference, default_value) VALUES
 ('theme', 'light'),
 ('notifications', 'true');
 
@@ -117,8 +127,8 @@ CREATE TRIGGER after_user_insert
 AFTER INSERT ON users
 FOR EACH ROW
 BEGIN
-    INSERT INTO user_preferences (id_user, key_preference, value_preference)
-    SELECT NEW.id_user, key_preference, default_value
+    INSERT INTO user_preferences (id_user, name_preference, value_preference)
+    SELECT NEW.id_user, name_preference, default_value
     FROM preference_defaults;
 END$$
 
