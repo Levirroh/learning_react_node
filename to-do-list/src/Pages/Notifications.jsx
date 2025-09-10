@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import Config from "../components/Config";
 import Header from "../components/Header";
 import Menu from "../components/Menu";
+import Li from "../components/Li";
 
 function Notifications() {
   const [user, setUser] = useState(null);
@@ -33,11 +34,11 @@ function Notifications() {
         <Menu isOpen={isMenuOpen} onClose={toggleMenu} />
         <div>
             {
-                // .map configs
+                // .map notifications
             }
-                        <Config />
+                        <Li />
             {
-                // end .map configs
+                // end .map notifications
             }
         </div>
         
