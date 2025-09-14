@@ -99,16 +99,16 @@ CREATE TABLE message_reads (
 -- CONFIGS
 
 CREATE TABLE preference_defaults (
-    id_default INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_preference INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
     name_preference VARCHAR(50) NOT NULL UNIQUE,
     default_value VARCHAR(255) NOT NULL
 );
 
 CREATE TABLE user_preferences (
-    id_preference INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
-    id_user INT NOT NULL,
-    name_preference VARCHAR(50) NOT NULL,
-    value_preference VARCHAR(255) NOT NULL,
+    id_user_preference INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    id_user INT NOT NULL,	
+    name_user_preference VARCHAR(50) NOT NULL,
+    value_user_preference VARCHAR(255) NOT NULL,
     updated_at DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW(),
     
     FOREIGN KEY (id_user) REFERENCES users(id_user),
