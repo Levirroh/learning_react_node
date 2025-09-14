@@ -54,8 +54,8 @@ function Settings() {
         <div>
             {settings.map((setting) => (
                   <TeamIcon
-                  name_setting={setting.name_preference}
-                  />
+                  name_setting={setting.name_user_preference}
+                  type_setting={setting.value_user_preference} />
               ))}
         </div>
         
