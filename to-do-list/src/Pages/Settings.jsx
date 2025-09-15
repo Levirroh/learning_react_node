@@ -8,6 +8,7 @@ function Settings() {
   const [user, setUser] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false); 
   const [settings, setSettings] = useState(null); 
+  const navigate = useNavigate();
   
   function toggleMenu() {
     setIsMenuOpen(prev => !prev);
@@ -36,6 +37,7 @@ function Settings() {
 
                 const data = await response.json();
                 setSettings(data);
+                console.log(data);
 
               } catch (e) {
                 console.error("Erro ao buscar configurações:", e);
@@ -45,19 +47,23 @@ function Settings() {
 
   useEffect(() => {
     getUserSettings();
-  }, [user, id]); 
+  }, [user]); 
 
     return (
       <section>
         <Header title="Menu"  onToggleMenu={toggleMenu}/>
         <Menu isOpen={isMenuOpen} onClose={toggleMenu} />
-        <div>
-            {settings.map((setting) => (
-                  <TeamIcon
-                  name_setting={setting.name_user_preference}
-                  type_setting={setting.value_user_preference} />
-              ))}
-        </div>
+        {settings != null && (
+          <div className="flex w-full h-full pt-16">
+              {settings.map((setting) => (
+                <Config
+                       key={setting.id_preference}
+                       name_setting={setting.name_preference} 
+                       type_setting={setting.value_preference} 
+                     />
+                ))}
+          </div>
+        )}
         
       </section>
     );
