@@ -15,7 +15,7 @@ router.post("/newTask", new_task)
 router.get("/getTaskById/:id", get_task_by_id)
 router.delete("/delete/:id", delete_task)
 router.post("/GetAllTasksData", get_all_tasks_data);
-g
+
 //team taks
 router.post("/newTeamTask", new_team_task);
 router.post("/getTeamTasks", getTeamTasks);
