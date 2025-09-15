@@ -1,11 +1,11 @@
 import React from "react";
 
 function Config({ name_setting, type_setting, options_setting = null}) {
-        <div>
-            <li className={`border rounded-2xl h-12 flex items-center p-3 mt-3 hover:cursor-pointer`}>
+        <div className="h-15">
+            <li>
                 {name_setting}
             </li>
-            <li className={`border rounded-2xl h-12 flex items-center p-3 mt-3 hover:cursor-pointer`}>
+            <li>
                 {type_setting}
             </li>
         </div>
