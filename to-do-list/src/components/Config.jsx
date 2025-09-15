@@ -2,12 +2,12 @@ import React from "react";
 
 function Config({ name_setting, type_setting, options_setting = null}) {
         <div className="h-15">
-            <li>
+            <p>
                 {name_setting}
-            </li>
-            <li>
+            </p>
+            <p>
                 {type_setting}
-            </li>
+            </p>
         </div>
 }
 
