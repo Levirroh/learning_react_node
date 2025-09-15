@@ -57,3 +57,19 @@ export const get_user_settings = async (req, res) => {
 
     });
 };
+
+export const get_user_notifications = async (req, res) => {
+    const { id_user } = req.body;
+
+    const query = "SELECT message.id_chat, COUNT(*) AS unread_count FROM message JOIN chat_members ON chat_members.id_chat = message.id_chat WHERE chat_members.id_user = ? AND message.id_user != ? AND NOT EXISTS ( SELECT 1 FROM message_reads WHERE message_reads.id_user = ? AND message_reads.id_message = message.id_message)";
+    const values = [id_user, id_user, id_user];
+
+    con.query(query, values, (err, result) => {
+        if (err) {
+            console.error("Erro ao buscar notificações:", err);
+            return res.status(500).json({ error: "Erro ao buscar notificações:" });
+        }
+        return res.status(200).json(result)
+
+    });
+};
