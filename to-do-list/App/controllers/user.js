@@ -49,7 +49,6 @@ export const get_user_settings = async (req, res) => {
     const values = [id_user];
 
     con.query(query, values, (err, result) => {
-        
         if (err) {
             console.error("Erro ao buscar configurações:", err);
             return res.status(500).json({ error: "Erro ao buscar configurações:" });
