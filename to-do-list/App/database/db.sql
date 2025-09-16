@@ -112,7 +112,7 @@ CREATE TABLE user_preferences (
     updated_at DATETIME NOT NULL DEFAULT NOW() ON UPDATE NOW(),
     
     FOREIGN KEY (id_user) REFERENCES users(id_user),
-    UNIQUE (id_user, name_preference) -- garante que é só um
+    UNIQUE (id_user, name_user_preference) -- garante que é só um
 );
 
 INSERT INTO preference_defaults (name_preference, default_value) VALUES
@@ -127,14 +127,14 @@ CREATE TRIGGER after_user_insert
 AFTER INSERT ON users
 FOR EACH ROW
 BEGIN
-    INSERT INTO user_preferences (id_user, name_preference, value_preference)
+    INSERT INTO user_preferences (id_user, name_user_preference, value_user_preference)
     SELECT NEW.id_user, name_preference, default_value
     FROM preference_defaults;
 END$$
 
 DELIMITER ;
 
--- UPDATE user_preferences SET value_preference = 'dark' WHERE id_user = 1 AND key_preference = 'theme';
+-- UPDATE user_preferences SET value_preference = 'dark' WHERE id_user = 1 AND name_preference = 'theme';
 
 INSERT INTO users (name_user, function_user, email_user, password_user) 
 VALUES ("teste","teste","teste","teste");
