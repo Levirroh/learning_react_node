@@ -1,14 +1,16 @@
 import React from "react";
 
-function Config({ name_setting, type_setting, options_setting = null}) {
-        <div className="h-15">
+function Config({ name_setting, value_setting, options_setting = null}) {
+    return(
+        <div className="border rounded-2xl h-12 flex items-center p-2 mt-3">
             <p>
                 {name_setting}
             </p>
             <p>
-                {type_setting}
+                {value_setting}
             </p>
         </div>
+    );
 }
 
 export default Config;
