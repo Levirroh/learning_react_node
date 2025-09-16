@@ -57,9 +57,9 @@ function Settings() {
           <div className="flex w-full h-full pt-16">
               {settings.map((setting) => (
                 <Config
-                  key={setting.id_preference}
-                  name_setting={setting.name_preference} 
-                  type_setting={setting.value_preference} 
+                  key={setting.id_user_preference}
+                  name_setting={setting.name_user_preference} 
+                  value_setting={setting.value_user_preference} 
                 />
               ))}
           </div>
