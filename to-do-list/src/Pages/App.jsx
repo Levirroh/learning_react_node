@@ -28,29 +28,28 @@ function App() {
 
   useEffect(() => {
     if (user) {
-      async function getTasks() {
-        try {
-          const response = await fetch("http://localhost:8800/getUserTasks", {
-            method: "POST",
-            headers: { "Content-Type": "application/json" },
-            body: JSON.stringify({ id_user: user.id_user })
-          });
-
-          const data = await response.json();
-
-          if (data.length === 0) {
-            console.log("Nenhuma tarefa encontrada para este usuário.");
-          }
-
-          setTasks(data);
-        } catch (e) {
-          console.error("Erro ao buscar tarefas:", e);
-        }
-      }
-
       getTasks(); 
     }
   }, [user]); 
+  async function getTasks() {
+    try {
+      const response = await fetch("http://localhost:8800/getUserTasks", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ id_user: user.id_user })
+      });
+
+      const data = await response.json();
+
+      if (data.length === 0) {
+        console.log("Nenhuma tarefa encontrada para este usuário.");
+      }
+
+      setTasks(data);
+    } catch (e) {
+      console.error("Erro ao buscar tarefas:", e);
+    }
+  }
 
   return (
     <section>
@@ -59,7 +58,7 @@ function App() {
       {user ? (
         <div>
           <h1>Bem-vindo, <em>{user.name_user}</em>!</h1>
-          <Tasks tasks={tasks} />
+          <Tasks tasks={tasks} getTasks={getTasks} />
         </div>
       ) : (
         <>
