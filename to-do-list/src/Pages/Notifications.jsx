@@ -1,13 +1,14 @@
 import { useNavigate, useParams } from "react-router-dom";
 import React, { useEffect, useState } from 'react';
-import Config from "../components/Config";
+import Notification from "../components/Notification";
 import Header from "../components/Header";
 import Menu from "../components/Menu";
-import Li from "../components/Li";
 
 function Notifications() {
   const [user, setUser] = useState(null);
   const [isMenuOpen, setIsMenuOpen] = useState(false); 
+  const navigate = useNavigate();
+  const [notifications, setNotifications] = useState(false); 
 
   function toggleMenu() {
     setIsMenuOpen(prev => !prev);
@@ -24,22 +25,45 @@ function Notifications() {
     }
   }, [navigate]);
 
+  async function getNotifications(){
+    if (user){
+      try {
+          const response = await fetch("http://localhost:8800/getUserNotifications", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ id_user: user.id_user })
+          });
+
+          const data = await response.json();
+          setNotifications(data);
+          console.log(data);
+
+        } catch (e) {
+          console.error("Erro ao buscar notificações:", e);
+      }
+    } 
+  }
+
   useEffect(() => {
-    
-  }, [user, id]); 
+    getNotifications();
+  }, [user]); 
 
     return (
       <section>
         <Header title="Menu"  onToggleMenu={toggleMenu}/>
         <Menu isOpen={isMenuOpen} onClose={toggleMenu} />
         <div>
-            {
-                // .map notifications
-            }
-                        <Li />
-            {
-                // end .map notifications
-            }
+        {settings != null && (
+          <div className="flex w-full h-full pt-16">
+              {notifications.map((noti) => (
+                <Notification
+                  key={noti}
+                  text={noti.content_message} 
+                  from={"/chats"} 
+                />
+              ))}
+          </div>
+        )}
         </div>
         
       </section>
