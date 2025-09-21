@@ -3,7 +3,7 @@ import Task from "../components/Task";
 import NewTask from "../components/NewTask";
 import { useNavigate } from "react-router-dom";
 
-function Tasks({ tasks = [] }) {
+function Tasks({ tasks = [], getTasks }) {
     const [selectedTask, setSelectedTask] = useState(null);
     const navigate = useNavigate();
 
@@ -17,7 +17,7 @@ function Tasks({ tasks = [] }) {
             if (response.ok) {
                 alert("Tarefa deletada com sucesso!");
                 setSelectedTask(null);
-                window.location.reload();
+                getTasks();
             } else {
                 alert("Erro ao deletar tarefa.");
             }
@@ -36,7 +36,7 @@ function Tasks({ tasks = [] }) {
             if (response.ok) {
                 alert("Tarefa alterada com sucesso!");
                 setSelectedTask(null);
-                window.location.reload();
+                getTasks();
             } else {
                 alert("Erro ao alterar tarefa.");
             }
@@ -130,9 +130,9 @@ function Tasks({ tasks = [] }) {
                         </div>
 
                         <div className="flex justify-center gap-6 text-2xl mt-4">
-                            <span title="To Do" className="cursor-pointer" onClick={() => changeStatus("ToDo", selectedTask.id)}>📝</span>
-                            <span title="Doing" className="cursor-pointer" onClick={() => changeStatus("Doing", selectedTask.id)}>🔄</span>
-                            <span title="Done" className="cursor-pointer" onClick={() => changeStatus("Done", selectedTask.id)}>✅</span>
+                            <span title="To Do" className="cursor-pointer" onClick={() => changeStatus("1", selectedTask.id)}>📝</span>
+                            <span title="Doing" className="cursor-pointer" onClick={() => changeStatus("2", selectedTask.id)}>🔄</span>
+                            <span title="Done" className="cursor-pointer" onClick={() => changeStatus("3", selectedTask.id)}>✅</span>
                         </div>
                     </div>
                 </div>
