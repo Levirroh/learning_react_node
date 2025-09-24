@@ -3,7 +3,7 @@ import React from "react";
 function Menu() {
     return (
       <div>
-        <p>Erro</p>
+        <a href="/menu">Voltar ao menu</a>
       </div>
     );
   }
