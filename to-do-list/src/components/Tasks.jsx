@@ -130,9 +130,9 @@ function Tasks({ tasks = [], getTasks }) {
                         </div>
 
                         <div className="flex justify-center gap-6 text-2xl mt-4">
-                            <span title="To Do" className="cursor-pointer" onClick={() => changeStatus("1", selectedTask.id)}>📝</span>
-                            <span title="Doing" className="cursor-pointer" onClick={() => changeStatus("2", selectedTask.id)}>🔄</span>
-                            <span title="Done" className="cursor-pointer" onClick={() => changeStatus("3", selectedTask.id)}>✅</span>
+                            <span title="To Do" className="cursor-pointer" onClick={() => changeStatus("1", selectedTask.id)}>To Do</span>
+                            <span title="Doing" className="cursor-pointer" onClick={() => changeStatus("2", selectedTask.id)}>Doing</span>
+                            <span title="Done" className="cursor-pointer" onClick={() => changeStatus("3", selectedTask.id)}>Done</span>
                         </div>
                     </div>
                 </div>
