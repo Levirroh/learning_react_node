@@ -123,7 +123,7 @@ function Tasks({ tasks = [], getTasks }) {
 
                         <div className="flex justify-center gap-4 mt-6">
                             <a href={`/update/${selectedTask.id}`}>
-                            <button className="px-4 py-2 bg-blue-200 text-black rounded hover:bg-blue-300">Atualizar</button>
+                                <button className="px-4 py-2 bg-blue-200 text-black rounded hover:bg-blue-300">Atualizar</button>
                             </a>
                             <button onClick={() => deleteTask()} className="px-4 py-2 bg-red-300 text-black rounded hover:bg-red-400">Deletar</button>
                             <button onClick={() => setSelectedTask(null)} className="px-4 py-2 bg-gray-200 text-black rounded hover:bg-gray-300">Fechar</button>
