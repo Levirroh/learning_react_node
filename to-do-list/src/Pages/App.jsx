@@ -61,10 +61,10 @@ function App() {
           <Tasks tasks={tasks} getTasks={getTasks} />
         </div>
       ) : (
-        <>
+        <div>
           <p>usuário não carregou...</p>
           <a href="http://localhost:5173/login">Voltar</a>
-        </>
+        </div>
       )}
     </section>
   );
