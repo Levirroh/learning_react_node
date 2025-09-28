@@ -15,7 +15,7 @@ function Config({ name_setting, value_setting, options_setting = null}) {
             ) : (
                 <select>
                     {options_setting.map((option) => (
-                      <option value={option}>{option}</option>      
+                      <option value={option}>{option.option_options_user_preferences}</option>      
                     ))}
                 </select>
             )}
