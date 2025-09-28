@@ -6,6 +6,7 @@ function Notification({ text, from }) {
             <a href={`${from}`}>
                 {text}
             </a>
+            <p>Notificação de: {from}</p>
         </li>
     );
 }
