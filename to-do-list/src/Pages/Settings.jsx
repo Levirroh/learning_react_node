@@ -60,6 +60,7 @@ function Settings() {
                   key={setting.id_user_preference}
                   name_setting={setting.name_user_preference} 
                   value_setting={setting.value_user_preference} 
+                  options_setting={setting.options_user_preference} 
                 />
               ))}
           </div>

@@ -115,6 +115,16 @@ CREATE TABLE user_preferences (
     UNIQUE (id_user, name_user_preference) -- garante que é só um
 );
 
+CREATE TABLE options_user_preferences (
+	id_options_user_preference INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+    
+    id_user_preference INT NOT NULL,
+    option_options_user_preferences VARCHAR(20) NOT NULL,
+    isBool_options_user_preferences boolean NOT NULL,
+    
+    FOREIGN KEY (id_user_preference) REFERENCES user_preferences(id_user_preference)
+);
+
 INSERT INTO preference_defaults (name_preference, default_value) VALUES
 ('theme', 'light'),
 ('notifications', 'true');
@@ -199,9 +209,17 @@ VALUES (1, 2, 'TIME 2 EBAAA?', NOW());
 INSERT INTO message (id_user, id_chat, content_message, time_message)
 VALUES (2, 2, 'ASDOIJASD', NOW());
 
+
+INSERT INTO options_user_preferences (id_user_preference, option_options_user_preferences, isBool_options_user_preferences) VALUES 
+(1, 'light', false), 
+(1, 'dark', false), 
+(2, 'true', true), 
+(2, 'false', true);
+
+SELECT * FROM user_preferences INNER JOIN options_user_preferences ON options_user_preferences.id_user_preference = user_preferences.id_user_preference;
+
 UPDATE teams SET name_team = "time atualizado", image_team = null, color_team = "vermelho", category_team = "finanças" WHERE id_team = 2;
 
-SELECT * FROM teams;
 /*
 SELECT * FROM chat_members;
 SELECT * FROM users;
